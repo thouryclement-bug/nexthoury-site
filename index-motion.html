@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexThoury — Concept motion</title>
+<link rel="icon" type="image/png" href="assets/logo-monogram.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+</head>
+<body class="mx-body">
+
+<!-- ============ NAV ============ -->
+<header class="mx-nav" id="mxNav">
+  <div class="mx-nav-inner">
+    <a href="index-motion.html" class="mx-logo">
+      <img src="assets/logo-monogram.png" alt="NexThoury">
+      NexThoury
+    </a>
+    <nav class="mx-nav-links">
+      <a href="index.html">Accueil actuel</a>
+      <a href="#showcase">Compétences</a>
+      <a href="projets.html">Projets</a>
+      <a href="contact.html" class="mx-nav-cta">Contact</a>
+    </nav>
+    <button class="mx-burger" id="mxBurger" aria-label="Ouvrir le menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mx-mobile-menu" id="mxMobileMenu">
+  <a href="index.html">Accueil actuel</a>
+  <a href="#showcase">Compétences</a>
+  <a href="projets.html">Projets</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="mx-hero">
+  <div class="mx-wrap mx-hero-grid">
+    <div class="mx-hero-copy">
+      <span class="mx-eyebrow">Freelance communication &amp; pub digitale</span>
+      <h1 class="mx-hero-title">
+        <span class="mx-line-mask"><span class="mx-line">On ne fait pas</span></span>
+        <span class="mx-line-mask"><span class="mx-line"><em>joli</em>.</span></span>
+        <span class="mx-line-mask"><span class="mx-line">On fait <em>vendre</em>.</span></span>
+      </h1>
+      <p class="mx-hero-sub">Neuf leviers, un seul objectif&nbsp;: des résultats qui se lisent dans vos chiffres — pas dans un rapport PDF.</p>
+      <div class="mx-hero-actions">
+        <a href="contact.html" class="mx-btn mx-btn-primary" data-magnetic>
+          <span>Discuter du projet</span>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="projets.html" class="mx-btn mx-btn-ghost">Voir les résultats clients</a>
+      </div>
+      <div class="mx-hero-stats">
+        <div class="mx-stat"><strong data-count="5" data-decimal="0">0</strong><span>ans d'expérience en agence</span></div>
+        <div class="mx-stat"><strong data-count="20" data-decimal="0" data-suffix="+">0</strong><span>clients accompagnés</span></div>
+        <div class="mx-stat"><strong data-count="4.9" data-decimal="1" data-suffix="/5">0</strong><span>satisfaction client</span></div>
+      </div>
+    </div>
+
+    <div class="mx-hero-visual" id="mxHeroVisual">
+      <div class="mx-hero-blob" aria-hidden="true"></div>
+      <div class="mx-hero-portrait">
+        <img src="assets/portrait.jpg" alt="Clément Thoury">
+      </div>
+      <div class="mx-hero-badge mx-hero-badge-1"><span class="mx-dot"></span>Disponible pour un nouveau projet</div>
+      <div class="mx-hero-badge mx-hero-badge-2"><strong>+180%</strong>&nbsp;de trafic organique — moyenne clients</div>
+    </div>
+  </div>
+  <div class="mx-scroll-cue"><span></span>Scroll</div>
+</section>
+
+<!-- ============ SHOWCASE (pinned) ============ -->
+<section class="mx-showcase-wrap" id="showcase">
+  <div class="mx-showcase-head mx-reveal">
+    <span class="mx-eyebrow">Ce qu'on active pour vous</span>
+    <h2>Neuf métiers. <em>Une feuille de route.</em></h2>
+  </div>
+
+  <div class="mx-showcase-pin" id="mxShowcasePin">
+    <div class="mx-showcase-pin-inner">
+
+      <div class="mx-showcase-visual">
+        <div class="mx-showcase-frame">
+          <img class="mx-showcase-img is-active" src="assets/photo-seo.jpg" alt="Agence SEO">
+          <img class="mx-showcase-img" src="assets/photo-geo.jpg" alt="Agence GEO">
+          <img class="mx-showcase-img" src="assets/photo-ads.jpg" alt="Ads — SEA et Social">
+          <img class="mx-showcase-img" src="assets/photo-site.jpg" alt="Création de site internet">
+          <img class="mx-showcase-img" src="assets/photo-content.jpg" alt="Content Marketing">
+          <img class="mx-showcase-img" src="assets/photo-social.jpg" alt="Social Media">
+          <img class="mx-showcase-img" src="assets/photo-webdesign.jpg" alt="Webdesign">
+          <img class="mx-showcase-img" src="assets/photo-marketing.jpg" alt="Marketing Digital">
+          <img class="mx-showcase-img" src="assets/photo-automatisation.jpg" alt="Automatisation et IA">
+        </div>
+        <div class="mx-showcase-tag" id="mxShowcaseTag" style="--tag:#3F76E8">Agence SEO</div>
+      </div>
+
+      <div class="mx-showcase-text">
+
+        <div class="mx-showcase-item is-active" data-label="Agence SEO" data-color="#3F76E8">
+          <div class="mx-showcase-item-img"><img src="assets/photo-seo.jpg" alt="Agence SEO"></div>
+          <span class="mx-showcase-num">01 / 09 — Agence SEO</span>
+          <h3>Être trouvé par les bons clients, enfin <em>mesurable</em>.</h3>
+          <p>Audit technique, stratégie de mots-clés et netlinking pour du trafic qualifié qui dure — pas un rapport qui dort dans un tiroir.</p>
+          <a href="seo.html" class="mx-link-arrow">Découvrir l'agence SEO →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Agence GEO" data-color="#654321">
+          <div class="mx-showcase-item-img"><img src="assets/photo-geo.jpg" alt="Agence GEO"></div>
+          <span class="mx-showcase-num">02 / 09 — Agence GEO</span>
+          <h3>Être la réponse citée, avant même d'être <em>cliqué</em>.</h3>
+          <p>ChatGPT, Perplexity, Google AI Overviews&nbsp;: votre visibilité se joue aussi dans les réponses des IA, pas seulement dans les résultats de recherche classiques.</p>
+          <a href="geo.html" class="mx-link-arrow">Découvrir l'agence GEO →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Ads — SEA & Social" data-color="#7A2142">
+          <div class="mx-showcase-item-img"><img src="assets/photo-ads.jpg" alt="Ads — SEA et Social"></div>
+          <span class="mx-showcase-num">03 / 09 — Ads — SEA &amp; Social</span>
+          <h3>Chaque euro investi, <em>justifié</em>.</h3>
+          <p>Google Ads, Meta Ads, LinkedIn Ads et TikTok Ads pilotés pour un retour sur investissement que vous pouvez prouver, pas juste croire.</p>
+          <a href="ads.html" class="mx-link-arrow">Découvrir Ads — SEA &amp; Social →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Création de site" data-color="#0284C7">
+          <div class="mx-showcase-item-img"><img src="assets/photo-site.jpg" alt="Création de site internet"></div>
+          <span class="mx-showcase-num">04 / 09 — Création de site</span>
+          <h3>Un site qui <em>vend</em>, pas juste qui existe.</h3>
+          <p>Site vitrine, e-commerce ou landing page&nbsp;: chaque page est pensée pour convertir vos visiteurs, pas seulement pour être belle à regarder.</p>
+          <a href="site.html" class="mx-link-arrow">Découvrir la création de site →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Content Marketing" data-color="#CBBD93">
+          <div class="mx-showcase-item-img"><img src="assets/photo-content.jpg" alt="Content Marketing"></div>
+          <span class="mx-showcase-num">05 / 09 — Content Marketing</span>
+          <h3>Des contenus qui <em>convertissent</em>, pas juste qui remplissent.</h3>
+          <p>Rédaction web, stratégie de contenu et newsletter pensés pour informer, engager et transformer vos lecteurs en clients.</p>
+          <a href="content.html" class="mx-link-arrow">Découvrir le content marketing →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Social Media" data-color="#FFA500">
+          <div class="mx-showcase-item-img"><img src="assets/photo-social.jpg" alt="Social Media"></div>
+          <span class="mx-showcase-num">06 / 09 — Social Media</span>
+          <h3>Une présence qui <em>engage</em>, pas juste qui existe.</h3>
+          <p>Ligne éditoriale, création et animation de communauté pour construire une audience qui vous suit vraiment — pas juste des chiffres qui gonflent.</p>
+          <a href="social.html" class="mx-link-arrow">Découvrir le social media →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Webdesign" data-color="#898989">
+          <div class="mx-showcase-item-img"><img src="assets/photo-webdesign.jpg" alt="Webdesign"></div>
+          <span class="mx-showcase-num">07 / 09 — Webdesign</span>
+          <h3>Un design qui <em>convertit</em>, pas juste qui plaît.</h3>
+          <p>Direction artistique et interfaces sur-mesure, pensées pour que chaque visiteur comprenne en un coup d'œil ce que vous proposez.</p>
+          <a href="webdesign.html" class="mx-link-arrow">Découvrir le webdesign →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Marketing Digital" data-color="#636B2F">
+          <div class="mx-showcase-item-img"><img src="assets/photo-marketing.jpg" alt="Marketing Digital"></div>
+          <span class="mx-showcase-num">08 / 09 — Marketing Digital</span>
+          <h3>Une stratégie <em>globale</em>, pas des actions isolées.</h3>
+          <p>Stratégie digitale, growth marketing et analytics réunis pour piloter votre croissance avec une vision d'ensemble.</p>
+          <a href="marketing.html" class="mx-link-arrow">Découvrir le marketing digital →</a>
+        </div>
+
+        <div class="mx-showcase-item" data-label="Automatisation & IA" data-color="#7F00FF">
+          <div class="mx-showcase-item-img"><img src="assets/photo-automatisation.jpg" alt="Automatisation et IA"></div>
+          <span class="mx-showcase-num">09 / 09 — Automatisation &amp; IA</span>
+          <h3>Du temps gagné, pas juste de la <em>technologie</em>.</h3>
+          <p>Workflows automatisés, agents IA et intégrations no-code pour vous libérer des tâches répétitives — pas pour complexifier votre quotidien.</p>
+          <a href="automatisation.html" class="mx-link-arrow">Découvrir l'automatisation &amp; IA →</a>
+        </div>
+
+        <div class="mx-showcase-dots" id="mxShowcaseDots">
+          <button class="mx-dot-btn is-active" data-i="0" aria-label="Agence SEO"></button>
+          <button class="mx-dot-btn" data-i="1" aria-label="Agence GEO"></button>
+          <button class="mx-dot-btn" data-i="2" aria-label="Ads"></button>
+          <button class="mx-dot-btn" data-i="3" aria-label="Création de site"></button>
+          <button class="mx-dot-btn" data-i="4" aria-label="Content Marketing"></button>
+          <button class="mx-dot-btn" data-i="5" aria-label="Social Media"></button>
+          <button class="mx-dot-btn" data-i="6" aria-label="Webdesign"></button>
+          <button class="mx-dot-btn" data-i="7" aria-label="Marketing Digital"></button>
+          <button class="mx-dot-btn" data-i="8" aria-label="Automatisation et IA"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="mx-marquee-band">
+  <div class="mx-marquee-track" id="mxMarqueeTrack">
+    <span>SEO</span><span>GEO</span><span>ADS</span><span>SITE</span><span>CONTENT</span><span>SOCIAL</span><span>WEBDESIGN</span><span>MARKETING</span><span>AUTOMATISATION &amp; IA</span>
+    <span>SEO</span><span>GEO</span><span>ADS</span><span>SITE</span><span>CONTENT</span><span>SOCIAL</span><span>WEBDESIGN</span><span>MARKETING</span><span>AUTOMATISATION &amp; IA</span>
+  </div>
+</section>
+
+<!-- ============ BENTO ============ -->
+<section class="mx-bento">
+  <div class="mx-wrap mx-bento-grid">
+    <div class="mx-bento-card mx-bento-big mx-reveal">
+      <span class="mx-eyebrow">Comment je travaille</span>
+      <h3>Quatre étapes, <em>zéro flou</em>.</h3>
+      <ol class="mx-process">
+        <li><span>01</span><div><strong>Diagnostic</strong><p>Audit de votre existant&nbsp;: site, présence, campagnes en cours.</p></div></li>
+        <li><span>02</span><div><strong>Stratégie</strong><p>Un plan d'action priorisé, avec des objectifs chiffrés dès le départ.</p></div></li>
+        <li><span>03</span><div><strong>Mise en œuvre</strong><p>Exécution des actions, avec des points de suivi réguliers.</p></div></li>
+        <li><span>04</span><div><strong>Mesure &amp; itération</strong><p>Ce qui fonctionne est renforcé, ce qui ne marche pas est coupé.</p></div></li>
+      </ol>
+    </div>
+    <div class="mx-bento-card mx-bento-small mx-reveal">
+      <span class="mx-eyebrow">Disponibilité</span>
+      <div class="mx-status"><span class="mx-status-dot"></span><strong>Disponible</strong></div>
+      <p>Prochain créneau libre&nbsp;: <strong>semaine du 6 juillet</strong>.</p>
+      <a href="contact.html" class="mx-link-arrow">Réserver un échange →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="mx-testimonial">
+  <div class="mx-wrap">
+    <div class="mx-testimonial-card mx-reveal" id="mxSpotlightCard">
+      <p class="mx-testimonial-quote">« Une vraie approche orientée résultats. Le trafic organique a doublé en moins d'un an, avec un suivi hyper réactif. »</p>
+      <div class="mx-testimonial-foot">
+        <span class="mx-avatar">CM</span>
+        <div><strong>Camille Martin</strong><span>Directrice Marketing, Groupe Delmar</span></div>
+        <a href="projet-delmar.html" class="mx-link-arrow">Voir le cas client →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="mx-cta-final">
+  <div class="mx-cta-mesh" aria-hidden="true"></div>
+  <div class="mx-cta-inner">
+    <span class="mx-eyebrow mx-eyebrow-light">On commence&nbsp;?</span>
+    <h2>Discutons de votre <em>projet</em>.</h2>
+    <p>Un échange de 20 minutes, sans engagement, pour poser les bases.</p>
+    <a href="contact.html" class="mx-btn mx-btn-white mx-btn-xl" data-magnetic>Prendre contact</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mx-footer">
+  <div class="mx-footer-inner">
+    <img src="assets/logo-wordmark-white.png" alt="NexThoury" class="mx-footer-logo">
+    <p>© 2026 NexThoury — Clément Thoury.</p>
+    <a href="index.html" class="mx-link-arrow">← Retour à l'accueil actuel</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="motion.js"></script>
+</body>
+</html>

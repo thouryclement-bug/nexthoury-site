@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexThoury — Votre communication, enfin orientée résultats</title>
+<link rel="icon" type="image/png" href="assets/logo-monogram.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page-glow" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img">
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li class="has-dropdown" id="competences-trigger">
+          <button class="dropdown-toggle" aria-expanded="false">
+            Compétences
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="dropdown-panel" id="competences-panel">
+            <div class="dropdown-col dropdown-families">
+              <a href="seo.html" class="family-item is-active" data-family="seo">
+                Agence SEO <span class="tag-oui">Référencement</span>
+              </a>
+              <a href="geo.html" class="family-item" data-family="geo">Agence GEO</a>
+              <a href="ads.html" class="family-item" data-family="ads">Ads — SEA &amp; Social</a>
+              <a href="site.html" class="family-item" data-family="site">Création de site internet</a>
+              <a href="content.html" class="family-item" data-family="content">Content Marketing</a>
+              <a href="social.html" class="family-item" data-family="social">Social Media</a>
+              <a href="webdesign.html" class="family-item" data-family="webdesign">Webdesign</a>
+              <a href="marketing.html" class="family-item" data-family="marketing">Marketing Digital</a>
+              <a href="automatisation.html" class="family-item" data-family="automatisation">Automatisation &amp; IA</a>
+            </div>
+            <div class="dropdown-col dropdown-sub">
+              <div class="dropdown-sub-panel is-active" data-family="seo">
+                <p class="dropdown-sub-title">Agence SEO</p>
+                <ul>
+                  <li><a href="seo-audit-technique.html">Audit technique SEO</a></li>
+                  <li><a href="seo.html#strategie-mots-cles">Stratégie de mots-clés</a></li>
+                  <li><a href="seo.html#seo-local">SEO local</a></li>
+                  <li><a href="seo.html#netlinking">Netlinking</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="geo">
+                <p class="dropdown-sub-title">Agence GEO</p>
+                <p class="dropdown-sub-empty">Optimisation pour les moteurs de réponse IA (ChatGPT, Perplexity…).</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="ads">
+                <p class="dropdown-sub-title">Ads — SEA &amp; Social</p>
+                <ul>
+                  <li><a href="ads-google-ads.html">Google Ads</a></li>
+                  <li><a href="ads.html#meta-ads">Meta Ads</a></li>
+                  <li><a href="ads.html#linkedin-ads">LinkedIn Ads</a></li>
+                  <li><a href="ads.html#tiktok-ads">TikTok Ads</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="site">
+                <p class="dropdown-sub-title">Création de site internet</p>
+                <ul>
+                  <li><a href="site.html#site-vitrine">Site vitrine</a></li>
+                  <li><a href="site.html#e-commerce">E-commerce</a></li>
+                  <li><a href="site.html#landing-page">Landing page</a></li>
+                  <li><a href="site.html#maintenance">Maintenance</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="content">
+                <p class="dropdown-sub-title">Content Marketing</p>
+                <ul>
+                  <li><a href="content.html#redaction-web">Rédaction web</a></li>
+                  <li><a href="content.html#strategie-contenu">Stratégie de contenu</a></li>
+                  <li><a href="content.html#newsletter">Newsletter</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="social">
+                <p class="dropdown-sub-title">Social Media</p>
+                <p class="dropdown-sub-empty">Gestion de communauté et calendrier éditorial sur les réseaux sociaux.</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="webdesign">
+                <p class="dropdown-sub-title">Webdesign</p>
+                <p class="dropdown-sub-empty">Direction artistique et interfaces sur-mesure, orientées conversion.</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="marketing">
+                <p class="dropdown-sub-title">Marketing Digital</p>
+                <ul>
+                  <li><a href="marketing.html#strategie-digitale">Stratégie digitale</a></li>
+                  <li><a href="marketing.html#growth-marketing">Growth marketing</a></li>
+                  <li><a href="marketing.html#analytics-tracking">Analytics &amp; tracking</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="automatisation">
+                <p class="dropdown-sub-title">Automatisation &amp; IA</p>
+                <ul>
+                  <li><a href="automatisation.html#workflows">Automatisation des workflows</a></li>
+                  <li><a href="automatisation.html#agents-ia">Agents &amp; chatbots IA</a></li>
+                  <li><a href="automatisation.html#no-code">Intégrations no-code</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </nav>
+
+    <a href="contact.html" class="btn btn-primary btn-nav">Contact</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="accueil">
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Freelance communication &amp; pub digitale</span>
+      <h1>Votre communication, enfin <em>orientée résultats</em>.</h1>
+      <p class="hero-sub">SEO, Ads, contenu et sites web pensés pour une seule chose&nbsp;: faire grandir votre activité — pas juste « faire joli ».</p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn btn-primary btn-lg">Discutons de votre projet</a>
+        <a href="#projets" class="btn btn-secondary btn-lg">Mes réalisations</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>5 ans</strong><span>d'expérience en agence</span></div>
+        <div class="hero-stat"><strong>20+</strong><span>clients accompagnés</span></div>
+        <div class="hero-stat"><strong>4,9/5</strong><span>satisfaction client</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-visual-accent" aria-hidden="true"></div>
+      <div class="hero-visual-frame">
+        <img src="assets/portrait.jpg" alt="Clément Thoury" class="portrait-placeholder">
+        <div class="hero-badge hero-badge-1">
+          <span class="dot"></span> Disponible pour un nouveau projet
+        </div>
+        <div class="hero-badge hero-badge-2">
+          <strong>+180%</strong> de trafic organique — moyenne clients
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGOS BAND ============ -->
+<section class="logos-band">
+  <div class="container">
+    <p class="logos-label">Ils m'ont fait confiance</p>
+  </div>
+  <div class="logos-marquee">
+    <div class="logos-track">
+      <span class="logo-chip">Client&nbsp;01</span>
+      <span class="logo-chip">Client&nbsp;02</span>
+      <span class="logo-chip">Client&nbsp;03</span>
+      <span class="logo-chip">Client&nbsp;04</span>
+      <span class="logo-chip">Client&nbsp;05</span>
+      <span class="logo-chip">Client&nbsp;06</span>
+      <span class="logo-chip">Client&nbsp;01</span>
+      <span class="logo-chip">Client&nbsp;02</span>
+      <span class="logo-chip">Client&nbsp;03</span>
+      <span class="logo-chip">Client&nbsp;04</span>
+      <span class="logo-chip">Client&nbsp;05</span>
+      <span class="logo-chip">Client&nbsp;06</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESENTATION ============ -->
+<section class="section presentation">
+  <div class="container presentation-inner">
+    <div class="presentation-copy">
+      <span class="eyebrow">Qui je suis</span>
+      <h2>5 ans en agence de pub digitale, aujourd'hui à votre service.</h2>
+      <p>Après cinq ans passés à piloter des stratégies SEO, Ads et contenu pour des marques exigeantes en agence, j'ai choisi l'indépendance pour offrir la même rigueur — sans la lourdeur d'une agence classique. Un seul interlocuteur, une vision claire, des résultats mesurables.</p>
+      <a href="#" class="link-arrow">En savoir plus sur mon parcours →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMENT JE TRAVAILLE ============ -->
+<section class="section bento-section">
+  <div class="container">
+    <div class="bento-card">
+      <span class="eyebrow">Comment je travaille</span>
+      <h3>Quatre étapes, <em>zéro flou</em>.</h3>
+      <ol class="bento-process">
+        <li><span>01</span><div><strong>Diagnostic</strong><p>Audit de votre existant&nbsp;: site, présence, campagnes en cours.</p></div></li>
+        <li><span>02</span><div><strong>Stratégie</strong><p>Un plan d'action priorisé, avec des objectifs chiffrés dès le départ.</p></div></li>
+        <li><span>03</span><div><strong>Mise en œuvre</strong><p>Exécution des actions, avec des points de suivi réguliers.</p></div></li>
+        <li><span>04</span><div><strong>Mesure &amp; itération</strong><p>Ce qui fonctionne est renforcé, ce qui ne marche pas est coupé.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPETENCES PREVIEW (showcase pinné) ============ -->
+<section class="section competences-preview" id="competences">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Ce que je fais</span>
+      <h2>Neuf expertises, <em>un seul objectif</em>.</h2>
+      <p class="section-lead">Chaque compétence est activée pour servir votre croissance — jamais pour cocher une case.</p>
+    </div>
+  </div>
+
+  <div class="showcase-pin" id="showcasePin">
+    <div class="container showcase-pin-inner">
+
+      <div class="showcase-visual">
+        <div class="showcase-frame">
+          <img class="showcase-img is-active" src="assets/photo-seo.jpg" alt="Agence SEO">
+          <img class="showcase-img" src="assets/photo-geo.jpg" alt="Agence GEO">
+          <img class="showcase-img" src="assets/photo-ads.jpg" alt="Ads — SEA et Social">
+          <img class="showcase-img" src="assets/photo-site.jpg" alt="Création de site internet">
+          <img class="showcase-img" src="assets/photo-content.jpg" alt="Content Marketing">
+          <img class="showcase-img" src="assets/photo-social.jpg" alt="Social Media">
+          <img class="showcase-img" src="assets/photo-webdesign.jpg" alt="Webdesign">
+          <img class="showcase-img" src="assets/photo-marketing.jpg" alt="Marketing Digital">
+          <img class="showcase-img" src="assets/photo-automatisation.jpg" alt="Automatisation et IA">
+        </div>
+        <div class="showcase-tag" id="showcaseTag" style="--tag:#3F76E8">Agence SEO</div>
+      </div>
+
+      <div class="showcase-text">
+
+        <div class="showcase-item is-active" data-label="Agence SEO" data-color="#3F76E8">
+          <div class="showcase-item-img"><img src="assets/photo-seo.jpg" alt="Agence SEO"></div>
+          <span class="showcase-num">01 / 09 — Agence SEO</span>
+          <h3>Être trouvé par les bons clients, enfin <em>mesurable</em>.</h3>
+          <p>Audit technique, stratégie de mots-clés et netlinking pour du trafic qualifié qui dure — pas un rapport qui dort dans un tiroir.</p>
+          <a href="seo.html" class="link-arrow">Découvrir l'agence SEO →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Agence GEO" data-color="#654321">
+          <div class="showcase-item-img"><img src="assets/photo-geo.jpg" alt="Agence GEO"></div>
+          <span class="showcase-num">02 / 09 — Agence GEO</span>
+          <h3>Être la réponse citée, avant même d'être <em>cliqué</em>.</h3>
+          <p>ChatGPT, Perplexity, Google AI Overviews&nbsp;: votre visibilité se joue aussi dans les réponses des IA, pas seulement dans les résultats de recherche classiques.</p>
+          <a href="geo.html" class="link-arrow">Découvrir l'agence GEO →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Ads — SEA & Social" data-color="#7A2142">
+          <div class="showcase-item-img"><img src="assets/photo-ads.jpg" alt="Ads — SEA et Social"></div>
+          <span class="showcase-num">03 / 09 — Ads — SEA &amp; Social</span>
+          <h3>Chaque euro investi, <em>justifié</em>.</h3>
+          <p>Google Ads, Meta Ads, LinkedIn Ads et TikTok Ads pilotés pour un retour sur investissement que vous pouvez prouver, pas juste croire.</p>
+          <a href="ads.html" class="link-arrow">Découvrir Ads — SEA &amp; Social →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Création de site" data-color="#0284C7">
+          <div class="showcase-item-img"><img src="assets/photo-site.jpg" alt="Création de site internet"></div>
+          <span class="showcase-num">04 / 09 — Création de site</span>
+          <h3>Un site qui <em>vend</em>, pas juste qui existe.</h3>
+          <p>Site vitrine, e-commerce ou landing page&nbsp;: chaque page est pensée pour convertir vos visiteurs, pas seulement pour être belle à regarder.</p>
+          <a href="site.html" class="link-arrow">Découvrir la création de site →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Content Marketing" data-color="#CBBD93">
+          <div class="showcase-item-img"><img src="assets/photo-content.jpg" alt="Content Marketing"></div>
+          <span class="showcase-num">05 / 09 — Content Marketing</span>
+          <h3>Des contenus qui <em>convertissent</em>, pas juste qui remplissent.</h3>
+          <p>Rédaction web, stratégie de contenu et newsletter pensés pour informer, engager et transformer vos lecteurs en clients.</p>
+          <a href="content.html" class="link-arrow">Découvrir le content marketing →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Social Media" data-color="#FFA500">
+          <div class="showcase-item-img"><img src="assets/photo-social.jpg" alt="Social Media"></div>
+          <span class="showcase-num">06 / 09 — Social Media</span>
+          <h3>Une présence qui <em>engage</em>, pas juste qui existe.</h3>
+          <p>Ligne éditoriale, création et animation de communauté pour construire une audience qui vous suit vraiment — pas juste des chiffres qui gonflent.</p>
+          <a href="social.html" class="link-arrow">Découvrir le social media →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Webdesign" data-color="#898989">
+          <div class="showcase-item-img"><img src="assets/photo-webdesign.jpg" alt="Webdesign"></div>
+          <span class="showcase-num">07 / 09 — Webdesign</span>
+          <h3>Un design qui <em>convertit</em>, pas juste qui plaît.</h3>
+          <p>Direction artistique et interfaces sur-mesure, pensées pour que chaque visiteur comprenne en un coup d'œil ce que vous proposez.</p>
+          <a href="webdesign.html" class="link-arrow">Découvrir le webdesign →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Marketing Digital" data-color="#636B2F">
+          <div class="showcase-item-img"><img src="assets/photo-marketing.jpg" alt="Marketing Digital"></div>
+          <span class="showcase-num">08 / 09 — Marketing Digital</span>
+          <h3>Une stratégie <em>globale</em>, pas des actions isolées.</h3>
+          <p>Stratégie digitale, growth marketing et analytics réunis pour piloter votre croissance avec une vision d'ensemble.</p>
+          <a href="marketing.html" class="link-arrow">Découvrir le marketing digital →</a>
+        </div>
+
+        <div class="showcase-item" data-label="Automatisation & IA" data-color="#7F00FF">
+          <div class="showcase-item-img"><img src="assets/photo-automatisation.jpg" alt="Automatisation et IA"></div>
+          <span class="showcase-num">09 / 09 — Automatisation &amp; IA</span>
+          <h3>Du temps gagné, pas juste de la <em>technologie</em>.</h3>
+          <p>Workflows automatisés, agents IA et intégrations no-code pour vous libérer des tâches répétitives — pas pour complexifier votre quotidien.</p>
+          <a href="automatisation.html" class="link-arrow">Découvrir l'automatisation &amp; IA →</a>
+        </div>
+
+        <div class="showcase-dots" id="showcaseDots">
+          <button class="showcase-dot-btn is-active" data-i="0" aria-label="Agence SEO"></button>
+          <button class="showcase-dot-btn" data-i="1" aria-label="Agence GEO"></button>
+          <button class="showcase-dot-btn" data-i="2" aria-label="Ads"></button>
+          <button class="showcase-dot-btn" data-i="3" aria-label="Création de site"></button>
+          <button class="showcase-dot-btn" data-i="4" aria-label="Content Marketing"></button>
+          <button class="showcase-dot-btn" data-i="5" aria-label="Social Media"></button>
+          <button class="showcase-dot-btn" data-i="6" aria-label="Webdesign"></button>
+          <button class="showcase-dot-btn" data-i="7" aria-label="Marketing Digital"></button>
+          <button class="showcase-dot-btn" data-i="8" aria-label="Automatisation et IA"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJETS PHARES ============ -->
+<section class="section projets-phares" id="projets">
+  <div class="container">
+    <div class="section-head section-head-row">
+      <div>
+        <span class="eyebrow">Réalisations</span>
+        <h2>Des résultats, <em>pas des promesses</em>.</h2>
+      </div>
+      <a href="projets.html" class="link-arrow">Tous les projets →</a>
+    </div>
+
+    <div class="projets-grid">
+      <a href="projet-delmar.html" class="projet-card">
+        <div class="projet-thumb">Projet 01</div>
+        <div class="projet-body">
+          <span class="projet-tag">SEO</span>
+          <h3>Groupe Delmar — refonte SEO</h3>
+          <p>+180% de trafic organique en 8 mois.</p>
+        </div>
+      </a>
+      <a href="projets.html" class="projet-card">
+        <div class="projet-thumb">Projet 02</div>
+        <div class="projet-body">
+          <span class="projet-tag">Ads</span>
+          <h3>Atelier Riva — acquisition Ads</h3>
+          <p>ROAS x3 sur les campagnes Meta.</p>
+        </div>
+      </a>
+      <a href="projets.html" class="projet-card">
+        <div class="projet-thumb">Projet 03</div>
+        <div class="projet-body">
+          <span class="projet-tag">Site web</span>
+          <h3>Maison Verdier — nouveau site</h3>
+          <p>2,4M€ de CA généré la première année.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOG PREVIEW ============ -->
+<section class="section blog-preview">
+  <div class="blog-preview-card">
+    <div class="blog-preview-head">
+      <div>
+        <span class="eyebrow eyebrow-light">Ressources</span>
+        <h2>Derniers articles du blog</h2>
+      </div>
+      <a href="#" class="link-arrow link-arrow-light">Voir tous les articles →</a>
+    </div>
+    <div class="blog-preview-grid">
+      <a href="#" class="blog-preview-item">
+        <div class="blog-thumb blog-thumb-1">
+          <span class="blog-badge-new">Nouveau</span>
+          <img src="assets/logo-monogram.png" alt="" class="blog-thumb-icon">
+        </div>
+        <h3>SEO local&nbsp;: 5 leviers à activer avant la fin d'année</h3>
+        <span class="projet-tag">SEO</span>
+      </a>
+      <a href="#" class="blog-preview-item">
+        <div class="blog-thumb blog-thumb-2">
+          <img src="assets/logo-monogram.png" alt="" class="blog-thumb-icon">
+        </div>
+        <h3>Google Ads vs Meta Ads&nbsp;: lequel choisir selon votre budget&nbsp;?</h3>
+        <span class="projet-tag">Ads</span>
+      </a>
+      <a href="#" class="blog-preview-item">
+        <div class="blog-thumb blog-thumb-3">
+          <img src="assets/logo-monogram.png" alt="" class="blog-thumb-icon">
+        </div>
+        <h3>Ce qu'il faut savoir avant de refaire votre site web</h3>
+        <span class="projet-tag">Web</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMOIGNAGES ============ -->
+<section class="section temoignages">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Témoignages</span>
+      <h2>Ce qu'ils <em>en disent</em>.</h2>
+    </div>
+
+    <div class="testimonial-carousel">
+      <button class="carousel-arrow" id="testimonialPrev" aria-label="Avis précédent">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="testimonial-track-wrap">
+        <div class="testimonial-track" id="testimonialTrack">
+          <blockquote class="spotlight-card">
+            <p class="spotlight-quote">« Une vraie approche orientée résultats. Le trafic organique a doublé en moins d'un an, avec un suivi hyper réactif. »</p>
+            <footer class="spotlight-foot">
+              <span class="avatar-placeholder">CM</span>
+              <div class="spotlight-foot-info">
+                <strong>Camille Martin</strong>
+                <span>Directrice Marketing, Groupe Delmar</span>
+              </div>
+              <a href="projet-delmar.html" class="link-arrow">Voir le cas client →</a>
+            </footer>
+          </blockquote>
+          <blockquote class="spotlight-card">
+            <p class="spotlight-quote">« Enfin un prestataire qui parle chiffres et pas juste esthétique. Le ROAS de nos campagnes a explosé. »</p>
+            <footer class="spotlight-foot">
+              <span class="avatar-placeholder">TL</span>
+              <div class="spotlight-foot-info">
+                <strong>Thomas Lefèvre</strong>
+                <span>Fondateur, Atelier Riva</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+
+      <button class="carousel-arrow" id="testimonialNext" aria-label="Avis suivant">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2>Vous vous demandez <em>peut-être</em>...</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Combien de temps avant de voir des résultats en SEO&nbsp;?</summary>
+        <p>Les premiers effets sont généralement visibles entre 3 et 6 mois, selon la concurrence de votre secteur et l'état de départ du site. Les résultats les plus solides s'installent dans la durée.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Travaillez-vous avec des entreprises de toutes tailles&nbsp;?</summary>
+        <p>Oui&nbsp;: TPE, PME ou indépendants — l'accompagnement est adapté à votre budget et à vos objectifs, sans prestation superflue.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Comment se déroule une première prise de contact&nbsp;?</summary>
+        <p>Un échange de 20 minutes pour comprendre votre projet et vos objectifs, suivi d'une proposition claire — sans engagement de votre part.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Proposez-vous un accompagnement au mois ou des missions ponctuelles&nbsp;?</summary>
+        <p>Les deux formats existent selon vos besoins&nbsp;: un accompagnement mensuel pour un pilotage continu, ou une mission ciblée sur un projet précis.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Intervenez-vous uniquement en France&nbsp;?</summary>
+        <p>L'essentiel du travail se fait à distance, ce qui permet d'accompagner des clients partout en France (et au-delà) avec des points réguliers en visio.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DISPONIBILITE / CALENDRIER ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="availability-calendar-card">
+      <div class="availability-calendar-head">
+        <span class="eyebrow">Disponibilité</span>
+        <div class="availability-status"><span class="availability-dot"></span><strong>Disponible</strong></div>
+      </div>
+      <div id="calInline" class="availability-calendar"></div>
+      <p class="availability-next-slot">Prochain créneau libre&nbsp;: <strong>semaine du 6 juillet</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-final">
+  <div class="cta-final-pattern" aria-hidden="true"></div>
+  <div class="container cta-final-inner">
+    <div class="cta-final-copy">
+      <h2>Prêt à orienter votre communication vers les résultats&nbsp;?</h2>
+      <p>Un échange de 20 minutes suffit pour poser les bases de votre projet.</p>
+    </div>
+    <a href="contact.html" class="btn btn-white btn-lg">
+      Prendre contact
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="contact">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img">
+      </a>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 1 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 320 512" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-59.65c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 275.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+        </a>
+      </div>
+
+      <div class="footer-phone-card">
+        <a href="tel:+33768801610" class="footer-phone-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1-1 2-2 2-8 0-14.5-6.5-14.5-14.5 0-1 1-2 2-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          07 68 80 16 10
+        </a>
+        <p>Service disponible du lundi au vendredi de 9h00 à 18h30</p>
+      </div>
+
+      <div class="footer-contact-cta">
+        <p class="footer-contact-title">Une question, un projet en tête&nbsp;?</p>
+        <a href="contact.html" class="btn btn-primary">Faites une demande de contact</a>
+      </div>
+    </div>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Compétences</p>
+      <ul>
+        <li><a href="seo.html">Agence SEO</a></li>
+        <li><a href="geo.html">Agence GEO</a></li>
+        <li><a href="ads.html">Ads — SEA &amp; Social</a></li>
+        <li><a href="site.html">Création de site</a></li>
+        <li><a href="content.html">Content Marketing</a></li>
+        <li><a href="social.html">Social Media</a></li>
+        <li><a href="webdesign.html">Webdesign</a></li>
+        <li><a href="marketing.html">Marketing Digital</a></li>
+        <li><a href="automatisation.html">Automatisation &amp; IA</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Agence</p>
+      <ul>
+        <li><a href="#">À propos</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Contact</p>
+      <ul>
+        <li><a href="mailto:contact@nexthoury.fr">contact@nexthoury.fr</a></li>
+        <li><a href="tel:+33768801610">07 68 80 16 10</a></li>
+        <li><span>France — à distance</span></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-legal">
+    <div class="container footer-legal-inner">
+      <span>© 2026 NexThoury. Tous droits réservés.</span>
+      <div class="footer-legal-links">
+        <a href="#">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="#" data-cookie-settings>Gérer les cookies</a>
+        <a href="#">Plan du site</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="contact.html" class="floating-contact">
+  <span>Me contacter</span>
+  <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script type="text/javascript">
+  /* Cal.com — calendrier de disponibilité affiché directement dans la page */
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
+  Cal("init", { origin: "https://cal.eu" });
+  Cal("inline", {
+    elementOrSelector: "#calInline",
+    calLink: "clement-thoury/rendez-vous",
+  });
+  Cal("ui", {
+    theme: "light",
+    styles: { branding: { brandColor: "#0E2F7A" } },
+    cssVarsPerTheme: { light: { "cal-bg": "#ffffff", "cal-bg-emphasis": "#ffffff", "cal-radius": "12px", "cal-brand": "#0E2F7A" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
+</script>
+</body>
+</html>

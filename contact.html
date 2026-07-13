@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — NexThoury</title>
+<link rel="icon" type="image/png" href="assets/logo-monogram.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page-glow" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img">
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li class="has-dropdown" id="competences-trigger">
+          <button class="dropdown-toggle" aria-expanded="false">
+            Compétences
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="dropdown-panel" id="competences-panel">
+            <div class="dropdown-col dropdown-families">
+              <a href="seo.html" class="family-item" data-family="seo">
+                Agence SEO <span class="tag-oui">Référencement</span>
+              </a>
+              <a href="geo.html" class="family-item" data-family="geo">Agence GEO</a>
+              <a href="ads.html" class="family-item" data-family="ads">Ads — SEA &amp; Social</a>
+              <a href="site.html" class="family-item" data-family="site">Création de site internet</a>
+              <a href="content.html" class="family-item" data-family="content">Content Marketing</a>
+              <a href="social.html" class="family-item" data-family="social">Social Media</a>
+              <a href="webdesign.html" class="family-item" data-family="webdesign">Webdesign</a>
+              <a href="marketing.html" class="family-item" data-family="marketing">Marketing Digital</a>
+              <a href="automatisation.html" class="family-item" data-family="automatisation">Automatisation &amp; IA</a>
+            </div>
+            <div class="dropdown-col dropdown-sub">
+              <div class="dropdown-sub-panel is-active" data-family="seo">
+                <p class="dropdown-sub-title">Agence SEO</p>
+                <ul>
+                  <li><a href="seo-audit-technique.html">Audit technique SEO</a></li>
+                  <li><a href="seo.html#strategie-mots-cles">Stratégie de mots-clés</a></li>
+                  <li><a href="seo.html#seo-local">SEO local</a></li>
+                  <li><a href="seo.html#netlinking">Netlinking</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="geo">
+                <p class="dropdown-sub-title">Agence GEO</p>
+                <p class="dropdown-sub-empty">Optimisation pour les moteurs de réponse IA (ChatGPT, Perplexity…).</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="ads">
+                <p class="dropdown-sub-title">Ads — SEA &amp; Social</p>
+                <ul>
+                  <li><a href="ads-google-ads.html">Google Ads</a></li>
+                  <li><a href="ads.html#meta-ads">Meta Ads</a></li>
+                  <li><a href="ads.html#linkedin-ads">LinkedIn Ads</a></li>
+                  <li><a href="ads.html#tiktok-ads">TikTok Ads</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="site">
+                <p class="dropdown-sub-title">Création de site internet</p>
+                <ul>
+                  <li><a href="site.html#site-vitrine">Site vitrine</a></li>
+                  <li><a href="site.html#e-commerce">E-commerce</a></li>
+                  <li><a href="site.html#landing-page">Landing page</a></li>
+                  <li><a href="site.html#maintenance">Maintenance</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="content">
+                <p class="dropdown-sub-title">Content Marketing</p>
+                <ul>
+                  <li><a href="content.html#redaction-web">Rédaction web</a></li>
+                  <li><a href="content.html#strategie-contenu">Stratégie de contenu</a></li>
+                  <li><a href="content.html#newsletter">Newsletter</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="social">
+                <p class="dropdown-sub-title">Social Media</p>
+                <p class="dropdown-sub-empty">Gestion de communauté et calendrier éditorial sur les réseaux sociaux.</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="webdesign">
+                <p class="dropdown-sub-title">Webdesign</p>
+                <p class="dropdown-sub-empty">Direction artistique et interfaces sur-mesure, orientées conversion.</p>
+              </div>
+              <div class="dropdown-sub-panel" data-family="marketing">
+                <p class="dropdown-sub-title">Marketing Digital</p>
+                <ul>
+                  <li><a href="marketing.html#strategie-digitale">Stratégie digitale</a></li>
+                  <li><a href="marketing.html#growth-marketing">Growth marketing</a></li>
+                  <li><a href="marketing.html#analytics-tracking">Analytics &amp; tracking</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-sub-panel" data-family="automatisation">
+                <p class="dropdown-sub-title">Automatisation &amp; IA</p>
+                <ul>
+                  <li><a href="automatisation.html#workflows">Automatisation des workflows</a></li>
+                  <li><a href="automatisation.html#agents-ia">Agents &amp; chatbots IA</a></li>
+                  <li><a href="automatisation.html#no-code">Intégrations no-code</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </nav>
+
+    <a href="contact.html" class="btn btn-primary btn-nav">Contact</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Discutons de <em>votre projet</em>.</h1>
+    <p>Un formulaire de 2 minutes, une réponse sous 24h — pas de démarchage, juste un échange sur vos besoins.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom: 24px;">
+  <div class="container">
+    <div class="bento-card">
+      <span class="eyebrow">Comment je travaille</span>
+      <h3>Quatre étapes, <em>zéro flou</em>.</h3>
+      <ol class="bento-process">
+        <li><span>01</span><div><strong>Diagnostic</strong><p>Audit de votre existant&nbsp;: site, présence, campagnes en cours.</p></div></li>
+        <li><span>02</span><div><strong>Stratégie</strong><p>Un plan d'action priorisé, avec des objectifs chiffrés dès le départ.</p></div></li>
+        <li><span>03</span><div><strong>Mise en œuvre</strong><p>Exécution des actions, avec des points de suivi réguliers.</p></div></li>
+        <li><span>04</span><div><strong>Mesure &amp; itération</strong><p>Ce qui fonctionne est renforcé, ce qui ne marche pas est coupé.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 24px;">
+  <div class="container contact-layout">
+    <div>
+      <!-- ============ ME JOINDRE ============ -->
+      <div class="contact-joindre">
+        <h2>Me joindre directement</h2>
+        <div class="contact-joindre-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <a href="mailto:contact@nexthoury.fr">contact@nexthoury.fr</a>
+        </div>
+        <div class="contact-joindre-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1-1 2-2 2-8 0-14.5-6.5-14.5-14.5 0-1 1-2 2-2z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <a href="tel:+33768801610">07 68 80 16 10</a>
+        </div>
+        <div class="contact-joindre-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>France — à distance</span>
+        </div>
+        <div class="contact-joindre-socials">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 1 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 320 512" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-59.65c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 448 512" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 275.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ============ CE QUI SE PASSE APRES ============ -->
+      <div class="contact-steps-card">
+        <h3>Ce qui se passe après votre message</h3>
+        <div class="contact-step">
+          <span class="contact-step-num">01</span>
+          <div>
+            <strong>Réponse sous 24h</strong>
+            <p>Je lis chaque message et je reviens vers vous rapidement, même pour dire que ce n'est pas le bon fit.</p>
+          </div>
+        </div>
+        <div class="contact-step">
+          <span class="contact-step-num">02</span>
+          <div>
+            <strong>Échange de 20 minutes</strong>
+            <p>On clarifie vos objectifs et je vous dis honnêtement si je peux vous aider.</p>
+          </div>
+        </div>
+        <div class="contact-step">
+          <span class="contact-step-num">03</span>
+          <div>
+            <strong>Proposition claire</strong>
+            <p>Un périmètre, un budget, un délai — sans jargon ni engagement caché.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FORMULAIRE ============ -->
+    <div class="contact-form-card">
+      <h2>Votre demande — 2 minutes</h2>
+      <p>Plus vous êtes précis, plus vite je peux vous répondre utilement.</p>
+      <form onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" required>
+          </div>
+          <div class="form-field">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-field">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone">
+          </div>
+          <div class="form-field full">
+            <label for="contexte">Contexte de la demande</label>
+            <textarea id="contexte" name="contexte" rows="5" placeholder="Décrivez votre projet, vos objectifs, vos délais…" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Envoyer ma demande</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2>Avant de <em>m'écrire</em>...</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Sous combien de temps aurai-je une réponse&nbsp;?</summary>
+        <p>Sous 24h ouvrées dans la grande majorité des cas. Si votre demande est urgente, précisez-le dans le formulaire.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Dois-je préparer quelque chose avant notre échange&nbsp;?</summary>
+        <p>Rien d'obligatoire&nbsp;: quelques exemples de ce qui vous plaît (ou pas) et une idée de budget aident à gagner du temps, mais ce n'est pas indispensable pour un premier échange.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Puis-je vous appeler directement plutôt que remplir le formulaire&nbsp;?</summary>
+        <p>Oui, le numéro affiché plus haut est disponible du lundi au vendredi de 9h à 18h30. Le formulaire reste toutefois le moyen le plus rapide d'être orienté correctement.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Le premier échange est-il payant&nbsp;?</summary>
+        <p>Non, les 20 premières minutes sont offertes et sans engagement. L'objectif est de vérifier ensemble que je peux réellement vous aider.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DISPONIBILITE / CALENDRIER ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="availability-calendar-card">
+      <div class="availability-calendar-head">
+        <span class="eyebrow">Disponibilité</span>
+        <div class="availability-status"><span class="availability-dot"></span><strong>Disponible</strong></div>
+      </div>
+      <div id="calInline" class="availability-calendar"></div>
+      <p class="availability-next-slot">Prochain créneau libre&nbsp;: <strong>semaine du 6 juillet</strong>.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="contact-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img">
+      </a>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 1 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 320 512" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-59.65c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 275.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+        </a>
+      </div>
+
+      <div class="footer-phone-card">
+        <a href="tel:+33768801610" class="footer-phone-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1-1 2-2 2-8 0-14.5-6.5-14.5-14.5 0-1 1-2 2-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          07 68 80 16 10
+        </a>
+        <p>Service disponible du lundi au vendredi de 9h00 à 18h30</p>
+      </div>
+
+      <div class="footer-contact-cta">
+        <p class="footer-contact-title">Une question, un projet en tête&nbsp;?</p>
+        <a href="#prenom" class="btn btn-primary">Faites une demande de contact</a>
+      </div>
+    </div>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Compétences</p>
+      <ul>
+        <li><a href="seo.html">Agence SEO</a></li>
+        <li><a href="geo.html">Agence GEO</a></li>
+        <li><a href="ads.html">Ads — SEA &amp; Social</a></li>
+        <li><a href="site.html">Création de site</a></li>
+        <li><a href="content.html">Content Marketing</a></li>
+        <li><a href="social.html">Social Media</a></li>
+        <li><a href="webdesign.html">Webdesign</a></li>
+        <li><a href="marketing.html">Marketing Digital</a></li>
+        <li><a href="automatisation.html">Automatisation &amp; IA</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Agence</p>
+      <ul>
+        <li><a href="#">À propos</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col">
+      <p class="footer-col-title">Contact</p>
+      <ul>
+        <li><a href="mailto:contact@nexthoury.fr">contact@nexthoury.fr</a></li>
+        <li><a href="tel:+33768801610">07 68 80 16 10</a></li>
+        <li><span>France — à distance</span></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-legal">
+    <div class="container footer-legal-inner">
+      <span>© 2026 NexThoury. Tous droits réservés.</span>
+      <div class="footer-legal-links">
+        <a href="#">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="#" data-cookie-settings>Gérer les cookies</a>
+        <a href="#">Plan du site</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script type="text/javascript">
+  /* Cal.com — calendrier de disponibilité affiché directement dans la page */
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
+  Cal("init", { origin: "https://cal.eu" });
+  Cal("inline", {
+    elementOrSelector: "#calInline",
+    calLink: "clement-thoury/rendez-vous",
+  });
+  Cal("ui", {
+    theme: "light",
+    styles: { branding: { brandColor: "#0E2F7A" } },
+    cssVarsPerTheme: { light: { "cal-bg": "#ffffff", "cal-bg-emphasis": "#ffffff", "cal-radius": "12px", "cal-brand": "#0E2F7A" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
+</script>
+</body>
+</html>

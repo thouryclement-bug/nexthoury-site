@@ -318,17 +318,25 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 .dropdown-mobile-expand::after { width: 1.6px; height: 14px; transform: translate(-50%, -50%); }
 .dropdown-mobile-item.is-open .dropdown-mobile-expand::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
 /* display:block (pas flex) — Safari a un bug connu où overflow:hidden ne découpe pas
-   correctement le contenu d'un conteneur display:flex, ce qui laissait dépasser un bout
-   de texte de la liste même repliée (max-height:0). Les <li>/<a> restent block par défaut,
-   donc pas besoin de flex pour les empiler verticalement. */
+   correctement le contenu d'un conteneur display:flex. `visibility:hidden` est ajouté en plus
+   de max-height:0/overflow:hidden comme filet de sécurité absolu : contrairement à overflow,
+   visibility ne dépend d'aucun calcul de boîte et cache TOUJOURS le contenu, quel que soit le
+   navigateur — la transition décalée (delay) évite qu'elle coupe l'animation d'ouverture/
+   fermeture en cours. */
 .dropdown-mobile-sublist {
   display: block;
+  margin: 0;
   padding: 0 4px 10px 10px;
   max-height: 0;
   overflow: hidden;
-  transition: max-height .3s ease;
+  visibility: hidden;
+  transition: max-height .3s ease, visibility 0s linear .3s;
 }
-.dropdown-mobile-item.is-open .dropdown-mobile-sublist { max-height: 320px; }
+.dropdown-mobile-item.is-open .dropdown-mobile-sublist {
+  max-height: 320px;
+  visibility: visible;
+  transition: max-height .3s ease, visibility 0s linear 0s;
+}
 .dropdown-mobile-sublist a { display: block; margin-bottom: 2px; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
 .dropdown-mobile-sublist a:hover { background: var(--bg); color: var(--navy); }
 .dropdown-mobile-sublist .dropdown-sub-empty { padding: 0 8px 4px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }

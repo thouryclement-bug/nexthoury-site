@@ -221,13 +221,20 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   fragile : si `.container` change un jour de padding, ces 3 classes ne suivront pas
   automatiquement.
 - **Sliver de texte qui dépasse d'un accordéon replié (`.dropdown-mobile-sublist`) sur Safari
-  iOS** : un conteneur `display:flex; overflow:hidden; max-height:0` ne clippe pas toujours
-  correctement son contenu sur Safari — bug WebKit connu ("flexbox overflow hidden"). Le texte du
-  premier lien de la sous-liste dépassait visuellement sous chaque ligne de famille, même repliée.
-  Corrigé en repassant `.dropdown-mobile-sublist` en `display:block` (les `<li>`/`<a>` s'empilent
-  déjà verticalement par défaut, pas besoin de flex). **Règle à suivre : ne jamais combiner
-  `display:flex` avec un `overflow:hidden`/`max-height` d'accordéon — toujours `display:block` (ou
-  `grid`) pour ce genre de conteneur repliable.**
+  iOS** : persistait même après être passé de `display:flex` à `display:block` (première
+  tentative insuffisante — testé en vrai sur iPhone via capture d'écran, en navigation privée
+  pour exclure le cache, le sliver de texte était toujours visible). **Fix définitif : ajouter
+  `visibility:hidden` en plus de `max-height:0`/`overflow:hidden`**, avec une transition décalée
+  (`transition: max-height .3s ease, visibility 0s linear .3s` replié ;
+  `transition: max-height .3s ease, visibility 0s linear 0s` ouvert) pour que `visibility` bascule
+  seulement APRÈS la fin de l'animation de fermeture (et immédiatement à l'ouverture, pour ne pas
+  retarder l'apparition du contenu). `visibility:hidden` ne dépend d'aucun calcul de boîte/overflow
+  et masque le contenu de façon garantie, quel que soit le navigateur — contrairement à
+  `overflow:hidden` seul, qui peut avoir des comportements de bord imprévisibles selon le
+  navigateur/la structure exacte du DOM. **Règle à suivre pour tout futur accordéon CSS (max-height
+  + overflow:hidden) : ajoutez toujours `visibility:hidden` (avec la transition décalée ci-dessus)
+  en complément — ne vous fiez pas à `overflow:hidden` seul pour garantir qu'aucun contenu ne
+  dépasse visuellement.**
 - **Rangée flèches + points du showcase (accueil) débordait largement sur mobile** : 9
   `.showcase-dot-btn` (28px + gap 8px) + 2 `.showcase-nav-btn` (38px) ≈ 430px de large, largement
   au-dessus des ~335px disponibles sur un téléphone standard (375px − 40px de padding). Ça créait

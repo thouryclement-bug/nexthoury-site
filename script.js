@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseItems = Array.from(document.querySelectorAll('.showcase-item'));
     const showcaseDots = Array.from(document.querySelectorAll('.showcase-dot-btn'));
     const showcaseTag = document.getElementById('showcaseTag');
-    const isDesktop = () => window.innerWidth >= 900;
+    const isDesktop = () => window.innerWidth >= 981;
     let current = 0;
     let st = null;
 

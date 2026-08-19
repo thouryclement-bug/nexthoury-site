@@ -285,10 +285,12 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 .burger {
   display: none;
   width: 40px; height: 40px;
+  margin-left: auto;
   border: none; background: transparent;
   flex-direction: column; align-items: center; justify-content: center; gap: 5px;
 }
 .burger span { width: 20px; height: 2px; background: var(--ink); border-radius: 2px; }
+body.service-page .burger span { background: var(--white); }
 
 /* =========================================================
    Hero
@@ -916,8 +918,13 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
   .main-nav.is-mobile-open .dropdown-panel { display: none; position: static; width: 100%; grid-template-columns: 1fr; box-shadow: none; margin-top: 4px; }
   .main-nav.is-mobile-open .has-dropdown.is-open .dropdown-panel { display: grid; opacity: 1; visibility: visible; transform: none; }
   .main-nav.is-mobile-open .dropdown-sub { border-top: 1px solid var(--border); }
+  /* Le panneau mobile a toujours un fond blanc, même sur les pages "service" à barre colorée
+     (voir body.service-page plus haut qui met le texte en blanc pour la barre pleine couleur) */
+  body.service-page .main-nav.is-mobile-open > ul > li > a,
+  body.service-page .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
+  body.service-page .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { order: -1; max-width: 340px; margin: 0 auto; }
+  .hero-visual { max-width: 340px; margin: 0 auto; }
   .projets-grid { grid-template-columns: 1fr; }
   .bento-process { grid-template-columns: 1fr; }
   .showcase-pin { height: auto; overflow: visible; display: block; padding: 0; }
@@ -933,6 +940,11 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
   .blog-preview-card { padding: 40px 32px; }
   .blog-preview-head { flex-direction: column; align-items: flex-start; gap: 12px; }
   .footer-top { grid-template-columns: 1fr 1fr; }
+  .family-hero-inner { grid-template-columns: 1fr; }
+  .family-hero-visual { order: -1; }
+  .family-intro-inner { grid-template-columns: 1fr; }
+  .family-subskills-grid,
+  .family-subskills-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 620px) {
   .container { padding: 0 20px; }
@@ -948,14 +960,13 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
   .hero-badge-2 { font-size: 12px; padding: 10px 12px; bottom: 5%; right: 5%; left: 5%; width: auto; justify-content: center; }
   .hero-visual-frame { margin-bottom: 12px; }
   .floating-contact { display: none; }
-  .family-hero-inner { grid-template-columns: 1fr; }
-  .family-hero-visual { order: -1; }
-  .family-icon-circle { width: 220px; height: 220px; margin: 0 auto; }
-  .family-intro-inner { grid-template-columns: 1fr; }
-  .family-subskills-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 620px) {
-  .family-subskills-grid { grid-template-columns: 1fr; }
+  .family-icon-circle { margin: 0 auto; }
+  .family-subskills-grid,
+  .family-subskills-grid.cols-3 { grid-template-columns: 1fr; }
+  .temoignages { overflow-x: hidden; }
+  .carousel-arrow:first-child { left: 4px; }
+  .carousel-arrow:last-child { right: 4px; }
+  .availability-calendar { min-height: 480px; }
 }
 
 /* =========================================================
@@ -1011,8 +1022,8 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 .family-hero-visual { display: flex; justify-content: center; }
 .family-icon-circle {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: clamp(220px, 28vw, 300px);
+  height: clamp(220px, 28vw, 300px);
   border-radius: 50%;
   padding: 10px;
   background: var(--family-color);
@@ -1042,6 +1053,7 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 /* Sub-skills / process grid */
 .family-subskills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .family-subskills-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
 .family-subskill-card {
   display: block;
   background: var(--white);
@@ -1120,7 +1132,7 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 .cookie-banner-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
 .cookie-banner-actions .btn { font-size: 14px; padding: 11px 20px; }
 
-@media (max-width: 640px) {
+@media (max-width: 620px) {
   .cookie-banner { padding: 18px 20px; left: 12px; right: 12px; bottom: 12px; }
   .cookie-banner-actions { flex-direction: column; }
   .cookie-banner-actions .btn { width: 100%; justify-content: center; }

@@ -125,6 +125,46 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
 
 ## Pièges déjà rencontrés (pour ne pas les refaire)
 
+- **Burger mobile mal aligné** : `.burger` n'avait pas de `margin-left:auto`, donc dès que
+  `.main-nav`/`.btn-nav` passaient en `display:none` sous 980px, il se retrouvait collé au logo
+  au lieu d'être poussé à droite du header. Corrigé avec `margin-left:auto` sur `.burger`.
+- **Menu mobile illisible sur les pages "service"** (`ads-google-ads.html`,
+  `seo-audit-technique.html`) : le texte du menu déroulé mobile restait en blanc (hérité de
+  `body.service-page .dropdown-toggle{color:white}` pensé pour la barre colorée desktop) alors que
+  le panneau mobile ouvert a un fond blanc — texte invisible. Idem pour les 3 barres du burger.
+  Corrigé avec des overrides `body.service-page .main-nav.is-mobile-open ...{color:var(--ink)}`
+  et `body.service-page .burger span{background:var(--white)}` (la barre de header, elle, reste
+  colorée donc le burger doit y rester blanc quand le menu est FERMÉ).
+- **Photo de profil affichée en premier sur mobile (accueil)** : `.hero-visual{order:-1}` faisait
+  passer la photo de Clément AVANT le texte du hero sur mobile — jamais voulu. Retiré ; l'ordre DOM
+  naturel (texte puis photo) s'applique maintenant à toutes les tailles d'écran pour `index.html`.
+  Ne pas réintroduire un `order:-1` sur `.hero-visual`. (Les pages famille, elles, ont bien
+  `.family-hero-visual{order:-1}` en mobile — mais ce sont des photos d'illustration du métier,
+  pas son visage, donc pas concerné par cette règle.)
+- **`.family-hero-inner` sans palier 980px** : contrairement à `.hero-inner` (accueil), le hero des
+  9 pages famille restait en 2 colonnes jusqu'à 620px, avec un `.family-icon-circle` à largeur fixe
+  (300px) → débordement horizontal réel entre ~621px et ~980px (tablettes). Corrigé en ajoutant
+  `.family-hero-inner{grid-template-columns:1fr}` dès 980px et en passant `.family-icon-circle` en
+  `width/height: clamp(220px, 28vw, 300px)` (donc jamais figé en dur).
+- **Spécificité CSS cassant le responsive de `.family-subskills-grid.cols-3`** : la règle de base
+  `.family-subskills-grid.cols-3{grid-template-columns:repeat(3,1fr)}` (2 classes) avait plus de
+  spécificité que les overrides mobiles à 1 seule classe dans les media queries → elle gagnait à
+  TOUTES les largeurs d'écran, y compris 320px. Si vous ajoutez une variante `.cols-N` à cette
+  grille, pensez à dupliquer l'override dans les media queries avec le suffixe `.cols-N` inclus
+  (voir les blocs `@media (max-width:980px)` et `@media (max-width:620px)`).
+- **Deux blocs `@media (max-width:620px)` quasi identiques** existaient côte à côte (vestige d'un
+  ajout rapide) — l'un écrasait silencieusement une partie de l'autre. Fusionnés en un seul bloc.
+  Avant d'ajouter une nouvelle règle mobile, vérifiez qu'il n'existe pas déjà un bloc pour ce
+  breakpoint plus bas dans le fichier.
+- **Seuil desktop du showcase pinné désynchronisé du CSS** : `script.js` activait le pin GSAP dès
+  `window.innerWidth >= 900`, alors que le CSS bascule en fallback mobile (liste empilée, sans pin)
+  à `max-width:980px` — entre 900 et 980px, le JS pinnait un bloc que le CSS avait déjà démonté en
+  liste longue, figeant le scroll sur une distance énorme. Corrigé : seuil JS aligné à `>= 981`.
+  Si vous changez un breakpoint desktop/mobile d'un côté (CSS ou JS), pensez à répercuter l'autre.
+- **Flèches du carrousel de témoignages en dehors du viewport mobile** : positionnées à `-23px` du
+  bord de `.testimonial-carousel`, elles dépassaient légèrement (~3px) sous 620px où le padding du
+  `.container` n'est que de 20px. Corrigé avec un offset réduit à `4px` en mobile + `overflow-x:
+  hidden` de sécurité sur `.temoignages`.
 - **GSAP ticker figé** : sans `gsap.ticker.lagSmoothing(0)`, les animations au chargement peuvent
   se figer en cours de route dans certains contextes de rendu automatisé. Déjà réglé dans le code.
 - **`<blockquote>` a une marge navigateur par défaut** (`16px 40px`) — si un jour un `.spotlight-card`

@@ -317,17 +317,19 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 .dropdown-mobile-expand::before { width: 14px; height: 1.6px; transform: translate(-50%, -50%); }
 .dropdown-mobile-expand::after { width: 1.6px; height: 14px; transform: translate(-50%, -50%); }
 .dropdown-mobile-item.is-open .dropdown-mobile-expand::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+/* display:block (pas flex) — Safari a un bug connu où overflow:hidden ne découpe pas
+   correctement le contenu d'un conteneur display:flex, ce qui laissait dépasser un bout
+   de texte de la liste même repliée (max-height:0). Les <li>/<a> restent block par défaut,
+   donc pas besoin de flex pour les empiler verticalement. */
 .dropdown-mobile-sublist {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0 4px 14px 10px;
+  display: block;
+  padding: 0 4px 10px 10px;
   max-height: 0;
   overflow: hidden;
   transition: max-height .3s ease;
 }
 .dropdown-mobile-item.is-open .dropdown-mobile-sublist { max-height: 320px; }
-.dropdown-mobile-sublist a { display: block; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
+.dropdown-mobile-sublist a { display: block; margin-bottom: 2px; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
 .dropdown-mobile-sublist a:hover { background: var(--bg); color: var(--navy); }
 .dropdown-mobile-sublist .dropdown-sub-empty { padding: 0 8px 4px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
 
@@ -1109,7 +1111,7 @@ body.service-page .burger span { background: var(--white); }
   /* Showcase des 9 compétences en mobile : un seul item visible à la fois (comme sur desktop),
      navigable par flèches/points/swipe/défilement auto — au lieu d'empiler les 9 blocs et forcer
      un long scroll vertical pour tous les voir. */
-  .showcase-pin { height: auto; overflow: visible; display: block; padding: 0; max-height: none; }
+  .showcase-pin { height: auto; overflow-x: hidden; overflow-y: visible; display: block; padding: 0; max-height: none; }
   .showcase-pin-inner { grid-template-columns: 1fr; }
   .showcase-visual { display: none; }
   /* Bloc + image réduits en largeur et centrés — plein écran faisait trop "large" sur téléphone. */
@@ -1120,8 +1122,11 @@ body.service-page .burger span { background: var(--white); }
      en fallback mobile (un item plein écran, hauteur libre), le texte doit s'afficher en entier. */
   .showcase-item h3 { -webkit-line-clamp: unset; overflow: visible; }
   .showcase-item p { -webkit-line-clamp: unset; overflow: visible; max-width: none; }
+  /* Les 9 points + 2 flèches dépassent largement la largeur d'un téléphone (~430px pour
+     ~335px disponibles) : on masque les points sur mobile (le compteur "01/09" déjà affiché
+     dans la carte suffit) et on ne garde que les flèches, bien centrées. */
   .showcase-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 24px; }
-  .showcase-dots { margin-top: 0; }
+  .showcase-dots { display: none; }
   .showcase-nav-btn { display: flex; }
   .spotlight-card { flex: 0 0 100%; }
   .blog-preview-grid { grid-template-columns: 1fr; }
@@ -1677,7 +1682,7 @@ body.service-page .burger span { background: var(--white); }
 .service-quote-author { margin-top: 24px; font-size: 14px; color: var(--ink-soft); font-style: normal; font-weight: 600; }
 
 @media (max-width: 980px) {
-  .service-layout { grid-template-columns: 1fr; padding: 56px 0; }
+  .service-layout { grid-template-columns: 1fr; padding-top: 56px; padding-bottom: 56px; }
   .service-sidebar { position: static; }
   .service-stats-row { flex-wrap: wrap; }
   .service-checklist { grid-template-columns: 1fr; }

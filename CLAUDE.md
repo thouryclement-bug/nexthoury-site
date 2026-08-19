@@ -209,6 +209,35 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   combinée avec `.container` — utiliser les propriétés longhand (`padding-top`, etc.) pour ne
   modifier qu'un côté. Avant d'ajouter une nouvelle classe combinée à `.container` quelque part,
   vérifiez qu'elle ne redéclare pas `padding`/`margin` en shorthand.
+  **Piège n°2, plus retors : `.service-layout` avait DEUX déclarations** — la règle de base
+  (corrigée ci-dessus) ET un override mobile séparé `@media (max-width:980px) { .service-layout {
+  padding: 56px 0; } }` qui refaisait exactement la même erreur, plus bas dans le fichier. Corriger
+  la règle de base ne suffit pas si une media query définit une AUTRE occurrence du même problème
+  plus loin — toujours grep TOUTES les occurrences d'une classe (`grep -n "\.classe\b"`) avant de
+  considérer un bug de padding/margin comme réglé, pas seulement la première trouvée.
+  `.footer-top`, `.footer-legal-inner` et `.projet-nav` font aussi ce genre de redéclaration
+  (`padding: Npx 32px` ou `20px`), mais leur valeur horizontale codée en dur coïncide
+  actuellement avec celle de `.container` au même breakpoint — pas de bug visible aujourd'hui, mais
+  fragile : si `.container` change un jour de padding, ces 3 classes ne suivront pas
+  automatiquement.
+- **Sliver de texte qui dépasse d'un accordéon replié (`.dropdown-mobile-sublist`) sur Safari
+  iOS** : un conteneur `display:flex; overflow:hidden; max-height:0` ne clippe pas toujours
+  correctement son contenu sur Safari — bug WebKit connu ("flexbox overflow hidden"). Le texte du
+  premier lien de la sous-liste dépassait visuellement sous chaque ligne de famille, même repliée.
+  Corrigé en repassant `.dropdown-mobile-sublist` en `display:block` (les `<li>`/`<a>` s'empilent
+  déjà verticalement par défaut, pas besoin de flex). **Règle à suivre : ne jamais combiner
+  `display:flex` avec un `overflow:hidden`/`max-height` d'accordéon — toujours `display:block` (ou
+  `grid`) pour ce genre de conteneur repliable.**
+- **Rangée flèches + points du showcase (accueil) débordait largement sur mobile** : 9
+  `.showcase-dot-btn` (28px + gap 8px) + 2 `.showcase-nav-btn` (38px) ≈ 430px de large, largement
+  au-dessus des ~335px disponibles sur un téléphone standard (375px − 40px de padding). Ça créait
+  un débordement horizontal de toute la page, perceptible comme "le bloc est décalé à droite /
+  du contenu coupé" — d'autant plus qu'un swipe tactile sur le carrousel pouvait aussi scroller
+  la page horizontalement à cause de ce débordement. Corrigé en masquant `.showcase-dots` sur
+  mobile (le compteur texte "01/09" déjà affiché dans chaque carte suffit) et en gardant
+  `overflow-x:hidden` sur `.showcase-pin` en filet de sécurité. Si vous rajoutez des points ou
+  d'autres contrôles sur mobile, vérifiez toujours leur largeur totale contre un viewport de
+  320-375px AVANT de les activer sur ce breakpoint.
 - **Burger mobile mal aligné** : `.burger` n'avait pas de `margin-left:auto`, donc dès que
   `.main-nav`/`.btn-nav` passaient en `display:none` sous 980px, il se retrouvait collé au logo
   au lieu d'être poussé à droite du header. Corrigé avec `margin-left:auto` sur `.burger`.

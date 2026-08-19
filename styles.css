@@ -282,6 +282,39 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+/* Menu "Compétences" en mobile : accordéon (même logique visuelle que .faq-item),
+   masqué en desktop où le panneau 2 colonnes .dropdown-panel reste utilisé. */
+.dropdown-mobile-accordion { display: none; }
+.dropdown-mobile-item { border-bottom: 1px solid var(--border); }
+.dropdown-mobile-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 4px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+.dropdown-mobile-item summary::-webkit-details-marker { display: none; }
+.dropdown-mobile-item summary::after {
+  content: '+';
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--navy);
+  flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.dropdown-mobile-item[open] summary::after { transform: rotate(45deg); }
+.dropdown-mobile-item ul { display: flex; flex-direction: column; gap: 2px; padding: 0 4px 14px 10px; }
+.dropdown-mobile-item ul a { display: block; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
+.dropdown-mobile-item ul a:hover { background: var(--bg); color: var(--navy); }
+.dropdown-mobile-item ul li:first-child a { color: var(--navy); font-weight: 600; }
+
 .burger {
   display: none;
   width: 40px; height: 40px;
@@ -544,9 +577,25 @@ body.service-page .burger span { background: var(--white); }
   overflow: hidden;
 }
 .showcase-item-img { display: none; }
+.showcase-controls { display: contents; }
 .showcase-dots { display: flex; gap: 8px; margin-top: 30px; }
 .showcase-dot-btn { width: 28px; height: 4px; border-radius: 4px; border: none; background: var(--border); cursor: pointer; padding: 0; transition: background .25s ease, width .25s ease; }
 .showcase-dot-btn.is-active { background: var(--blue); width: 42px; }
+.showcase-nav-btn {
+  display: none;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink);
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+.showcase-nav-btn:hover { background: var(--bg); border-color: var(--navy); }
+.showcase-nav-btn:active { transform: scale(0.92); }
 @keyframes fadeUpShowcase { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Projets phares */
@@ -896,119 +945,6 @@ body.service-page .burger span { background: var(--white); }
 .floating-contact:hover svg { transform: translateX(3px); }
 
 /* =========================================================
-   Responsive
-   ========================================================= */
-@media (max-width: 980px) {
-  .main-nav { display: none; }
-  .btn-nav { display: none; }
-  .burger { display: flex; }
-  .main-nav.is-mobile-open {
-    display: block;
-    position: absolute;
-    top: 92px; left: 24px; right: 24px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    padding: 12px 20px 20px;
-  }
-  .main-nav.is-mobile-open > ul { flex-direction: column; align-items: stretch; gap: 2px; }
-  .main-nav.is-mobile-open > ul > li > a,
-  .main-nav.is-mobile-open .dropdown-toggle { width: 100%; justify-content: space-between; border-radius: var(--radius-sm); }
-  .main-nav.is-mobile-open .dropdown-panel { display: none; position: static; width: 100%; grid-template-columns: 1fr; box-shadow: none; margin-top: 4px; }
-  .main-nav.is-mobile-open .has-dropdown.is-open .dropdown-panel { display: grid; opacity: 1; visibility: visible; transform: none; }
-  .main-nav.is-mobile-open .dropdown-sub { border-top: 1px solid var(--border); }
-  /* Le panneau mobile a toujours un fond blanc, même sur les pages "service" à barre colorée
-     (voir body.service-page plus haut qui met le texte en blanc pour la barre pleine couleur) */
-  body.service-page .main-nav.is-mobile-open > ul > li > a,
-  body.service-page .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
-  body.service-page .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
-  .section { padding: 64px 0; }
-  .hero { padding: 56px 0 64px; }
-  .family-hero { padding: 40px 0 56px; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { max-width: 340px; margin: 0 auto; }
-  .projets-grid { grid-template-columns: 1fr; }
-  .bento-process { grid-template-columns: 1fr; }
-  .showcase-pin { height: auto; overflow: visible; display: block; padding: 0; max-height: none; }
-  .showcase-pin-inner { grid-template-columns: 1fr; }
-  .showcase-visual { display: none; }
-  .showcase-item { display: block !important; margin-bottom: 40px; animation: none; }
-  .showcase-item:last-child { margin-bottom: 0; }
-  .showcase-item-img { display: block; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 20px; }
-  .showcase-item-img img { width: 100%; height: 100%; object-fit: cover; }
-  .showcase-dots { display: none; }
-  /* Le clamp de lignes n'a de sens que dans la boîte pinnée desktop à hauteur fixe —
-     en fallback mobile (liste empilée), le texte doit s'afficher en entier. */
-  .showcase-item h3 { -webkit-line-clamp: unset; overflow: visible; }
-  .showcase-item p { -webkit-line-clamp: unset; overflow: visible; max-width: none; }
-  .spotlight-card { flex: 0 0 100%; }
-  .blog-preview-grid { grid-template-columns: 1fr; }
-  .blog-preview-card { padding: 40px 32px; }
-  .blog-preview-head { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .family-hero-inner { grid-template-columns: 1fr; }
-  .family-hero-visual { order: -1; }
-  .family-intro-inner { grid-template-columns: 1fr; }
-  .family-subskills-grid,
-  .family-subskills-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
-
-  /* Menu mobile "Compétences" : familles en rangée horizontale scrollable (au lieu d'une
-     liste verticale de 9 lignes) pour que les sous-compétences restent visibles sans avoir
-     à scroller loin — et filet de sécurité si le contenu dépasse malgré tout l'écran. */
-  .main-nav.is-mobile-open { max-height: calc(100vh - 110px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .main-nav.is-mobile-open .dropdown-families {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 6px;
-    padding: 4px 2px 12px;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .main-nav.is-mobile-open .family-item { flex: 0 0 auto; white-space: nowrap; padding: 9px 14px; font-size: 13px; }
-  .main-nav.is-mobile-open .family-item .tag-oui { display: none; }
-  .main-nav.is-mobile-open .dropdown-sub { padding: 14px 2px 4px; }
-  .main-nav.is-mobile-open .dropdown-sub-title { font-size: 14px; margin-bottom: 8px; }
-  .main-nav.is-mobile-open .dropdown-sub ul { gap: 2px; }
-  .main-nav.is-mobile-open .dropdown-sub ul a { padding: 7px 8px; font-size: 13.5px; }
-}
-@media (max-width: 620px) {
-  .container { padding: 0 20px; }
-  .section { padding: 48px 0; }
-  .hero { padding: 40px 0 48px; }
-  .family-hero { padding: 32px 0 40px; }
-  .footer-top { grid-template-columns: 1fr; padding: 56px 20px 40px; }
-  .footer-phone-card, .footer-contact-cta { max-width: none; }
-  .footer-legal-inner { flex-direction: column; gap: 10px; text-align: center; }
-  .blog-preview-card { margin: 0 20px; }
-  .cta-final { margin: 0 20px; padding: 40px 28px; }
-  .cta-final-inner { flex-direction: column; align-items: flex-start; text-align: left; }
-  .cta-final-pattern { width: 220px; }
-  .btn-white { width: 100%; justify-content: center; }
-  .hero-badge-1 { display: none; }
-  .hero-badge-2 { font-size: 12px; padding: 10px 12px; bottom: 5%; right: 5%; left: 5%; width: auto; justify-content: center; }
-  .hero-visual-frame { margin-bottom: 12px; }
-  /* Bouton "Me contacter" : sur téléphone, pastille compacte en bas à droite plutôt que
-     le tab vertical mi-écran (trop large / recouvrait du contenu) — on garde un accès direct
-     au contact plutôt que de le masquer complètement. */
-  .floating-contact { top: auto; bottom: 20px; right: 16px; transform: none; padding: 13px 18px; }
-  .floating-contact span { display: none; }
-  .floating-contact::before { content: "Contact"; }
-  .floating-contact:hover { transform: scale(1.05); }
-  /* Sur téléphone, la photo/icône du hero des pages compétence est retirée : à cette largeur
-     elle forçait un repositionnement des blocs plutôt que d'apporter de la valeur. */
-  .family-hero-visual { display: none; }
-  .family-subskills-grid,
-  .family-subskills-grid.cols-3 { grid-template-columns: 1fr; }
-  .temoignages { overflow-x: hidden; }
-  .carousel-arrow:first-child { left: 4px; }
-  .carousel-arrow:last-child { right: 4px; }
-  .availability-calendar { min-height: 480px; }
-}
-
-/* =========================================================
    Family (compétence) pages
    ========================================================= */
 .family-eyebrow { color: var(--family-ink, var(--family-color)); }
@@ -1019,7 +955,7 @@ body.service-page .burger span { background: var(--white); }
   gap: 6px 8px;
   font-size: 13px;
   color: var(--ink-soft);
-  padding: 18px 0 0;
+  padding-top: 18px;
 }
 .family-breadcrumb a { color: var(--ink-soft); }
 .family-breadcrumb a:hover { color: var(--family-color); }
@@ -1118,6 +1054,107 @@ body.service-page .burger span { background: var(--white); }
 }
 .family-subskill-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
 .family-subskill-card p { font-size: 14px; color: var(--ink-soft); }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 980px) {
+  .main-nav { display: none; }
+  .btn-nav { display: none; }
+  .burger { display: flex; }
+  .main-nav.is-mobile-open {
+    display: block;
+    position: absolute;
+    top: 92px; left: 24px; right: 24px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 12px 20px 20px;
+  }
+  .main-nav.is-mobile-open > ul { flex-direction: column; align-items: stretch; gap: 2px; }
+  .main-nav.is-mobile-open > ul > li > a,
+  .main-nav.is-mobile-open .dropdown-toggle { width: 100%; justify-content: space-between; border-radius: var(--radius-sm); }
+  /* Le panneau desktop à 2 colonnes ne s'affiche jamais en mobile : il est remplacé par
+     l'accordéon .dropdown-mobile-accordion défini plus bas. */
+  .main-nav.is-mobile-open .dropdown-panel { display: none; }
+  /* Le panneau mobile a toujours un fond blanc, même sur les pages "service" à barre colorée
+     (voir body.service-page plus haut qui met le texte en blanc pour la barre pleine couleur) */
+  body.service-page .main-nav.is-mobile-open > ul > li > a,
+  body.service-page .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
+  body.service-page .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
+  .section { padding: 64px 0; }
+  .hero { padding: 56px 0 64px; }
+  .family-hero { padding: 40px 0 56px; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { max-width: 340px; margin: 0 auto; }
+  .projets-grid { grid-template-columns: 1fr; }
+  .bento-process { grid-template-columns: 1fr; }
+  /* Showcase des 9 compétences en mobile : un seul item visible à la fois (comme sur desktop),
+     navigable par flèches/points/swipe/défilement auto — au lieu d'empiler les 9 blocs et forcer
+     un long scroll vertical pour tous les voir. */
+  .showcase-pin { height: auto; overflow: visible; display: block; padding: 0; max-height: none; }
+  .showcase-pin-inner { grid-template-columns: 1fr; }
+  .showcase-visual { display: none; }
+  .showcase-item-img { display: block; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 20px; }
+  .showcase-item-img img { width: 100%; height: 100%; object-fit: cover; }
+  /* Le clamp de lignes n'a de sens que dans la boîte pinnée desktop à hauteur fixe —
+     en fallback mobile (un item plein écran, hauteur libre), le texte doit s'afficher en entier. */
+  .showcase-item h3 { -webkit-line-clamp: unset; overflow: visible; }
+  .showcase-item p { -webkit-line-clamp: unset; overflow: visible; max-width: none; }
+  .showcase-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 24px; }
+  .showcase-dots { margin-top: 0; }
+  .showcase-nav-btn { display: flex; }
+  .spotlight-card { flex: 0 0 100%; }
+  .blog-preview-grid { grid-template-columns: 1fr; }
+  .blog-preview-card { padding: 40px 32px; }
+  .blog-preview-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .family-hero-inner { grid-template-columns: 1fr; }
+  .family-hero-visual { order: -1; }
+  .family-intro-inner { grid-template-columns: 1fr; }
+  .family-subskills-grid,
+  .family-subskills-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Menu mobile "Compétences" : accordéon vertical (comme les FAQ) au lieu du panneau 2
+     colonnes desktop — chaque famille se déplie sur place, pas besoin de glisser
+     horizontalement. Filet de sécurité (scroll interne) si tout dépasse malgré tout l'écran. */
+  .main-nav.is-mobile-open { max-height: calc(100vh - 110px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .main-nav.is-mobile-open .has-dropdown.is-open .dropdown-mobile-accordion { display: block; margin-top: 4px; }
+}
+@media (max-width: 620px) {
+  .container { padding: 0 20px; }
+  .section { padding: 48px 0; }
+  .hero { padding: 40px 0 48px; }
+  .family-hero { padding: 32px 0 40px; }
+  .footer-top { grid-template-columns: 1fr; padding: 56px 20px 40px; }
+  .footer-phone-card, .footer-contact-cta { max-width: none; }
+  .footer-legal-inner { flex-direction: column; gap: 10px; text-align: center; }
+  .blog-preview-card { margin: 0 20px; }
+  .cta-final { margin: 0 20px; padding: 40px 28px; }
+  .cta-final-inner { flex-direction: column; align-items: flex-start; text-align: left; }
+  .cta-final-pattern { width: 220px; }
+  .btn-white { width: 100%; justify-content: center; }
+  .hero-badge-1 { display: none; }
+  .hero-badge-2 { font-size: 12px; padding: 10px 12px; bottom: 5%; right: 5%; left: 5%; width: auto; justify-content: center; }
+  .hero-visual-frame { margin-bottom: 12px; }
+  /* Bouton "Me contacter" : sur téléphone, pastille compacte en bas à droite plutôt que
+     le tab vertical mi-écran (trop large / recouvrait du contenu) — on garde un accès direct
+     au contact plutôt que de le masquer complètement. */
+  .floating-contact { top: auto; bottom: 20px; right: 16px; transform: none; padding: 13px 18px; }
+  .floating-contact span { display: none; }
+  .floating-contact::before { content: "Contact"; }
+  .floating-contact:hover { transform: scale(1.05); }
+  /* Sur téléphone, la photo/icône du hero des pages compétence est retirée : à cette largeur
+     elle forçait un repositionnement des blocs plutôt que d'apporter de la valeur. */
+  .family-hero-visual { display: none; }
+  .family-subskills-grid,
+  .family-subskills-grid.cols-3 { grid-template-columns: 1fr; }
+  .temoignages { overflow-x: hidden; }
+  .carousel-arrow:first-child { left: 4px; }
+  .carousel-arrow:last-child { right: 4px; }
+  .availability-calendar { min-height: 480px; }
+}
 
 /* =========================================================
    Page header (simple top-level pages)

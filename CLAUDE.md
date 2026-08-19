@@ -123,8 +123,69 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   consentement (chargé via `script.js`) n'ait tourné, sinon les premiers événements partiraient
   sans attendre le `consent default`.
 
+## Menu mobile "Compétences" — accordéon (pas de glisser horizontal)
+
+- Le menu déroulé desktop (`.dropdown-panel`, 2 colonnes : familles à gauche, sous-compétences à
+  droite) reste inchangé et ne s'affiche JAMAIS en mobile (`display:none` dans le bloc
+  `@media (max-width:980px)`).
+- En mobile, un bloc **séparé et dupliqué sur les 16 pages**, `.dropdown-mobile-accordion`
+  (juste après `</div>` qui ferme `.dropdown-panel`, avant `</li>`), affiche les 9 familles sous
+  forme d'accordéon vertical — exactement le même principe que `.faq-item`/`<details>` déjà
+  utilisé pour la FAQ. Chaque `<details class="dropdown-mobile-item">` contient un lien "Voir la
+  page X" en premier (mis en avant, `color:var(--navy)`) puis les sous-compétences. Tous les
+  `<details>` partagent `name="mobile-competences-accordion"` (accordéon HTML natif exclusif : en
+  ouvrir un ferme les autres — supporté nativement, aucun JS requis).
+- Si vous ajoutez/renommez une famille ou une sous-compétence, il faut mettre à jour l'accordéon
+  **sur les 16 pages** en plus du `.dropdown-panel` desktop (contenu dupliqué intentionnellement,
+  pas de source unique — un script Python a servi à l'insertion initiale, voir git log).
+- `.main-nav.is-mobile-open` garde un `max-height: calc(100vh - 110px); overflow-y: auto;` en
+  filet de sécurité : le panneau est en `position:absolute` sur un header `sticky`, donc si son
+  contenu dépasse la hauteur d'écran, la partie qui dépasse serait sinon inatteignable (voir piège
+  ci-dessous).
+
+## Showcase des 9 compétences (accueil) — carrousel mobile au lieu d'une liste empilée
+
+- Desktop : scroll-jack GSAP inchangé (`showcasePin`, voir plus haut).
+- Mobile (`≤980px`) : au lieu d'empiler les 9 blocs (obligeant à scroller longtemps pour tous les
+  voir), un seul `.showcase-item` est affiché à la fois (même logique `.is-active` que le desktop),
+  navigable via :
+  - les flèches `#showcasePrev`/`#showcaseNext` (nouveau, dans `.showcase-controls` qui wrappe
+    aussi les `.showcase-dots` existants) ;
+  - un swipe tactile gauche/droite sur `#showcasePin` (seuil 40px) ;
+  - un défilement automatique toutes les 4,5s (`setInterval`), qui se met en pause dès qu'on
+    interagit manuellement (`restartAutoplay()`) et dès que la section sort du viewport
+    (`IntersectionObserver`, seuil 0.4) pour ne pas tourner en arrière-plan inutilement.
+  - Tout ceci réutilise `setActive()` déjà défini pour le pin desktop — aucune logique dupliquée.
+- Le `-webkit-line-clamp` (2 lignes titre / 3 lignes description) n'a de sens que dans la boîte
+  desktop à hauteur fixe : neutralisé en mobile (`unset` + `overflow:visible`) sinon le texte se
+  fait couper au milieu d'un mot sans raison sur un item affiché plein écran.
+
 ## Pièges déjà rencontrés (pour ne pas les refaire)
 
+- **Bug de cascade CSS majeur : le bloc `Responsive` était placé AVANT la section "Family
+  (compétence) pages" dans le fichier.** Résultat : toutes les règles mobiles ciblant des classes
+  `.family-*` (`.family-hero-inner`, `.family-hero-visual`, `.family-intro-inner`,
+  `.family-subskills-grid`, padding de `.family-hero`) étaient silencieusement RÉÉCRASÉES par les
+  règles de base de ces mêmes classes, qui apparaissaient PLUS BAS dans le fichier — à spécificité
+  CSS égale, c'est l'ordre d'apparition dans le fichier qui tranche, peu importe qu'une règle soit
+  dans un `@media` ou non. Autrement dit, plusieurs correctifs mobiles appliqués lors d'une session
+  précédente (masquer l'image du hero compétence, passer la grille en 1 colonne, etc.) n'avaient
+  JAMAIS réellement fonctionné. Corrigé en déplaçant toute la section "Family (compétence) pages"
+  AVANT le bloc `Responsive` dans `styles.css`. **Règle à suivre à partir de maintenant : le bloc
+  `Responsive` (et plus généralement toute media query globale en fin de fichier) doit TOUJOURS
+  rester après les règles de base qu'il override.** Si vous ajoutez une nouvelle section de
+  composant, insérez-la avant le bloc `Responsive`, jamais après — sinon ses futures règles mobiles
+  spécifiques (si ajoutées dans cette section, hors du bloc Responsive global) resteront correctes,
+  mais toute règle du bloc Responsive global la ciblant sera silencieusement ignorée.
+- **`.family-breadcrumb` cassait le padding gauche/droite de `.container`** : les deux classes
+  étaient posées sur le même `<div class="container family-breadcrumb">`, et
+  `.family-breadcrumb{padding:18px 0 0}` (shorthand 3 valeurs = top/right&left/bottom) réécrivait
+  TOUTES les valeurs de padding, y compris right/left à 0 — annulant le `padding:0 32px` de
+  `.container` et collant le fil d'ariane au bord de l'écran sur les 11 pages compétence/service.
+  Corrigé en remplaçant par la propriété longhand `padding-top:18px` uniquement. Piège général :
+  ne JAMAIS redéclarer le raccourci `padding`/`margin` sur une classe destinée à être combinée avec
+  `.container` — utiliser les propriétés longhand (`padding-top`, etc.) pour ne modifier qu'un
+  côté.
 - **Burger mobile mal aligné** : `.burger` n'avait pas de `margin-left:auto`, donc dès que
   `.main-nav`/`.btn-nav` passaient en `display:none` sous 980px, il se retrouvait collé au logo
   au lieu d'être poussé à droite du header. Corrigé avec `margin-left:auto` sur `.burger`.

@@ -103,12 +103,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showcaseDots.forEach((dot, i) => {
       dot.addEventListener('click', () => {
-        if (!st) { setActive(i); return; }
+        if (!st) { setActive(i); restartAutoplay(); return; }
         const progress = (i + 0.5) / showcaseItems.length;
         const target = st.start + progress * (st.end - st.start);
         window.scrollTo({ top: target, behavior: 'smooth' });
       });
     });
+
+    // Navigation mobile : flèches précédent/suivant + défilement automatique, pour voir
+    // les 9 compétences sans avoir à tout dérouler à la main sur un petit écran.
+    const showcasePrevBtn = document.getElementById('showcasePrev');
+    const showcaseNextBtn = document.getElementById('showcaseNext');
+    const showcaseTotal = showcaseItems.length;
+    function showcaseGoTo(i) { setActive((i + showcaseTotal) % showcaseTotal); }
+    if (showcasePrevBtn) showcasePrevBtn.addEventListener('click', () => { showcaseGoTo(current - 1); restartAutoplay(); });
+    if (showcaseNextBtn) showcaseNextBtn.addEventListener('click', () => { showcaseGoTo(current + 1); restartAutoplay(); });
+
+    let showcaseAutoplayTimer = null;
+    function stopAutoplay() {
+      if (showcaseAutoplayTimer) clearInterval(showcaseAutoplayTimer);
+      showcaseAutoplayTimer = null;
+    }
+    function startAutoplay() {
+      if (isDesktop()) return;
+      stopAutoplay();
+      showcaseAutoplayTimer = setInterval(() => showcaseGoTo(current + 1), 4500);
+    }
+    function restartAutoplay() { stopAutoplay(); startAutoplay(); }
+
+    if ('IntersectionObserver' in window) {
+      const showcaseObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { entry.isIntersecting ? startAutoplay() : stopAutoplay(); });
+      }, { threshold: 0.4 });
+      showcaseObserver.observe(showcasePin);
+    }
+
+    // Balayage tactile : glisser à gauche/droite change de compétence (en plus des flèches).
+    let showcaseTouchStartX = null;
+    showcasePin.addEventListener('touchstart', (e) => {
+      if (isDesktop()) return;
+      showcaseTouchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    showcasePin.addEventListener('touchend', (e) => {
+      if (isDesktop() || showcaseTouchStartX === null) return;
+      const delta = e.changedTouches[0].clientX - showcaseTouchStartX;
+      showcaseTouchStartX = null;
+      if (Math.abs(delta) < 40) return;
+      showcaseGoTo(delta < 0 ? current + 1 : current - 1);
+      restartAutoplay();
+    }, { passive: true });
 
     function initShowcasePin() {
       if (st) { st.kill(); st = null; }
@@ -135,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showcaseResizeTimer = setTimeout(() => {
         initShowcasePin();
         ScrollTrigger.refresh();
+        if (isDesktop()) stopAutoplay();
       }, 200);
     });
     if (document.fonts && document.fonts.ready) {

@@ -165,6 +165,39 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   bord de `.testimonial-carousel`, elles dépassaient légèrement (~3px) sous 620px où le padding du
   `.container` n'est que de 20px. Corrigé avec un offset réduit à `4px` en mobile + `overflow-x:
   hidden` de sécurité sur `.temoignages`.
+- **`-webkit-line-clamp` sur le showcase pinné qui coupait le texte en fallback mobile** :
+  `.showcase-item h3`/`p` ont un `-webkit-line-clamp` (2/3 lignes) nécessaire UNIQUEMENT dans la
+  boîte pinnée desktop à hauteur fixe. Ces règles n'étaient pas neutralisées dans le fallback
+  mobile (liste empilée sans contrainte de hauteur) → titres/descriptions longs tronqués sans
+  raison sur mobile. Corrigé avec `-webkit-line-clamp: unset; overflow: visible;` dans le bloc
+  `@media (max-width:980px)`. Si vous ajoutez un nouveau bloc avec line-clamp desktop, pensez à le
+  neutraliser aussi en mobile s'il a un fallback en liste longue.
+- **`.section`/`.hero`/`.family-hero` gardaient leur padding vertical desktop (96px/84px/96px) à
+  toutes les tailles d'écran** → écarts énormes entre les blocs sur téléphone. Des paliers réduits
+  ont été ajoutés à 980px (64px/56px/40px) et 620px (48px/40px/32px). Si vous ajoutez une nouvelle
+  section pleine largeur avec un padding vertical important, pensez à lui donner un palier mobile.
+- **Menu mobile "Compétences" : sous-compétences invisibles/inaccessibles**. Le panneau
+  `.main-nav.is-mobile-open` est positionné en `absolute` par rapport au header `sticky` : si son
+  contenu dépasse la hauteur visible de l'écran, la partie qui dépasse suit le header en scrollant
+  (au lieu de rester dans le flux normal de la page) et devient impossible à atteindre — aucun
+  scroll ne peut la révéler. Avec 9 familles empilées verticalement + le contenu de la
+  sous-compétence active, ça dépassait systématiquement sur téléphone. Corrigé par :
+  1. `.main-nav.is-mobile-open { max-height: calc(100vh - 110px); overflow-y: auto; }` en filet de
+     sécurité (le panneau scrolle maintenant lui-même si besoin) ;
+  2. Transformation de `.dropdown-families` en rangée horizontale scrollable de puces (au lieu
+     d'une liste verticale de 9 lignes) sur mobile, ce qui libère assez de hauteur pour que la
+     sous-compétence sélectionnée reste visible sans scroll dans la plupart des cas.
+  Si vous ajoutez une 10e famille ou plus de sous-compétences par famille, réévaluez si le filet de
+  sécurité (scroll interne) suffit toujours ou s'il faut retravailler la mise en page.
+- **Bouton flottant "Me contacter" totalement masqué sur téléphone** (`display:none` sous 620px) :
+  remplacé par une pastille compacte texte-seul ("Contact", via `::before` car le HTML contient
+  `<span>Me contacter</span>` sur les 16 pages — pas la peine d'éditer le HTML, le pseudo-élément
+  suffit) ancrée en bas à droite, pour garder un accès rapide au contact sur mobile plutôt que de
+  le supprimer.
+- **Photo/icône du hero des pages compétence retirée sur téléphone** (`.family-hero-visual`) :
+  gardée entre 621-980px (où elle ne déforme plus rien grâce au `clamp()` sur `.family-icon-circle`
+  et au palier 980px ajouté), mais complètement masquée sous 620px à la demande explicite — sur
+  très petit écran, elle n'apportait pas assez de valeur pour justifier l'espace qu'elle prenait.
 - **GSAP ticker figé** : sans `gsap.ticker.lagSmoothing(0)`, les animations au chargement peuvent
   se figer en cours de route dans certains contextes de rendu automatisé. Déjà réglé dans le code.
 - **`<blockquote>` a une marge navigateur par défaut** (`16px 40px`) — si un jour un `.spotlight-card`

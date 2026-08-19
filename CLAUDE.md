@@ -130,14 +130,29 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   `@media (max-width:980px)`).
 - En mobile, un bloc **séparé et dupliqué sur les 16 pages**, `.dropdown-mobile-accordion`
   (juste après `</div>` qui ferme `.dropdown-panel`, avant `</li>`), affiche les 9 familles sous
-  forme d'accordéon vertical — exactement le même principe que `.faq-item`/`<details>` déjà
-  utilisé pour la FAQ. Chaque `<details class="dropdown-mobile-item">` contient un lien "Voir la
-  page X" en premier (mis en avant, `color:var(--navy)`) puis les sous-compétences. Tous les
-  `<details>` partagent `name="mobile-competences-accordion"` (accordéon HTML natif exclusif : en
-  ouvrir un ferme les autres — supporté nativement, aucun JS requis).
+  forme d'accordéon vertical. Structure par famille (`.dropdown-mobile-item`) :
+  ```html
+  <div class="dropdown-mobile-item">
+    <div class="dropdown-mobile-row">
+      <a href="seo.html" class="dropdown-mobile-name">Agence SEO</a>
+      <button type="button" class="dropdown-mobile-expand" aria-expanded="false" aria-label="…"></button>
+    </div>
+    <ul class="dropdown-mobile-sublist"> <li><a href="...">Sous-compétence</a></li> ... </ul>
+  </div>
+  ```
+  **Volontairement PAS un `<details>/<summary>` natif** : le nom de la famille (`.dropdown-mobile-name`)
+  est un lien classique qui navigue directement vers la page, et seul le bouton `.dropdown-mobile-expand`
+  (icône "+" en CSS pur, ::before/::after) déplie/replie `.dropdown-mobile-sublist` (transition
+  `max-height`). Avec un `<summary>` natif contenant un lien, cliquer le lien navigue ET déclenche le
+  toggle en même temps (comportement peu fiable selon les navigateurs) — d'où la séparation stricte
+  en deux éléments cliquables distincts. JS dans `script.js` (cherche `competences-mobile-accordion`) :
+  un seul item ouvert à la fois (accordéon exclusif géré à la main, pas de `name=""` natif ici).
+  Pour les 3 familles sans sous-compétences propres (Agence GEO, Social Media, Webdesign), le
+  `.dropdown-mobile-sublist` contient un `<p class="dropdown-sub-empty">` descriptif au lieu d'un
+  `<ul>` (même texte que le panneau desktop).
 - Si vous ajoutez/renommez une famille ou une sous-compétence, il faut mettre à jour l'accordéon
   **sur les 16 pages** en plus du `.dropdown-panel` desktop (contenu dupliqué intentionnellement,
-  pas de source unique — un script Python a servi à l'insertion initiale, voir git log).
+  pas de source unique — un script Python a servi à l'insertion/remplacement, voir git log).
 - `.main-nav.is-mobile-open` garde un `max-height: calc(100vh - 110px); overflow-y: auto;` en
   filet de sécurité : le panneau est en `position:absolute` sur un header `sticky`, donc si son
   contenu dépasse la hauteur d'écran, la partie qui dépasse serait sinon inatteignable (voir piège
@@ -159,6 +174,10 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
 - Le `-webkit-line-clamp` (2 lignes titre / 3 lignes description) n'a de sens que dans la boîte
   desktop à hauteur fixe : neutralisé en mobile (`unset` + `overflow:visible`) sinon le texte se
   fait couper au milieu d'un mot sans raison sur un item affiché plein écran.
+- Sur mobile, `.showcase-item` (le texte) est plafonné à `max-width:340px` et `.showcase-item-img`
+  (l'image) à `max-width:280px`, tous deux centrés (`margin:0 auto`) — plein écran faisait un bloc
+  perçu comme "trop large" sur téléphone. Si vous ajustez ces valeurs, gardez le texte un peu plus
+  large que l'image (meilleure lisibilité), toujours centrés.
 
 ## Pièges déjà rencontrés (pour ne pas les refaire)
 
@@ -182,10 +201,14 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
   `.family-breadcrumb{padding:18px 0 0}` (shorthand 3 valeurs = top/right&left/bottom) réécrivait
   TOUTES les valeurs de padding, y compris right/left à 0 — annulant le `padding:0 32px` de
   `.container` et collant le fil d'ariane au bord de l'écran sur les 11 pages compétence/service.
-  Corrigé en remplaçant par la propriété longhand `padding-top:18px` uniquement. Piège général :
-  ne JAMAIS redéclarer le raccourci `padding`/`margin` sur une classe destinée à être combinée avec
-  `.container` — utiliser les propriétés longhand (`padding-top`, etc.) pour ne modifier qu'un
-  côté.
+  Corrigé en remplaçant par la propriété longhand `padding-top:18px` uniquement. **Le même bug
+  existait aussi sur `.service-layout`** (`padding:80px 0`, combinée à `.container` sur les 2 pages
+  sous-compétence) **et `.projet-breadcrumb`** (`padding:18px 0 0`, sur `projet-delmar.html`) — les
+  deux corrigés de la même façon (longhand `padding-top`/`padding-bottom` uniquement). Piège
+  général : ne JAMAIS redéclarer le raccourci `padding`/`margin` sur une classe destinée à être
+  combinée avec `.container` — utiliser les propriétés longhand (`padding-top`, etc.) pour ne
+  modifier qu'un côté. Avant d'ajouter une nouvelle classe combinée à `.container` quelque part,
+  vérifiez qu'elle ne redéclare pas `padding`/`margin` en shorthand.
 - **Burger mobile mal aligné** : `.burger` n'avait pas de `margin-left:auto`, donc dès que
   `.main-nav`/`.btn-nav` passaient en `display:none` sous 980px, il se retrouvait collé au logo
   au lieu d'être poussé à droite du header. Corrigé avec `margin-left:auto` sur `.burger`.

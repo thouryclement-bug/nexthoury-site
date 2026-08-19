@@ -282,38 +282,54 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Menu "Compétences" en mobile : accordéon (même logique visuelle que .faq-item),
-   masqué en desktop où le panneau 2 colonnes .dropdown-panel reste utilisé. */
+/* Menu "Compétences" en mobile : accordéon, masqué en desktop où le panneau 2 colonnes
+   .dropdown-panel reste utilisé. Le nom de la famille est un lien direct vers sa page ;
+   seul le bouton "+" déplie la liste des sous-compétences (deux actions bien séparées,
+   pas de conflit clic-lien / clic-toggle comme avec <summary> natif). */
 .dropdown-mobile-accordion { display: none; }
 .dropdown-mobile-item { border-bottom: 1px solid var(--border); }
-.dropdown-mobile-item summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.dropdown-mobile-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dropdown-mobile-name {
+  flex: 1;
   padding: 13px 4px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 14.5px;
   color: var(--ink);
 }
-.dropdown-mobile-item summary::-webkit-details-marker { display: none; }
-.dropdown-mobile-item summary::after {
-  content: '+';
-  font-size: 19px;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--navy);
+.dropdown-mobile-expand {
   flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--navy);
+  position: relative;
+}
+.dropdown-mobile-expand::before,
+.dropdown-mobile-expand::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  background: currentColor;
   transition: transform .2s ease;
 }
-.dropdown-mobile-item[open] summary::after { transform: rotate(45deg); }
-.dropdown-mobile-item ul { display: flex; flex-direction: column; gap: 2px; padding: 0 4px 14px 10px; }
-.dropdown-mobile-item ul a { display: block; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
-.dropdown-mobile-item ul a:hover { background: var(--bg); color: var(--navy); }
-.dropdown-mobile-item ul li:first-child a { color: var(--navy); font-weight: 600; }
+.dropdown-mobile-expand::before { width: 14px; height: 1.6px; transform: translate(-50%, -50%); }
+.dropdown-mobile-expand::after { width: 1.6px; height: 14px; transform: translate(-50%, -50%); }
+.dropdown-mobile-item.is-open .dropdown-mobile-expand::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+.dropdown-mobile-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 4px 14px 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+.dropdown-mobile-item.is-open .dropdown-mobile-sublist { max-height: 320px; }
+.dropdown-mobile-sublist a { display: block; padding: 7px 8px; border-radius: var(--radius-sm); font-size: 13.5px; color: var(--ink-soft); }
+.dropdown-mobile-sublist a:hover { background: var(--bg); color: var(--navy); }
+.dropdown-mobile-sublist .dropdown-sub-empty { padding: 0 8px 4px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
 
 .burger {
   display: none;
@@ -1096,7 +1112,9 @@ body.service-page .burger span { background: var(--white); }
   .showcase-pin { height: auto; overflow: visible; display: block; padding: 0; max-height: none; }
   .showcase-pin-inner { grid-template-columns: 1fr; }
   .showcase-visual { display: none; }
-  .showcase-item-img { display: block; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 20px; }
+  /* Bloc + image réduits en largeur et centrés — plein écran faisait trop "large" sur téléphone. */
+  .showcase-item { max-width: 340px; margin: 0 auto; }
+  .showcase-item-img { display: block; max-width: 280px; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; margin: 0 auto 20px; }
   .showcase-item-img img { width: 100%; height: 100%; object-fit: cover; }
   /* Le clamp de lignes n'a de sens que dans la boîte pinnée desktop à hauteur fixe —
      en fallback mobile (un item plein écran, hauteur libre), le texte doit s'afficher en entier. */
@@ -1359,7 +1377,7 @@ body.service-page .burger span { background: var(--white); }
 /* =========================================================
    Fiche projet
    ========================================================= */
-.projet-breadcrumb { padding: 18px 0 0; font-size: 13px; color: var(--ink-soft); display: flex; gap: 8px; }
+.projet-breadcrumb { padding-top: 18px; font-size: 13px; color: var(--ink-soft); display: flex; gap: 8px; }
 .projet-breadcrumb a { color: var(--ink-soft); }
 .projet-breadcrumb a:hover { color: var(--blue); }
 .projet-breadcrumb span { color: var(--ink); font-weight: 600; }
@@ -1588,7 +1606,8 @@ body.service-page .burger span { background: var(--white); }
   grid-template-columns: 280px 1fr;
   gap: 64px;
   align-items: start;
-  padding: 80px 0;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 .service-sidebar {
   position: sticky;

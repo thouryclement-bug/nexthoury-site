@@ -44,6 +44,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('mobile-nav-open');
   });
 
+  // Accordéon mobile "Compétences" — le nom de la famille est un lien direct (navigue),
+  // seul le bouton "+" déplie/replie la liste des sous-compétences. Un seul ouvert à la fois.
+  const mobileAccordion = document.getElementById('competences-mobile-accordion');
+  if (mobileAccordion) {
+    const mobileItems = Array.from(mobileAccordion.querySelectorAll('.dropdown-mobile-item'));
+    mobileItems.forEach((item) => {
+      const expandBtn = item.querySelector('.dropdown-mobile-expand');
+      expandBtn.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+        mobileItems.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('.dropdown-mobile-expand').setAttribute('aria-expanded', 'false');
+        });
+        item.classList.toggle('is-open', willOpen);
+        expandBtn.setAttribute('aria-expanded', String(willOpen));
+      });
+    });
+  }
+
   // Header becomes more transparent once content scrolls underneath it
   const header = document.getElementById('site-header');
   function updateHeaderOnScroll() {

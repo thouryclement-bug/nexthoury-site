@@ -119,14 +119,16 @@ border-à-border en bas de l'image.
   résultats." dans `.hero` juste en dessous, pour garder une seule vraie balise `<h1>` par page.
 - **Historique des allers-retours sur l'animation du nom** (pour ne pas la refaire dans le mauvais
   sens si on retouche cette section) : v1 = révélation au chargement (GSAP timeline, translateY).
-  v2 = révélation liée au scroll (translateY + opacity mappés sur `window.scrollY`). **v3, version
-  actuelle demandée par le client** : PLUS aucun mouvement (`transform`) — juste un fondu
-  d'opacité (`transition: opacity 1s ease`, classe `.is-revealed` ajoutée par JS), déclenché par
-  le **premier mouvement de souris** sur `#intro` (`mousemove` avec `{ once: true }`), pas par le
-  scroll ni par un timer. Sur mobile/tactile (pas de souris) : révélation automatique après 500ms
-  via `setTimeout`, détecté avec `'ontouchstart' in window || navigator.maxTouchPoints > 0`.
-  Le kicker et `.intro-scroll-cue`, eux, sont TOUJOURS visibles dès le chargement — seul le nom
-  est concerné par ce mécanisme de révélation.
+  v2 = révélation liée au scroll, progressive (translateY + opacity mappés sur `window.scrollY`).
+  v3 = révélation au premier mouvement de souris (`mousemove` sur `#intro`), avec fallback
+  `setTimeout` sur mobile/tactile. **v4, version actuelle** : reprend le déclencheur scroll de la
+  v2, mais garde le fondu simple sans mouvement de la v3 — un seul écouteur
+  `window.addEventListener('scroll', revealIntroName, { once: true, passive: true })` ajoute la
+  classe `.is-revealed` (qui bascule `opacity:0→1` via `transition: opacity 1s ease`, définie sur
+  `.intro-name`) dès le tout premier pixel de scroll, sur n'importe quel appareil (souris, tactile,
+  clavier) — pas de distinction tactile/souris nécessaire puisque scroller fonctionne pareil
+  partout. Le kicker et `.intro-scroll-cue`, eux, sont TOUJOURS visibles dès le chargement — seul
+  le nom est concerné par ce mécanisme de révélation.
 - `.intro-scroll-cue` : petit indicateur "Scroll" en bas de l'intro avec un point qui rebondit
   (`@keyframes introScrollDot`), pur CSS, toujours visible, positionné en `absolute`.
 - Le hero classique juste en dessous n'a plus de photo (`.hero-visual` supprimé du HTML et de son

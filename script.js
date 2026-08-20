@@ -71,21 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeaderOnScroll();
   window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
 
-  // Intro cinématique (accueil) — le nom, centré sur l'image, apparaît en simple fondu au
-  // premier mouvement de souris (pas de glissement, pas lié au scroll). Le kicker "FREELANCE…"
-  // et l'indicateur de scroll restent visibles dès le chargement. Sur mobile/tactile (pas de
-  // souris), révélation automatique après un court délai. Le header devient un menu translucide
-  // sombre tant que l'intro occupe une bonne partie de l'écran.
+  // Intro cinématique (accueil) — le nom, centré sur l'image, apparaît en simple fondu (pas de
+  // glissement) dès le premier scroll. Le kicker "FREELANCE…" et l'indicateur de scroll restent
+  // visibles dès le chargement. Le header devient un menu translucide sombre tant que l'intro
+  // occupe une bonne partie de l'écran.
   const introReveal = document.getElementById('intro');
   const introName = document.querySelector('.intro-name');
   if (introReveal && introName) {
     function revealIntroName() { introName.classList.add('is-revealed'); }
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) {
-      setTimeout(revealIntroName, 500);
-    } else {
-      introReveal.addEventListener('mousemove', revealIntroName, { once: true });
-    }
+    window.addEventListener('scroll', revealIntroName, { once: true, passive: true });
 
     if ('IntersectionObserver' in window) {
       const headerLogo = document.getElementById('headerLogo');

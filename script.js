@@ -71,22 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeaderOnScroll();
   window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
 
-  // Intro cinématique (accueil) — le nom (+ le kicker) se révèle progressivement dès qu'on
-  // commence à scroller vers le bas (pas au chargement de la page). Le header devient un
-  // menu translucide sombre tant que l'intro occupe une bonne partie de l'écran.
+  // Intro cinématique (accueil) — le nom, centré sur l'image, apparaît en simple fondu au
+  // premier mouvement de souris (pas de glissement, pas lié au scroll). Le kicker "FREELANCE…"
+  // et l'indicateur de scroll restent visibles dès le chargement. Sur mobile/tactile (pas de
+  // souris), révélation automatique après un court délai. Le header devient un menu translucide
+  // sombre tant que l'intro occupe une bonne partie de l'écran.
   const introReveal = document.getElementById('intro');
   const introName = document.querySelector('.intro-name');
   if (introReveal && introName) {
-    const introKicker = document.querySelector('.intro-kicker');
-    const revealDistance = 260;
-    function updateIntroReveal() {
-      const progress = Math.min(1, Math.max(0, window.scrollY / revealDistance));
-      introName.style.opacity = progress;
-      introName.style.transform = `translateY(${(1 - progress) * 40}px)`;
-      if (introKicker) introKicker.style.opacity = Math.min(1, progress * 1.6);
+    function revealIntroName() { introName.classList.add('is-revealed'); }
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      setTimeout(revealIntroName, 500);
+    } else {
+      introReveal.addEventListener('mousemove', revealIntroName, { once: true });
     }
-    updateIntroReveal();
-    window.addEventListener('scroll', updateIntroReveal, { passive: true });
 
     if ('IntersectionObserver' in window) {
       const headerLogo = document.getElementById('headerLogo');

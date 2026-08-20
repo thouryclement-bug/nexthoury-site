@@ -107,21 +107,25 @@ border-à-border en bas de l'image.
   remis à `logo-wordmark.png` dès qu'on quitte l'intro). Ce mécanisme est scopé strictement à
   `index.html` (seule page avec `#intro`) — aucune autre page n'est affectée.
 - Contenu : `.intro-top` (padding-top ~132px pour laisser la place au header) contient
-  `.intro-kicker` (petit texte "Freelance — communication & publicité digitale", centré). Tout en
-  bas de la section (`.intro-bottom`, `justify-content:space-between` sur `.intro-reveal`),
-  `.intro-name` affiche « Clément Thoury » **sur une seule ligne** (`white-space:nowrap`,
-  `clamp(34px, 9.5vw, 150px)`) — PAS deux lignes, PAS de `<br>`. Les deux sont des `<p>`, PAS des
-  `<h1>`/`<h2>` — le vrai `<h1>` de la page reste "Votre communication, enfin orientée résultats."
-  dans `.hero` juste en dessous, pour garder une seule vraie balise `<h1>` par page.
-- **Révélation au scroll, PAS au chargement** : contrairement à une v1 précédente qui animait au
-  chargement avec un timer GSAP, le client a demandé que le nom apparaisse "dès qu'on commence à
-  scroller vers le bas". `script.js` (cherche `updateIntroReveal`) mappe `window.scrollY / 260`
-  (0 à 1) directement sur l'opacité/translateY de `.intro-kicker`/`.intro-name`, via un écouteur de
-  scroll simple (pas de ScrollTrigger GSAP ici, juste du style inline recalculé). CSS de base :
-  `opacity:0` sur les deux, pour éviter un flash avant que le JS tourne.
+  `.intro-kicker` (petit texte "Freelance — communication & publicité digitale") — **visible
+  immédiatement au chargement**, pas d'animation dessus. `.intro-center` (position absolute,
+  `inset:0`, `display:flex` centré horizontalement ET verticalement) contient `.intro-name`
+  affichant « Clément Thoury » **sur une seule ligne** (`white-space:nowrap`,
+  `clamp(34px, 9.5vw, 150px)`), **au milieu de la section, pas en bas**. Les deux sont des `<p>`,
+  PAS des `<h1>`/`<h2>` — le vrai `<h1>` de la page reste "Votre communication, enfin orientée
+  résultats." dans `.hero` juste en dessous, pour garder une seule vraie balise `<h1>` par page.
+- **Historique des allers-retours sur l'animation du nom** (pour ne pas la refaire dans le mauvais
+  sens si on retouche cette section) : v1 = révélation au chargement (GSAP timeline, translateY).
+  v2 = révélation liée au scroll (translateY + opacity mappés sur `window.scrollY`). **v3, version
+  actuelle demandée par le client** : PLUS aucun mouvement (`transform`) — juste un fondu
+  d'opacité (`transition: opacity 1s ease`, classe `.is-revealed` ajoutée par JS), déclenché par
+  le **premier mouvement de souris** sur `#intro` (`mousemove` avec `{ once: true }`), pas par le
+  scroll ni par un timer. Sur mobile/tactile (pas de souris) : révélation automatique après 500ms
+  via `setTimeout`, détecté avec `'ontouchstart' in window || navigator.maxTouchPoints > 0`.
+  Le kicker et `.intro-scroll-cue`, eux, sont TOUJOURS visibles dès le chargement — seul le nom
+  est concerné par ce mécanisme de révélation.
 - `.intro-scroll-cue` : petit indicateur "Scroll" en bas de l'intro avec un point qui rebondit
-  (`@keyframes introScrollDot`), pur CSS, positionné en `absolute` (n'interfère pas avec le
-  `space-between` top/bottom du texte).
+  (`@keyframes introScrollDot`), pur CSS, toujours visible, positionné en `absolute`.
 - Le hero classique juste en dessous n'a plus de photo (`.hero-visual` supprimé du HTML et de son
   CSS) : `.hero-inner` est maintenant en une seule colonne centrée (`max-width:760px; margin:0
   auto; text-align:center;`). La pastille "Disponible pour un nouveau projet" (ex-badge flottant

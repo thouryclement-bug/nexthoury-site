@@ -364,7 +364,6 @@ body.service-page .burger span { background: var(--white); }
   margin: -86px 0 32px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
   background: linear-gradient(155deg, var(--navy-darker) 0%, var(--navy-dark) 45%, var(--navy) 100%);
   color: var(--white);
@@ -373,7 +372,15 @@ body.service-page .burger span { background: var(--white); }
 .intro-glow-1 { width: 480px; height: 480px; top: -160px; right: -120px; background: radial-gradient(circle, var(--blue) 0%, transparent 70%); opacity: 0.35; }
 .intro-glow-2 { width: 420px; height: 420px; bottom: -180px; left: -140px; background: radial-gradient(circle, var(--blue-soft) 0%, transparent 70%); opacity: 0.16; }
 .intro-top { position: relative; z-index: 1; padding-top: 132px; text-align: center; }
-.intro-bottom { position: relative; z-index: 1; padding-bottom: 0; }
+.intro-center {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
 .intro-kicker {
   font-size: 13px;
   font-weight: 600;
@@ -381,7 +388,6 @@ body.service-page .burger span { background: var(--white); }
   letter-spacing: 0.18em;
   color: color-mix(in srgb, var(--white) 70%, var(--blue-soft) 30%);
   margin: 0;
-  opacity: 0;
 }
 .intro-name {
   font-family: var(--font-display);
@@ -392,9 +398,10 @@ body.service-page .burger span { background: var(--white); }
   white-space: nowrap;
   text-align: center;
   margin: 0;
-  transform: translateY(40px);
   opacity: 0;
+  transition: opacity 1s ease;
 }
+.intro-name.is-revealed { opacity: 1; }
 .intro-scroll-cue {
   position: absolute;
   z-index: 1;

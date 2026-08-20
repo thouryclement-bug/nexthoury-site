@@ -89,13 +89,16 @@ Référence de design explicite du client : template ["Solaris" de Lovable](http
 — grande photo plein écran, menu translucide flottant dessus, nom en très grand qui vient
 border-à-border en bas de l'image.
 
-- **Photo pas encore intégrée.** Le client fournira une image plus tard (PAS son portrait —
-  préférence explicite de ne pas afficher son visage en grand sur l'accueil). En attendant,
-  `.intro-reveal` a un dégradé navy de substitution (`--navy-darker` → `--navy-dark` → `--navy`)
-  avec 2 `.intro-glow` (blobs flous bleus). **Quand la photo arrive** : ajouter
-  `background-image: url('assets/XXX.jpg'); background-size:cover; background-position:center;`
-  sur `.intro-reveal` (garder le dégradé en `background` de secours avant, ou en overlay
-  `linear-gradient(...)` par-dessus l'image pour la lisibilité du texte blanc — au choix visuel).
+- **Photo de fond : `assets/intro-bg.jpg`** (photo de vagues bleu marine, PAS un portrait de
+  Clément — préférence explicite de ne pas afficher son visage en grand sur l'accueil). Appliquée
+  sur `.intro-reveal` via `background-image` en deux couches : un `linear-gradient` sombre
+  semi-transparent (plus opaque en haut ~0.65 et en bas ~0.55, plus clair au milieu ~0.45) PAR-DESSUS
+  `url('assets/intro-bg.jpg')`, avec `background-size:cover; background-position:center;` — le
+  dégradé garantit que le texte blanc (kicker + nom) reste lisible quel que soit le contenu de la
+  photo. Les anciens `.intro-glow` (blobs flous colorés, pensés pour le dégradé de substitution)
+  ont été retirés du HTML et du CSS : ils n'avaient plus de sens par-dessus une vraie photo. Si
+  Clément fournit une autre photo plus tard, il suffit de remplacer `assets/intro-bg.jpg` (même nom
+  de fichier) ou de changer l'URL dans la règle `.intro-reveal` de `styles.css`.
 - **Plein écran, sous le header** : `.intro-reveal` a un `margin-top:-86px` (= hauteur du header
   `.site-header`, sticky) pour remonter SOUS le header et lui laisser flotter dessus (`z-index:100`
   sur le header le garde visuellement au-dessus). `min-height:100vh`. Si vous changez la hauteur du

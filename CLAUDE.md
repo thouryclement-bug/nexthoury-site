@@ -44,7 +44,7 @@ Accueil (`index.html`), 9 pages "famille de compétence" (`seo.html`, `geo.html`
 `site.html`, `content.html`, `social.html`, `webdesign.html`, `marketing.html`,
 `automatisation.html`), 2 pages "sous-compétence" au design distinct
 (`seo-audit-technique.html`, `ads-google-ads.html`), `projets.html` (liste), `projet-delmar.html`
-(fiche projet), `contact.html`.
+(fiche projet), `contact.html`, `apropos.html` (bio de Clément), `confidentialite.html`.
 
 ### Couleurs de marque par famille (`--family-color` inline sur `<body>`)
 
@@ -75,8 +75,37 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
    qui suit la souris) avec flèches prev/next. Le nombre de cartes visibles s'adapte tout seul :
    ajouter un nouveau `.spotlight-card` dans `#testimonialTrack` suffit, les flèches s'activent
    automatiquement s'il y en a plus que ce qui peut s'afficher.
-3. **Bloc "Comment je travaille"** (accueil + contact) — process en 4 étapes, carte `.bento-card`.
+3. **Bloc "Comment je travaille"** (accueil + contact + apropos) — process en 4 étapes, carte `.bento-card`.
 4. **Calendrier Cal.com intégré** — voir section dédiée ci-dessous.
+5. **Intro cinématique** (accueil, tout en haut, `.intro-reveal`) — voir section dédiée ci-dessous.
+6. **Bloc "À propos" compact** (accueil, juste avant le CTA final, `.about-teaser`) — petite carte
+   avec photo ronde + titre + sous-titre, cliquable, envoie vers `apropos.html`. Volontairement
+   discret : Clément ne veut PAS d'une grande photo de lui en évidence sur l'accueil (préférence
+   explicite) — ne pas réintroduire de portrait en grand format dans le hero.
+
+## Intro cinématique (accueil, avant le hero classique)
+
+- `.intro-reveal` : section plein écran (`min-height: calc(100vh - 112px)`, ajustée en mobile),
+  fond en dégradé navy (`--navy-darker` → `--navy-dark` → `--navy`) avec 2 `.intro-glow` (blobs
+  flous bleus, façon aurore). PAS de photo de Clément dans cette section — préférence explicite du
+  client de ne pas afficher son visage en grand sur l'accueil.
+- Contenu : `.intro-kicker` (petit texte "Consultant freelance — communication & publicité
+  digitale") puis `.intro-name` (« Clément Thoury » en très grand, `clamp(52px, 12vw, 168px)`).
+  Les deux sont des `<p>`, PAS des `<h1>`/`<h2>` — le vrai `<h1>` de la page reste "Votre
+  communication, enfin orientée résultats." dans `.hero` juste en dessous, pour garder une seule
+  vraie balise `<h1>` par page (SEO/accessibilité).
+- Animation d'entrée (`script.js`, cherche `.intro-name`) : GSAP anime `.intro-kicker` puis
+  `.intro-name` depuis `translateY(+50px)/opacity:0` vers leur position finale, au chargement de
+  la page (indépendant du bloc showcase — tourne même si `showcasePin` n'existe pas sur la page).
+- `.intro-scroll-cue` : petit indicateur "Scroll" en bas de l'intro avec un point qui rebondit
+  (`@keyframes introScrollDot`), pur CSS.
+- Le header reste `position:sticky` inchangé (pas de mode "overlay" spécifique) : l'intro
+  commence juste après lui dans le flux normal — son style "verre" (fond blanc translucide +
+  blur) suffit à bien se détacher visuellement du fond sombre de l'intro sans modification.
+- Le hero classique juste en dessous n'a plus de photo (`.hero-visual` supprimé du HTML et de son
+  CSS) : `.hero-inner` est maintenant en une seule colonne centrée (`max-width:760px; margin:0
+  auto; text-align:center;`). La pastille "Disponible pour un nouveau projet" (ex-badge flottant
+  sur la photo) est maintenant un pill `.hero-available` au-dessus de l'eyebrow.
 
 ## Intégration Cal.com (calendrier de disponibilité)
 

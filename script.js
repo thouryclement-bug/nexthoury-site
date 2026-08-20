@@ -63,6 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Intro cinématique (accueil) — le nom se révèle depuis le bas au chargement de la page
+  const introName = document.querySelector('.intro-name');
+  if (introName && typeof gsap !== 'undefined') {
+    const introKicker = document.querySelector('.intro-kicker');
+    gsap.set(introName, { y: 50, opacity: 0 });
+    if (introKicker) gsap.set(introKicker, { y: 14, opacity: 0 });
+    const introTl = gsap.timeline({ delay: 0.15 });
+    if (introKicker) introTl.to(introKicker, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
+    introTl.to(introName, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, introKicker ? '-=0.35' : 0);
+  }
+
   // Header becomes more transparent once content scrolls underneath it
   const header = document.getElementById('site-header');
   function updateHeaderOnScroll() {

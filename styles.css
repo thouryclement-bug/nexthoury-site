@@ -352,9 +352,69 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 body.service-page .burger span { background: var(--white); }
 
 /* =========================================================
+   Intro cinématique (accueil uniquement) — plein écran, nom qui se révèle
+   depuis le bas au chargement, puis on scrolle pour voir le hero classique.
+   ========================================================= */
+.intro-reveal {
+  position: relative;
+  min-height: calc(100vh - 112px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 24px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(155deg, var(--navy-darker) 0%, var(--navy-dark) 45%, var(--navy) 100%);
+  color: var(--white);
+}
+.intro-glow { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.intro-glow-1 { width: 480px; height: 480px; top: -160px; right: -120px; background: radial-gradient(circle, var(--blue) 0%, transparent 70%); opacity: 0.35; }
+.intro-glow-2 { width: 420px; height: 420px; bottom: -180px; left: -140px; background: radial-gradient(circle, var(--blue-soft) 0%, transparent 70%); opacity: 0.16; }
+.intro-inner { position: relative; z-index: 1; padding: 40px 0 64px; }
+.intro-kicker {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--white) 70%, var(--blue-soft) 30%);
+  margin: 0 0 18px;
+}
+.intro-name {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 12vw, 168px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.intro-scroll-cue {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--white) 60%, transparent 40%);
+}
+.intro-scroll-track { width: 22px; height: 36px; border: 1.5px solid color-mix(in srgb, var(--white) 45%, transparent 55%); border-radius: var(--radius-pill); display: flex; justify-content: center; padding-top: 6px; }
+.intro-scroll-dot { width: 4px; height: 8px; border-radius: var(--radius-pill); background: var(--white); animation: introScrollDot 1.8s ease infinite; }
+@keyframes introScrollDot {
+  0% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(10px); opacity: 0.2; }
+  61% { transform: translateY(0); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================================
    Hero
    ========================================================= */
-.hero { position: relative; padding: 84px 0 96px; overflow: hidden; }
+.hero { position: relative; padding: 56px 0 96px; overflow: hidden; }
 .hero-blob {
   position: absolute;
   border-radius: 50%;
@@ -366,10 +426,29 @@ body.service-page .burger span { background: var(--white); }
 .hero-inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 56px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-available {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 20px;
   align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.hero-available .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #34C759;
+  box-shadow: 0 0 0 3px rgba(52,199,89,0.2);
 }
 .hero h1 {
   font-size: clamp(38px, 5vw, 58px);
@@ -380,71 +459,14 @@ body.service-page .burger span { background: var(--white); }
 .hero-sub {
   font-size: 18px;
   color: var(--ink-soft);
-  max-width: 480px;
-  margin-bottom: 34px;
+  max-width: 560px;
+  margin: 0 auto 34px;
 }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
-.hero-stats { display: flex; gap: 40px; }
-.hero-stat { display: flex; flex-direction: column; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+.hero-stats { display: flex; gap: 40px; justify-content: center; }
+.hero-stat { display: flex; flex-direction: column; align-items: center; }
 .hero-stat strong { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--navy); }
 .hero-stat span { font-size: 13px; color: var(--ink-soft); }
-
-.hero-visual { position: relative; width: 100%; }
-.hero-visual-accent {
-  position: absolute;
-  inset: 0;
-  top: 28px;
-  left: -28px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, var(--blue-soft), var(--blue));
-  opacity: 0.6;
-  transform: rotate(-3deg);
-  z-index: 0;
-}
-.hero-visual-frame {
-  position: relative;
-  z-index: 1;
-  aspect-ratio: 4/5;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 130%);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-lg);
-  transform: rotate(1.2deg);
-}
-.portrait-placeholder {
-  width: 100%; height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-}
-.portrait-placeholder.small {
-  aspect-ratio: 1;
-  height: 280px;
-  width: 280px;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-}
-.hero-badge {
-  position: absolute;
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  padding: 12px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hero-badge .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #34C759;
-  box-shadow: 0 0 0 3px rgba(52,199,89,0.2);
-}
-.hero-badge-1 { top: 8%; left: -8%; }
-.hero-badge-2 { bottom: 8%; right: -10%; }
-.hero-badge-2 strong { color: var(--navy); margin-right: 4px; }
 
 /* =========================================================
    Logos band
@@ -1110,10 +1132,9 @@ body.service-page .burger span { background: var(--white); }
   body.service-page .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
   body.service-page .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
   .section { padding: 64px 0; }
-  .hero { padding: 56px 0 64px; }
+  .hero { padding: 40px 0 64px; }
   .family-hero { padding: 40px 0 56px; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { max-width: 340px; margin: 0 auto; }
+  .intro-reveal { min-height: calc(100vh - 100px); margin: 0 16px 24px; }
   .projets-grid { grid-template-columns: 1fr; }
   .bento-process { grid-template-columns: 1fr; }
   /* Showcase des 9 compétences en mobile : un seul item visible à la fois (comme sur desktop),
@@ -1166,9 +1187,9 @@ body.service-page .burger span { background: var(--white); }
   .cta-final-inner { flex-direction: column; align-items: flex-start; text-align: left; }
   .cta-final-pattern { width: 220px; }
   .btn-white { width: 100%; justify-content: center; }
-  .hero-badge-1 { display: none; }
-  .hero-badge-2 { font-size: 12px; padding: 10px 12px; bottom: 5%; right: 5%; left: 5%; width: auto; justify-content: center; }
-  .hero-visual-frame { margin-bottom: 12px; }
+  .intro-reveal { min-height: calc(100vh - 90px); margin: 0 12px 20px; padding: 0; }
+  .intro-inner { padding: 32px 0 48px; }
+  .intro-scroll-cue { margin-bottom: 22px; }
   /* Bouton "Me contacter" : sur téléphone, pastille compacte en bas à droite plutôt que
      le tab vertical mi-écran (trop large / recouvrait du contenu) — on garde un accès direct
      au contact plutôt que de le masquer complètement. */
@@ -1207,6 +1228,50 @@ body.service-page .burger span { background: var(--white); }
 .legal-content strong { color: var(--ink); }
 .legal-content a { color: var(--navy); text-decoration: underline; }
 .legal-content a:hover { color: var(--blue); }
+
+/* =========================================================
+   Bloc "À propos" compact (bas de la page d'accueil, envoie vers apropos.html)
+   ========================================================= */
+.about-teaser {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.about-teaser:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: transparent; }
+.about-teaser-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+.about-teaser-copy { flex: 1; }
+.about-teaser-copy .eyebrow { margin-bottom: 4px; }
+.about-teaser-copy h3 { font-size: 19px; font-weight: 800; margin-bottom: 4px; }
+.about-teaser-copy p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
+.about-teaser-arrow { flex-shrink: 0; color: var(--navy); transition: transform .2s ease; }
+.about-teaser:hover .about-teaser-arrow { transform: translateX(4px); }
+@media (max-width: 480px) {
+  .about-teaser { padding: 18px 16px; gap: 14px; }
+  .about-teaser-photo { width: 56px; height: 56px; }
+  .about-teaser-arrow { display: none; }
+}
+
+/* =========================================================
+   Page "À propos" (apropos.html)
+   ========================================================= */
+.about-hero { padding: 56px 0 24px; }
+.about-hero-inner { display: flex; align-items: center; gap: 32px; }
+.about-hero-photo { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; flex-shrink: 0; box-shadow: var(--shadow-lg); }
+.about-hero-copy h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; margin-bottom: 12px; }
+.about-hero-sub { color: var(--ink-soft); font-size: 17px; max-width: 560px; }
+.about-section-inner { max-width: 720px; margin: 0 auto; }
+.about-section-inner h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 800; margin-bottom: 18px; line-height: 1.2; }
+.about-section-inner p { color: var(--ink-soft); font-size: 16px; line-height: 1.65; margin-bottom: 16px; }
+.about-values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) {
+  .about-hero-inner { flex-direction: column; text-align: center; }
+  .about-values-grid { grid-template-columns: 1fr; }
+}
 
 /* =========================================================
    Cookie consent — banner (1er niveau : accepter / refuser / personnaliser)

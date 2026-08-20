@@ -85,23 +85,43 @@ la barre de menu qui prend la couleur, avec le bouton Contact inversé en blanc.
 
 ## Intro cinématique (accueil, avant le hero classique)
 
-- `.intro-reveal` : section plein écran (`min-height: calc(100vh - 112px)`, ajustée en mobile),
-  fond en dégradé navy (`--navy-darker` → `--navy-dark` → `--navy`) avec 2 `.intro-glow` (blobs
-  flous bleus, façon aurore). PAS de photo de Clément dans cette section — préférence explicite du
-  client de ne pas afficher son visage en grand sur l'accueil.
-- Contenu : `.intro-kicker` (petit texte "Consultant freelance — communication & publicité
-  digitale") puis `.intro-name` (« Clément Thoury » en très grand, `clamp(52px, 12vw, 168px)`).
-  Les deux sont des `<p>`, PAS des `<h1>`/`<h2>` — le vrai `<h1>` de la page reste "Votre
-  communication, enfin orientée résultats." dans `.hero` juste en dessous, pour garder une seule
-  vraie balise `<h1>` par page (SEO/accessibilité).
-- Animation d'entrée (`script.js`, cherche `.intro-name`) : GSAP anime `.intro-kicker` puis
-  `.intro-name` depuis `translateY(+50px)/opacity:0` vers leur position finale, au chargement de
-  la page (indépendant du bloc showcase — tourne même si `showcasePin` n'existe pas sur la page).
+Référence de design explicite du client : template ["Solaris" de Lovable](https://lovable.dev/fr/templates/websites/music/solaris-dj-music-artist-website-template)
+— grande photo plein écran, menu translucide flottant dessus, nom en très grand qui vient
+border-à-border en bas de l'image.
+
+- **Photo pas encore intégrée.** Le client fournira une image plus tard (PAS son portrait —
+  préférence explicite de ne pas afficher son visage en grand sur l'accueil). En attendant,
+  `.intro-reveal` a un dégradé navy de substitution (`--navy-darker` → `--navy-dark` → `--navy`)
+  avec 2 `.intro-glow` (blobs flous bleus). **Quand la photo arrive** : ajouter
+  `background-image: url('assets/XXX.jpg'); background-size:cover; background-position:center;`
+  sur `.intro-reveal` (garder le dégradé en `background` de secours avant, ou en overlay
+  `linear-gradient(...)` par-dessus l'image pour la lisibilité du texte blanc — au choix visuel).
+- **Plein écran, sous le header** : `.intro-reveal` a un `margin-top:-86px` (= hauteur du header
+  `.site-header`, sticky) pour remonter SOUS le header et lui laisser flotter dessus (`z-index:100`
+  sur le header le garde visuellement au-dessus). `min-height:100vh`. Si vous changez la hauteur du
+  header (`.site-header` padding ou `.header-inner` height), il faut recalculer ce `-86px`.
+- **Menu translucide sombre pendant l'intro** : classe `.header-on-dark` posée/retirée sur
+  `#site-header` par un `IntersectionObserver` dans `script.js` (observe `#intro`, seuil 0.35) —
+  fond du header semi-transparent sombre (`rgba(20,22,30,0.55)`), texte blanc, bouton Contact
+  inversé en blanc, logo swappé vers `assets/logo-wordmark-white.png` (via `id="headerLogo"`,
+  remis à `logo-wordmark.png` dès qu'on quitte l'intro). Ce mécanisme est scopé strictement à
+  `index.html` (seule page avec `#intro`) — aucune autre page n'est affectée.
+- Contenu : `.intro-top` (padding-top ~132px pour laisser la place au header) contient
+  `.intro-kicker` (petit texte "Freelance — communication & publicité digitale", centré). Tout en
+  bas de la section (`.intro-bottom`, `justify-content:space-between` sur `.intro-reveal`),
+  `.intro-name` affiche « Clément Thoury » **sur une seule ligne** (`white-space:nowrap`,
+  `clamp(34px, 9.5vw, 150px)`) — PAS deux lignes, PAS de `<br>`. Les deux sont des `<p>`, PAS des
+  `<h1>`/`<h2>` — le vrai `<h1>` de la page reste "Votre communication, enfin orientée résultats."
+  dans `.hero` juste en dessous, pour garder une seule vraie balise `<h1>` par page.
+- **Révélation au scroll, PAS au chargement** : contrairement à une v1 précédente qui animait au
+  chargement avec un timer GSAP, le client a demandé que le nom apparaisse "dès qu'on commence à
+  scroller vers le bas". `script.js` (cherche `updateIntroReveal`) mappe `window.scrollY / 260`
+  (0 à 1) directement sur l'opacité/translateY de `.intro-kicker`/`.intro-name`, via un écouteur de
+  scroll simple (pas de ScrollTrigger GSAP ici, juste du style inline recalculé). CSS de base :
+  `opacity:0` sur les deux, pour éviter un flash avant que le JS tourne.
 - `.intro-scroll-cue` : petit indicateur "Scroll" en bas de l'intro avec un point qui rebondit
-  (`@keyframes introScrollDot`), pur CSS.
-- Le header reste `position:sticky` inchangé (pas de mode "overlay" spécifique) : l'intro
-  commence juste après lui dans le flux normal — son style "verre" (fond blanc translucide +
-  blur) suffit à bien se détacher visuellement du fond sombre de l'intro sans modification.
+  (`@keyframes introScrollDot`), pur CSS, positionné en `absolute` (n'interfère pas avec le
+  `space-between` top/bottom du texte).
 - Le hero classique juste en dessous n'a plus de photo (`.hero-visual` supprimé du HTML et de son
   CSS) : `.hero-inner` est maintenant en une seule colonne centrée (`max-width:760px; margin:0
   auto; text-align:center;`). La pastille "Disponible pour un nouveau projet" (ex-badge flottant

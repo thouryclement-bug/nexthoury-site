@@ -18,7 +18,7 @@
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="#" class="logo">
-      <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img">
+      <img src="assets/logo-wordmark.png" alt="NexThoury" class="logo-img" id="headerLogo">
     </a>
 
     <nav class="main-nav" id="main-nav">
@@ -222,12 +222,16 @@
 
 <main>
 <!-- ============ INTRO (cinématique, plein écran) ============ -->
+<!-- L'image de fond sera remplacée plus tard (voir CLAUDE.md) : pour l'instant, dégradé de
+     substitution. Le style ne change qu'ici, jamais utilisé ailleurs sur le site. -->
 <section class="intro-reveal" id="intro">
   <div class="intro-glow intro-glow-1" aria-hidden="true"></div>
   <div class="intro-glow intro-glow-2" aria-hidden="true"></div>
-  <div class="container intro-inner">
-    <p class="intro-kicker">Consultant freelance — communication &amp; publicité digitale</p>
-    <p class="intro-name">Clément<br>Thoury</p>
+  <div class="container intro-top">
+    <p class="intro-kicker">Freelance — communication &amp; publicité digitale</p>
+  </div>
+  <div class="container intro-bottom">
+    <p class="intro-name">Clément Thoury</p>
   </div>
   <div class="intro-scroll-cue">
     <span class="intro-scroll-track"><span class="intro-scroll-dot"></span></span>

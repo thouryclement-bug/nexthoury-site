@@ -352,46 +352,55 @@ body.service-page .has-dropdown.is-open .dropdown-toggle svg { color: var(--navy
 body.service-page .burger span { background: var(--white); }
 
 /* =========================================================
-   Intro cinématique (accueil uniquement) — plein écran, nom qui se révèle
-   depuis le bas au chargement, puis on scrolle pour voir le hero classique.
+   Intro cinématique (accueil uniquement) — plein écran façon "grande photo + menu
+   translucide" (référence : template Solaris de Lovable). Le kicker reste en haut,
+   le nom en très grand occupe presque toute la largeur en bas, sur une seule ligne.
+   Le nom se révèle progressivement dès que l'utilisateur commence à scroller
+   (voir script.js, écouteur de scroll, pas au chargement de la page).
    ========================================================= */
 .intro-reveal {
   position: relative;
-  min-height: calc(100vh - 112px);
+  min-height: 100vh;
+  margin: -86px 0 32px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
-  margin: 0 24px 32px;
-  border-radius: var(--radius-lg);
   background: linear-gradient(155deg, var(--navy-darker) 0%, var(--navy-dark) 45%, var(--navy) 100%);
   color: var(--white);
 }
 .intro-glow { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
 .intro-glow-1 { width: 480px; height: 480px; top: -160px; right: -120px; background: radial-gradient(circle, var(--blue) 0%, transparent 70%); opacity: 0.35; }
 .intro-glow-2 { width: 420px; height: 420px; bottom: -180px; left: -140px; background: radial-gradient(circle, var(--blue-soft) 0%, transparent 70%); opacity: 0.16; }
-.intro-inner { position: relative; z-index: 1; padding: 40px 0 64px; }
+.intro-top { position: relative; z-index: 1; padding-top: 132px; text-align: center; }
+.intro-bottom { position: relative; z-index: 1; padding-bottom: 0; }
 .intro-kicker {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
   color: color-mix(in srgb, var(--white) 70%, var(--blue-soft) 30%);
-  margin: 0 0 18px;
+  margin: 0;
+  opacity: 0;
 }
 .intro-name {
   font-family: var(--font-display);
-  font-size: clamp(52px, 12vw, 168px);
+  font-size: clamp(34px, 9.5vw, 150px);
   font-weight: 800;
-  line-height: 0.98;
+  line-height: 0.9;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-align: center;
   margin: 0;
+  transform: translateY(40px);
+  opacity: 0;
 }
 .intro-scroll-cue {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  align-self: center;
-  margin-bottom: 28px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -410,6 +419,22 @@ body.service-page .burger span { background: var(--white); }
   61% { transform: translateY(0); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
+
+/* Menu translucide sombre quand il flotte au-dessus de l'intro (photo/dégradé foncé) —
+   scope strictement à cet état (classe posée par script.js via IntersectionObserver),
+   n'affecte aucune autre page. */
+.site-header.header-on-dark .header-inner {
+  background: rgba(20, 22, 30, 0.55);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.site-header.header-on-dark .main-nav > ul > li > a,
+.site-header.header-on-dark .dropdown-toggle { color: var(--white); }
+.site-header.header-on-dark .dropdown-toggle svg { color: rgba(255, 255, 255, 0.7); }
+.site-header.header-on-dark .main-nav > ul > li > a:hover,
+.site-header.header-on-dark .dropdown-toggle:hover { background: rgba(255, 255, 255, 0.14); color: var(--white); }
+.site-header.header-on-dark .burger span { background: var(--white); }
+.site-header.header-on-dark .btn-nav { background: var(--white); color: var(--navy); }
+.site-header.header-on-dark .btn-nav:hover { background: var(--white); filter: brightness(0.92); }
 
 /* =========================================================
    Hero
@@ -1134,7 +1159,7 @@ body.service-page .burger span { background: var(--white); }
   .section { padding: 64px 0; }
   .hero { padding: 40px 0 64px; }
   .family-hero { padding: 40px 0 56px; }
-  .intro-reveal { min-height: calc(100vh - 100px); margin: 0 16px 24px; }
+  .intro-top { padding-top: 118px; }
   .projets-grid { grid-template-columns: 1fr; }
   .bento-process { grid-template-columns: 1fr; }
   /* Showcase des 9 compétences en mobile : un seul item visible à la fois (comme sur desktop),
@@ -1187,9 +1212,8 @@ body.service-page .burger span { background: var(--white); }
   .cta-final-inner { flex-direction: column; align-items: flex-start; text-align: left; }
   .cta-final-pattern { width: 220px; }
   .btn-white { width: 100%; justify-content: center; }
-  .intro-reveal { min-height: calc(100vh - 90px); margin: 0 12px 20px; padding: 0; }
-  .intro-inner { padding: 32px 0 48px; }
-  .intro-scroll-cue { margin-bottom: 22px; }
+  .intro-top { padding-top: 108px; }
+  .intro-scroll-cue { bottom: 14px; }
   /* Bouton "Me contacter" : sur téléphone, pastille compacte en bas à droite plutôt que
      le tab vertical mi-écran (trop large / recouvrait du contenu) — on garde un accès direct
      au contact plutôt que de le masquer complètement. */

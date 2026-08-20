@@ -63,17 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Intro cinématique (accueil) — le nom se révèle depuis le bas au chargement de la page
-  const introName = document.querySelector('.intro-name');
-  if (introName && typeof gsap !== 'undefined') {
-    const introKicker = document.querySelector('.intro-kicker');
-    gsap.set(introName, { y: 50, opacity: 0 });
-    if (introKicker) gsap.set(introKicker, { y: 14, opacity: 0 });
-    const introTl = gsap.timeline({ delay: 0.15 });
-    if (introKicker) introTl.to(introKicker, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
-    introTl.to(introName, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, introKicker ? '-=0.35' : 0);
-  }
-
   // Header becomes more transparent once content scrolls underneath it
   const header = document.getElementById('site-header');
   function updateHeaderOnScroll() {
@@ -81,6 +70,35 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateHeaderOnScroll();
   window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
+
+  // Intro cinématique (accueil) — le nom (+ le kicker) se révèle progressivement dès qu'on
+  // commence à scroller vers le bas (pas au chargement de la page). Le header devient un
+  // menu translucide sombre tant que l'intro occupe une bonne partie de l'écran.
+  const introReveal = document.getElementById('intro');
+  const introName = document.querySelector('.intro-name');
+  if (introReveal && introName) {
+    const introKicker = document.querySelector('.intro-kicker');
+    const revealDistance = 260;
+    function updateIntroReveal() {
+      const progress = Math.min(1, Math.max(0, window.scrollY / revealDistance));
+      introName.style.opacity = progress;
+      introName.style.transform = `translateY(${(1 - progress) * 40}px)`;
+      if (introKicker) introKicker.style.opacity = Math.min(1, progress * 1.6);
+    }
+    updateIntroReveal();
+    window.addEventListener('scroll', updateIntroReveal, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      const headerLogo = document.getElementById('headerLogo');
+      const introObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          header.classList.toggle('header-on-dark', entry.isIntersecting);
+          if (headerLogo) headerLogo.src = entry.isIntersecting ? 'assets/logo-wordmark-white.png' : 'assets/logo-wordmark.png';
+        });
+      }, { threshold: 0.35 });
+      introObserver.observe(introReveal);
+    }
+  }
 
   // Projets — filtre latéral par catégorie
   const projetsFilters = document.getElementById('projets-filters');

@@ -18,6 +18,26 @@ content marketing, social media, webdesign, marketing digital, automatisation & 
   ```
   Le site ne se met PAS à jour tout seul — cette étape est obligatoire à chaque session de travail.
 
+## Cache-busting de `styles.css` / `script.js` (IMPORTANT, à faire à CHAQUE modif de ces 2 fichiers)
+
+Le client a signalé plusieurs fois "j'ai rechargé mais rien n'a bougé" alors que le déploiement
+GitHub Pages était pourtant correct (vérifié via `curl` en contournant tout cache) — le vrai
+problème : `styles.css`/`script.js` sont mis en cache par le navigateur/CDN **indépendamment** de
+la page HTML qui les charge. Rajouter `?v=N` sur l'URL de la PAGE (ex: `index.html?v=3`) ne force
+PAS le rechargement de ces deux fichiers, puisqu'ils sont réclamés via leur URL propre
+(`styles.css`, `script.js`) sans paramètre — ça ne suffit pas.
+
+**Solution mise en place** : toutes les balises `<link rel="stylesheet" href="styles.css?v=4">` et
+`<script src="script.js?v=4">` sur les 16 pages portent un paramètre de version. **Après chaque
+modif de `styles.css` OU `script.js`, il faut incrémenter ce numéro sur les 16 pages** (sinon les
+visiteurs qui ont déjà chargé le site continueront de voir l'ancienne version pendant tout le
+`cache-control: max-age=600` de GitHub Pages, voire plus longtemps côté navigateur mobile) :
+```bash
+cd /Users/clementthoury/nexthoury-site
+sed -i '' 's/styles\.css?v=[0-9]*/styles.css?v=5/; s/script\.js?v=[0-9]*/script.js?v=5/' *.html
+```
+(remplacer `5` par le nouveau numéro à chaque fois — juste incrémenter le précédent).
+
 ## Stack technique
 
 - HTML/CSS/JS vanilla, aucun framework, aucun build (pas de npm/vite/webpack).

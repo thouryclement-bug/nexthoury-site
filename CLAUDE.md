@@ -151,6 +151,23 @@ border-à-border en bas de l'image.
   le nom est concerné par ce mécanisme de révélation.
 - `.intro-scroll-cue` : petit indicateur "Scroll" en bas de l'intro avec un point qui rebondit
   (`@keyframes introScrollDot`), pur CSS, toujours visible, positionné en `absolute`.
+- **`.intro-name` en majuscules** (`text-transform:uppercase`, demande explicite du client, cf.
+  capture de référence). Le texte HTML reste `Clément Thoury` (casse normale, pour
+  l'accessibilité/lecteurs d'écran) — seul le RENDU visuel est en capitales via CSS, ne changez pas
+  le texte source. Les majuscules étant plus larges que la casse mixte, le plancher du `clamp()` a
+  été abaissé (`clamp(28px, 9vw, 150px)`, `letter-spacing:-0.015em`) pour garder une marge de
+  sécurité sur les très petits écrans (≤340px) où le texte est en `white-space:nowrap` — testé par
+  calcul de métriques de police réelles (Plus Jakarta Sans ExtraBold), marge confortable retrouvée.
+  Si vous changez un jour ce texte pour quelque chose de plus long, revérifiez cette marge.
+- **Bug corrigé : menu mobile illisible (blanc sur blanc) si on ouvre le burger pendant l'intro.**
+  Même piège que celui déjà corrigé pour `body.service-page` (voir plus bas) : `header-on-dark`
+  passe le texte du header en blanc, mais le panneau mobile déplié (`.main-nav.is-mobile-open`)
+  garde un fond blanc — sans override, le texte y devient illisible. Fix : règles symétriques
+  `.site-header.header-on-dark .main-nav.is-mobile-open ...{color:var(--ink)}` dans le bloc
+  Responsive, juste après l'équivalent `body.service-page`. **Piège général à retenir** : chaque
+  fois qu'une nouvelle condition met le texte du header en blanc (nouvelle page colorée, nouvel
+  état comme `header-on-dark`), il faut AUSSI ajouter l'override symétrique pour le panneau mobile
+  ouvert (qui reste toujours blanc, lui) — sinon le même bug réapparaît à chaque nouveau cas.
 - Le hero classique juste en dessous n'a plus de photo (`.hero-visual` supprimé du HTML et de son
   CSS) : `.hero-inner` est maintenant en une seule colonne centrée (`max-width:760px; margin:0
   auto; text-align:center;`). La pastille "Disponible pour un nouveau projet" (ex-badge flottant

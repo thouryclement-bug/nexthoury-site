@@ -391,10 +391,11 @@ body.service-page .burger span { background: var(--white); }
 }
 .intro-name {
   font-family: var(--font-display);
-  font-size: clamp(34px, 9.5vw, 150px);
+  font-size: clamp(28px, 9vw, 150px);
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
   white-space: nowrap;
   text-align: center;
   margin: 0;
@@ -1163,6 +1164,11 @@ body.service-page .burger span { background: var(--white); }
   body.service-page .main-nav.is-mobile-open > ul > li > a,
   body.service-page .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
   body.service-page .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
+  /* Même piège sur l'accueil quand le header est en mode sombre (au-dessus de l'intro) : le
+     panneau mobile ouvert reste blanc, donc le texte doit revenir en sombre lui aussi. */
+  .site-header.header-on-dark .main-nav.is-mobile-open > ul > li > a,
+  .site-header.header-on-dark .main-nav.is-mobile-open .dropdown-toggle { color: var(--ink); }
+  .site-header.header-on-dark .main-nav.is-mobile-open .dropdown-toggle svg { color: var(--ink-soft); }
   .section { padding: 64px 0; }
   .hero { padding: 40px 0 64px; }
   .family-hero { padding: 40px 0 56px; }

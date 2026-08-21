@@ -278,18 +278,25 @@ border-à-border en bas de l'image.
   padding-right normal) — sur mobile, seul le texte + pilules + CTA reste.
 - Le popup (`.expertise-popup-frame`) fait `max-width:640px` — plus de grille 2 colonnes (le
   mockup n'occupe plus de place dans la mise en page, il flotte par-dessus en `position:absolute`).
-- **3e itération : effet "vitre qui coupe le téléphone"** — demande explicite : "je veux juste que
-  le [téléphone] soit coupé, comme si une partie était dans la fenêtre et le reste en sortait".
-  Solution : `.phone-mockup` passe en `z-index:1` et `.expertise-popup` en `z-index:2` (au lieu de
-  3 vs auto avant) — le mockup se retrouve maintenant DERRIÈRE la carte de verre au lieu
-  d'au-dessus. Comme `.expertise-popup` a un `backdrop-filter:blur(...)`, tout ce qui est
-  visuellement derrière elle (donc la portion du téléphone qui chevauche la carte) apparaît
-  floutée à travers le verre — exactement l'effet de la référence Scuffers, où la photo continue
-  derrière la carte translucide. La portion du téléphone qui dépasse HORS de la carte (à
-  l'extérieur de son rectangle) n'a rien au-dessus d'elle et reste donc parfaitement nette. Aucun
-  changement de position/taille/rotation n'était nécessaire — un simple changement d'ordre
-  d'empilement (`z-index`) suffit à obtenir l'effet demandé. Le bouton de fermeture reste à
-  `z-index:4`, toujours cliquable au-dessus de tout.
+- **3e itération (tentative ratée) : effet "vitre qui coupe le téléphone" via blur.** Essayé en
+  passant `.phone-mockup` en `z-index:1` sous `.expertise-popup` (`z-index:2`), pour que la portion
+  qui chevauche la carte apparaisse floutée à travers le verre (comme la photo de la référence
+  Scuffers derrière sa carte translucide). **Résultat rejeté par le client : "on ne voit plus le
+  téléphone"** — le mockup est clair (fond blanc/bleu pâle) sur une carte elle-même clair et
+  floutée : le flou blanc-sur-blanc rend le téléphone quasi invisible, contrairement à la photo
+  sombre du Scuffers qui restait lisible même floutée. **Ne pas réutiliser cette technique de
+  blur-derrière-la-carte tant que le mockup a un fond clair.**
+- **4e itération (solution retenue) : `clip-path` plutôt que blur.** `.phone-mockup` repasse en
+  `z-index:3` (au-dessus de la carte, net, comme la 2e itération) ET reçoit
+  `clip-path: inset(0 0 40% 0)` qui coupe simplement le bas du téléphone (bezel du bas + zone
+  d'écran vide, aucun contenu utile là-dedans) avant même de composer la scène — pas de flou, un
+  vrai découpage net. Comme le clip-path s'applique dans le repère LOCAL de l'élément (avant la
+  rotation `rotate(-13deg)`), la découpe tourne avec le téléphone et rend un bord diagonal cohérent
+  avec son inclinaison, donnant l'impression que le bas du téléphone "disparaît" derrière quelque
+  chose — exactement l'effet demandé, sans les soucis de contraste du blur. Si vous ajustez le
+  contenu de l'écran du mockup, vérifiez que rien d'important ne se retrouve dans les 40% du bas
+  (actuellement : rien, le texte s'arrête bien avant). Le bouton de fermeture reste à `z-index:4`,
+  toujours cliquable au-dessus de tout.
 
 ## Bandeau de cookies + politique de confidentialité
 

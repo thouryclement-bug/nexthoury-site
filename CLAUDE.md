@@ -286,16 +286,17 @@ border-à-border en bas de l'image.
   floutée : le flou blanc-sur-blanc rend le téléphone quasi invisible, contrairement à la photo
   sombre du Scuffers qui restait lisible même floutée. **Ne pas réutiliser cette technique de
   blur-derrière-la-carte tant que le mockup a un fond clair.**
-- **4e itération (solution retenue) : `clip-path` plutôt que blur.** `.phone-mockup` repasse en
-  `z-index:3` (au-dessus de la carte, net, comme la 2e itération) ET reçoit
-  `clip-path: inset(0 0 40% 0)` qui coupe simplement le bas du téléphone (bezel du bas + zone
-  d'écran vide, aucun contenu utile là-dedans) avant même de composer la scène — pas de flou, un
-  vrai découpage net. Comme le clip-path s'applique dans le repère LOCAL de l'élément (avant la
-  rotation `rotate(-13deg)`), la découpe tourne avec le téléphone et rend un bord diagonal cohérent
-  avec son inclinaison, donnant l'impression que le bas du téléphone "disparaît" derrière quelque
-  chose — exactement l'effet demandé, sans les soucis de contraste du blur. Si vous ajustez le
-  contenu de l'écran du mockup, vérifiez que rien d'important ne se retrouve dans les 40% du bas
-  (actuellement : rien, le texte s'arrête bien avant). Le bouton de fermeture reste à `z-index:4`,
+- **4e itération : `clip-path` plutôt que blur** (bonne direction, mauvais dosage au départ).
+  `.phone-mockup` repasse en `z-index:3` (au-dessus de la carte, net) ET reçoit un
+  `clip-path: inset(0 0 X% 0)` qui coupe le bas du téléphone avant même de composer la scène — pas
+  de flou, un vrai découpage net. Comme le clip-path s'applique dans le repère LOCAL de l'élément
+  (avant la rotation `rotate(-13deg)`), la découpe tourne avec le téléphone et rend un bord
+  diagonal cohérent avec son inclinaison — c'est pour ça que ça coupe visuellement plutôt le
+  coin bas-gauche du rendu final que le bas-centre. Premier essai à `40%` : rejeté ("toujours pas
+  bon"), bien trop de matière coupée. **Valeur finale validée par le client : `6%`** — une
+  découpe très légère, juste le bord/bezel du bas, sans toucher au contenu (photo/nom/texte). Si
+  vous changez la taille ou la rotation du mockup, revérifiez à l'œil que `6%` reste discret et
+  qu'aucun texte n'est rogné. Le bouton de fermeture reste à `z-index:4`,
   toujours cliquable au-dessus de tout.
 
 ## Bandeau de cookies + politique de confidentialité

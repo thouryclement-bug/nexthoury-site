@@ -1923,7 +1923,7 @@ body.service-page .burger span { background: var(--white); }
   /* Coupe la partie basse du téléphone (bezel + bas d'écran vide, aucun contenu utile là-dedans)
      pour donner l'effet "une partie sort du popup, le reste est comme caché" — sans flou,
      un flou derrière la carte de verre rendait le mockup clair illisible/invisible. */
-  clip-path: inset(0 0 40% 0);
+  clip-path: inset(0 0 6% 0);
 }
 .phone-mockup-frame {
   position: absolute;

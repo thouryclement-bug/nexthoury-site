@@ -286,18 +286,18 @@ border-à-border en bas de l'image.
   floutée : le flou blanc-sur-blanc rend le téléphone quasi invisible, contrairement à la photo
   sombre du Scuffers qui restait lisible même floutée. **Ne pas réutiliser cette technique de
   blur-derrière-la-carte tant que le mockup a un fond clair.**
-- **4e itération : `clip-path` plutôt que blur** (bonne direction, mauvais dosage au départ).
-  `.phone-mockup` repasse en `z-index:3` (au-dessus de la carte, net) ET reçoit un
-  `clip-path: inset(0 0 X% 0)` qui coupe le bas du téléphone avant même de composer la scène — pas
-  de flou, un vrai découpage net. Comme le clip-path s'applique dans le repère LOCAL de l'élément
-  (avant la rotation `rotate(-13deg)`), la découpe tourne avec le téléphone et rend un bord
-  diagonal cohérent avec son inclinaison — c'est pour ça que ça coupe visuellement plutôt le
-  coin bas-gauche du rendu final que le bas-centre. Premier essai à `40%` : rejeté ("toujours pas
-  bon"), bien trop de matière coupée. **Valeur finale validée par le client : `6%`** — une
-  découpe très légère, juste le bord/bezel du bas, sans toucher au contenu (photo/nom/texte). Si
-  vous changez la taille ou la rotation du mockup, revérifiez à l'œil que `6%` reste discret et
-  qu'aucun texte n'est rogné. Le bouton de fermeture reste à `z-index:4`,
-  toujours cliquable au-dessus de tout.
+- **4e itération : essai `clip-path` (40% puis 6%), abandonné.** `.phone-mockup` était passé en
+  `z-index:3` (au-dessus de la carte, net) avec un `clip-path: inset(0 0 X% 0)` pour couper
+  légèrement le bas du téléphone. Après plusieurs allers-retours sans jamais retomber sur le bon
+  dosage visuel (40% trop coupé, 6% jugé pas encore satisfaisant), **le client a tranché : "laisse
+  tomber, mets tout le téléphone"** — retour au mockup ENTIER, sans aucun `clip-path`. **Ne pas
+  réintroduire de découpe sur `.phone-mockup` sans demande explicite** — le client préfère le
+  visuel entier plutôt que de continuer à affiner un micro-détail de rognage.
+- **État actuel (stable)** : `.phone-mockup` en `z-index:3` (au-dessus de la carte, net — pas de
+  flou, cf. 3e itération rejetée plus haut), positionné en débord réel hors de
+  `.expertise-popup-frame` (`top:-34px; right:-64px;`, cf. 2e itération), incliné
+  `rotate(-13deg)`, **affiché intégralement, sans aucune découpe**. Le bouton de fermeture reste à
+  `z-index:4`, toujours cliquable au-dessus de tout.
 
 ## Bandeau de cookies + politique de confidentialité
 

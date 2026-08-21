@@ -278,6 +278,18 @@ border-à-border en bas de l'image.
   padding-right normal) — sur mobile, seul le texte + pilules + CTA reste.
 - Le popup (`.expertise-popup-frame`) fait `max-width:640px` — plus de grille 2 colonnes (le
   mockup n'occupe plus de place dans la mise en page, il flotte par-dessus en `position:absolute`).
+- **3e itération : effet "vitre qui coupe le téléphone"** — demande explicite : "je veux juste que
+  le [téléphone] soit coupé, comme si une partie était dans la fenêtre et le reste en sortait".
+  Solution : `.phone-mockup` passe en `z-index:1` et `.expertise-popup` en `z-index:2` (au lieu de
+  3 vs auto avant) — le mockup se retrouve maintenant DERRIÈRE la carte de verre au lieu
+  d'au-dessus. Comme `.expertise-popup` a un `backdrop-filter:blur(...)`, tout ce qui est
+  visuellement derrière elle (donc la portion du téléphone qui chevauche la carte) apparaît
+  floutée à travers le verre — exactement l'effet de la référence Scuffers, où la photo continue
+  derrière la carte translucide. La portion du téléphone qui dépasse HORS de la carte (à
+  l'extérieur de son rectangle) n'a rien au-dessus d'elle et reste donc parfaitement nette. Aucun
+  changement de position/taille/rotation n'était nécessaire — un simple changement d'ordre
+  d'empilement (`z-index`) suffit à obtenir l'effet demandé. Le bouton de fermeture reste à
+  `z-index:4`, toujours cliquable au-dessus de tout.
 
 ## Bandeau de cookies + politique de confidentialité
 

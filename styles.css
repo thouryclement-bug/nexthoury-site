@@ -1815,18 +1815,21 @@ body.service-page .burger span { background: var(--white); }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 48px 24px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
 }
 .expertise-popup-overlay.is-visible { opacity: 1; pointer-events: auto; }
+/* Le cadre n'a PAS de overflow:hidden — c'est ce qui permet au mockup téléphone de déborder
+   visuellement hors des bords de la carte (demande explicite, façon photo qui "dépasse" sur la
+   référence Scuffers). Seule .expertise-popup (la carte elle-même) contient son propre texte. */
+.expertise-popup-frame { position: relative; max-width: 640px; width: 100%; }
 .expertise-popup {
   position: relative;
-  max-width: 720px;
   width: 100%;
-  max-height: 90vh;
-  overflow: hidden auto;
+  max-height: 80vh;
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px) saturate(170%);
   -webkit-backdrop-filter: blur(30px) saturate(170%);
@@ -1834,16 +1837,16 @@ body.service-page .burger span { background: var(--white); }
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 36px;
+  padding-right: 150px;
   transform: translateY(24px);
   transition: transform 0.35s ease;
 }
 .expertise-popup-overlay.is-visible .expertise-popup { transform: translateY(0); }
-.expertise-popup-grid { display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: center; }
 .expertise-popup-close {
   position: absolute;
   top: 16px;
   right: 16px;
-  z-index: 2;
+  z-index: 4;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -1872,7 +1875,7 @@ body.service-page .burger span { background: var(--white); }
   background: #34C759;
   box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
 }
-.expertise-popup h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; line-height: 1.2; margin-bottom: 14px; padding-right: 24px; }
+.expertise-popup h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
 .expertise-popup-lead { font-size: 15px; color: var(--ink); line-height: 1.5; margin-bottom: 22px; font-weight: 600; }
 .expertise-popup-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .expertise-popup-pill {
@@ -1892,6 +1895,7 @@ body.service-page .burger span { background: var(--white); }
   justify-content: center;
   gap: 8px;
   width: 100%;
+  max-width: 320px;
   padding: 13px 20px;
   border-radius: var(--radius-pill);
   background: rgba(14, 47, 122, 0.85);
@@ -1903,14 +1907,18 @@ body.service-page .burger span { background: var(--white); }
 .expertise-popup-cta:hover { background: var(--navy); }
 
 /* Visuel décoratif : mockup iPhone réaliste (assets/phone-frame.png, écran découpé en
-   transparence dans le PNG) légèrement incliné, avec une mini reprise de la page "À propos" à
-   l'intérieur (header, eyebrow, photo, nom) — pas un lien réel, purement illustratif. */
-.expertise-popup-visual { display: flex; justify-content: center; }
+   transparence dans le PNG), incliné et positionné pour DÉBORDER hors du coin supérieur droit
+   de la carte (comme la photo du popup de référence Scuffers) — pas un lien réel, purement
+   illustratif. Reprend en mini la page "À propos" (header, eyebrow, photo, nom). */
 .phone-mockup {
-  position: relative;
-  width: 190px;
+  position: absolute;
+  top: -34px;
+  right: -64px;
+  z-index: 3;
+  width: 224px;
   aspect-ratio: 388 / 800;
-  transform: rotate(7deg);
+  transform: rotate(-13deg);
+  pointer-events: none;
 }
 .phone-mockup-frame {
   position: absolute;
@@ -1918,7 +1926,6 @@ body.service-page .burger span { background: var(--white); }
   width: 100%;
   height: 100%;
   z-index: 2;
-  pointer-events: none;
 }
 .phone-mockup-screen {
   position: absolute;
@@ -1952,9 +1959,9 @@ body.service-page .burger span { background: var(--white); }
 .phone-mockup-photo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
 .phone-mockup-name { font-family: var(--font-display); font-weight: 800; font-size: 12px; color: var(--ink); margin: 0 0 5px; }
 .phone-mockup-desc { font-size: 7.5px; color: var(--ink-soft); line-height: 1.35; margin: 0; }
-@media (max-width: 700px) {
-  .expertise-popup-grid { grid-template-columns: 1fr; }
-  .expertise-popup-visual { display: none; }
+@media (max-width: 640px) {
+  .phone-mockup { display: none; }
+  .expertise-popup { padding-right: 36px; }
 }
 @media (max-width: 480px) {
   .expertise-popup { padding: 28px 20px; }

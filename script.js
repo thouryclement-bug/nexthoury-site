@@ -514,39 +514,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.createElement('div');
   overlay.className = 'expertise-popup-overlay';
   overlay.innerHTML = `
-    <div class="expertise-popup" role="dialog" aria-modal="true" aria-labelledby="expertisePopupTitle">
-      <button type="button" class="expertise-popup-close" aria-label="Fermer">&times;</button>
-      <div class="expertise-popup-grid">
-        <div class="expertise-popup-main">
-          <p class="expertise-popup-tag"><span class="dot"></span> Vous avez vu ce que je sais faire</p>
-          <h2 id="expertisePopupTitle">Allez plus loin, ou réservez déjà un créneau.</h2>
-          <p class="expertise-popup-lead">20 minutes suffisent pour poser les bases de votre projet, sans engagement.</p>
-          <div class="expertise-popup-pills">
-            <a href="ads.html" class="expertise-popup-pill">Ads</a>
-            <a href="site.html" class="expertise-popup-pill">Création de site</a>
-            <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
-            <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
-          </div>
-          <a href="contact.html" class="expertise-popup-cta">
-            Prendre rendez-vous
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+    <div class="expertise-popup-frame">
+      <div class="expertise-popup" role="dialog" aria-modal="true" aria-labelledby="expertisePopupTitle">
+        <button type="button" class="expertise-popup-close" aria-label="Fermer">&times;</button>
+        <p class="expertise-popup-tag"><span class="dot"></span> Vous avez vu ce que je sais faire</p>
+        <h2 id="expertisePopupTitle">Allez plus loin, ou réservez déjà un créneau.</h2>
+        <p class="expertise-popup-lead">20 minutes suffisent pour poser les bases de votre projet, sans engagement.</p>
+        <div class="expertise-popup-pills">
+          <a href="ads.html" class="expertise-popup-pill">Ads</a>
+          <a href="site.html" class="expertise-popup-pill">Création de site</a>
+          <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
+          <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
         </div>
-        <div class="expertise-popup-visual" aria-hidden="true">
-          <div class="phone-mockup">
-            <div class="phone-mockup-screen">
-              <div class="phone-mockup-header">
-                <span class="phone-mockup-logo">Ne<b>x</b>Thoury</span>
-                <span class="phone-mockup-burger"><span></span><span></span><span></span></span>
-              </div>
-              <span class="phone-mockup-eyebrow">À propos</span>
-              <img src="assets/portrait.jpg" alt="" class="phone-mockup-photo">
-              <p class="phone-mockup-name">Clément Thoury.</p>
-              <p class="phone-mockup-desc">Consultant freelance en communication &amp; publicité digitale.</p>
-            </div>
-            <img src="assets/phone-frame.png" alt="" class="phone-mockup-frame">
+        <a href="contact.html" class="expertise-popup-cta">
+          Prendre rendez-vous
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="phone-mockup" aria-hidden="true">
+        <div class="phone-mockup-screen">
+          <div class="phone-mockup-header">
+            <span class="phone-mockup-logo">Ne<b>x</b>Thoury</span>
+            <span class="phone-mockup-burger"><span></span><span></span><span></span></span>
           </div>
+          <span class="phone-mockup-eyebrow">À propos</span>
+          <img src="assets/portrait.jpg" alt="" class="phone-mockup-photo">
+          <p class="phone-mockup-name">Clément Thoury.</p>
+          <p class="phone-mockup-desc">Consultant freelance en communication &amp; publicité digitale.</p>
         </div>
+        <img src="assets/phone-frame.png" alt="" class="phone-mockup-frame">
       </div>
     </div>
   `;

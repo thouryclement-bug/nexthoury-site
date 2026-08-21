@@ -250,17 +250,34 @@ border-à-border en bas de l'image.
   ressemble à une vraie capture d'écran de son site sur téléphone, avec en plus une petite photo
   (que la page À propos a nativement, contrairement à la page Contact). Purement décoratif, aucun
   lien cliquable dans ce mockup.
-- **`.phone-mockup` légèrement incliné** (`transform: rotate(7deg)`) pour un rendu plus dynamique
-  façon "photo qui dépasse", inspiré du popup de référence (Scuffers) où le visuel produit
-  déborde légèrement de la carte — demande explicite avec un croquis à l'appui. Contenu par contre
-  gardé ENTIÈREMENT dans les limites de la carte (pas de bleed hors du popup) pour rester robuste
-  sur toutes les tailles d'écran, cf. `overflow:hidden` mentionné plus haut.
-- **Masqué sous 700px** (`.expertise-popup-visual{display:none}`) — sur mobile, seul le texte +
-  pilules + CTA reste, le mockup téléphone ne s'affiche pas (pas la place, et peu utile sur un
-  écran qui EST déjà un téléphone).
-- Le popup fait `max-width:720px` avec une grille 2 colonnes
-  (`.expertise-popup-grid{grid-template-columns:1fr 200px}`) : texte à gauche, mockup à droite.
-  Sur mobile (`≤700px`), la grille repasse à 1 colonne et le mockup disparaît (voir ci-dessus).
+- **Le mockup téléphone DÉBORDE réellement hors de la carte** (2e itération, demande explicite
+  avec un croquis à l'appui : "je voudrais... que le téléphone... sorte des contours du popup").
+  La 1ère tentative le gardait contenu DANS la grille/carte (juste incliné) — pas ce qui était
+  demandé. Pour permettre un vrai débordement visuel, la structure a changé :
+  ```html
+  <div class="expertise-popup-overlay">
+    <div class="expertise-popup-frame">   <!-- pas de overflow:hidden ici -->
+      <div class="expertise-popup">…texte, sa propre overflow-y:auto…</div>
+      <div class="phone-mockup">…</div>   <!-- sibling de .expertise-popup, PAS un enfant -->
+    </div>
+  </div>
+  ```
+  `.phone-mockup` est en `position:absolute` (`top:-34px; right:-64px;`) par rapport à
+  `.expertise-popup-frame` (qui n'a PAS de `overflow:hidden`) — donc rien ne le rogne. Seule
+  `.expertise-popup` (la carte elle-même) garde `overflow-y:auto` pour permettre un scroll vertical
+  du texte si jamais le contenu dépasse `max-height:80vh`, mais ça ne concerne que le TEXTE, plus
+  le mockup qui est un sibling en dehors de cette zone de scroll.
+  **Piège à ne pas refaire** : si le mockup redevient un enfant de `.expertise-popup` (ou de tout
+  conteneur avec `overflow:hidden`/`auto`), il sera automatiquement rogné aux bords de ce
+  conteneur, quel que soit son `position:absolute` — un élément ne peut jamais déborder visuellement
+  d'un ancêtre qui a un `overflow` autre que `visible`.
+  Incliné à `rotate(-13deg)` (sens inverse de la 1ère tentative — le client voulait "l'autre côté").
+  `.expertise-popup` a un `padding-right:150px` pour laisser de la place au débord du mockup dans
+  le coin supérieur droit sans chevaucher le texte (tag/titre/phrase/pilules).
+- **Masqué sous 640px** (`.phone-mockup{display:none}`, et `.expertise-popup` repasse à un
+  padding-right normal) — sur mobile, seul le texte + pilules + CTA reste.
+- Le popup (`.expertise-popup-frame`) fait `max-width:640px` — plus de grille 2 colonnes (le
+  mockup n'occupe plus de place dans la mise en page, il flotte par-dessus en `position:absolute`).
 
 ## Bandeau de cookies + politique de confidentialité
 

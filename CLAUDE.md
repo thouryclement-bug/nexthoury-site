@@ -190,6 +190,38 @@ border-à-border en bas de l'image.
   Le rendre vraiment dynamique (lu depuis les disponibilités réelles) demanderait l'API Cal.com
   avec une clé API et une petite logique serveur — pas fait, le site étant 100% statique sans backend.
 
+## Popup "9 expertises" (accueil uniquement)
+
+- Référence de design explicite du client : un popup e-commerce façon carte "verre" translucide
+  (glassmorphism — fond flou/semi-transparent, `backdrop-filter`), avec tag + puce verte, liste de
+  points à puces, question + boutons pilules à choix, CTA final. Voir capture fournie (site de
+  vêtements "Scuffers", popup newsletter "10% off your first order").
+- **Généré entièrement en JS** (`script.js`, tout en bas du fichier, cherche `expertise-popup`),
+  injecté dans `document.body` — PAS écrit en HTML statique. Le script est chargé sur les 16 pages
+  mais se désactive lui-même (`return` immédiat) si `#competences` n'existe pas sur la page — donc
+  ne s'affiche QUE sur `index.html` (seule page avec cette section). Pas besoin de dupliquer/gérer
+  ce composant ailleurs.
+- **Déclencheur** : `IntersectionObserver` sur `#competences` (la section des 9 compétences) —
+  se déclenche quand la section est quittée PAR LE BAS (`!entry.isIntersecting &&
+  entry.boundingClientRect.top < 0`), c'est-à-dire une fois que le visiteur a scrollé au-delà,
+  pas avant de l'atteindre. Correspond à la demande explicite : "une fois qu'ils ont pris
+  connaissance des 9 expertises".
+- **Ne se réaffiche plus une fois fermé** : `localStorage` (`nx-expertise-popup-shown`), posé à la
+  fermeture (bouton X, clic hors de la carte, touche Échap) OU au clic sur une pilule/le CTA final
+  (considéré comme une conversion, pas la peine de re-déranger). Pas d'expiration dans le temps —
+  si vous voulez le refaire apparaître périodiquement (ex. après 30 jours), stocker un timestamp
+  au lieu d'un simple flag et comparer à `Date.now()`.
+- **Contenu** : pas de capture d'email (site 100% statique, pas de backend pour ça) — à la place,
+  des pilules cliquables qui envoient DIRECTEMENT vers la page de la compétence choisie
+  (`seo.html`, `ads.html`, `site.html`, `automatisation.html`, ou `index.html#competences` pour
+  tout voir), plus un CTA final vers `contact.html`. Si vous voulez un jour une vraie capture
+  d'email, il faudrait un service tiers (Mailchimp, Brevo, un formulaire Netlify/Formspree…) — pas
+  branché actuellement.
+- Le "verre" est fait avec `backdrop-filter: blur(24px) saturate(160%)` sur fond
+  `rgba(255,255,255,0.72)` — même famille de technique que le header (`.header-inner`), mais avec
+  des valeurs plus prononcées pour un effet plus marqué, assumé comme élément "popup" distinct du
+  reste du design (plus discret) de la navigation.
+
 ## Bandeau de cookies + politique de confidentialité
 
 - **`confidentialite.html`** : page de politique de confidentialité (liée depuis le footer de

@@ -500,3 +500,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!existing) showBanner();
 });
+
+// Popup "9 expertises" — accueil uniquement (repère sur la présence de #competences).
+// Se déclenche une fois que le visiteur a scrollé au-delà de la section des 9 compétences,
+// jamais avant, et ne se réaffiche plus une fois fermé (localStorage). Style "verre" translucide.
+document.addEventListener('DOMContentLoaded', () => {
+  const competencesSection = document.getElementById('competences');
+  if (!competencesSection) return;
+
+  const POPUP_KEY = 'nx-expertise-popup-shown';
+  if (localStorage.getItem(POPUP_KEY)) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'expertise-popup-overlay';
+  overlay.innerHTML = `
+    <div class="expertise-popup" role="dialog" aria-modal="true" aria-labelledby="expertisePopupTitle">
+      <button type="button" class="expertise-popup-close" aria-label="Fermer">&times;</button>
+      <p class="expertise-popup-tag"><span class="dot"></span> Vous venez de découvrir mes 9 expertises</p>
+      <h2 id="expertisePopupTitle">Laquelle vous intéresse le plus&nbsp;?</h2>
+      <ul class="expertise-popup-points">
+        <li>Réponse sous 24h ouvrées</li>
+        <li>Un seul interlocuteur, du diagnostic au résultat</li>
+        <li>Des actions mesurables, pas juste « jolies »</li>
+      </ul>
+      <div class="expertise-popup-pills">
+        <a href="seo.html" class="expertise-popup-pill">Agence SEO</a>
+        <a href="ads.html" class="expertise-popup-pill">Ads</a>
+        <a href="site.html" class="expertise-popup-pill">Création de site</a>
+        <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
+        <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
+      </div>
+      <a href="contact.html" class="expertise-popup-cta">
+        Discuter directement de mon projet
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  function closeExpertisePopup() {
+    overlay.classList.remove('is-visible');
+    localStorage.setItem(POPUP_KEY, '1');
+    setTimeout(() => overlay.remove(), 400);
+  }
+  overlay.querySelector('.expertise-popup-close').addEventListener('click', closeExpertisePopup);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeExpertisePopup(); });
+  overlay.querySelectorAll('.expertise-popup-pill, .expertise-popup-cta').forEach((el) => {
+    el.addEventListener('click', () => localStorage.setItem(POPUP_KEY, '1'));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeExpertisePopup();
+  });
+
+  if ('IntersectionObserver' in window) {
+    const popupObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Se déclenche une fois la section quittée PAR LE BAS (déjà vue), pas avant de l'atteindre.
+        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+          overlay.classList.add('is-visible');
+          popupObserver.disconnect();
+        }
+      });
+    }, { threshold: 0 });
+    popupObserver.observe(competencesSection);
+  }
+});

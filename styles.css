@@ -1802,3 +1802,114 @@ body.service-page .burger span { background: var(--white); }
   .service-timeline::before { left: 23px; }
   .service-timeline-num { width: 48px; height: 48px; font-size: 14px; }
 }
+
+/* =========================================================
+   Popup "9 expertises" (accueil uniquement) — carte "verre" translucide,
+   injectée par script.js une fois la section #competences dépassée.
+   ========================================================= */
+.expertise-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 650;
+  background: rgba(8, 27, 77, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.expertise-popup-overlay.is-visible { opacity: 1; pointer-events: auto; }
+.expertise-popup {
+  position: relative;
+  max-width: 480px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 36px 32px;
+  transform: translateY(24px);
+  transition: transform 0.35s ease;
+}
+.expertise-popup-overlay.is-visible .expertise-popup { transform: translateY(0); }
+.expertise-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s ease;
+}
+.expertise-popup-close:hover { background: var(--white); }
+.expertise-popup-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 14px;
+}
+.expertise-popup-tag .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: #34C759;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
+}
+.expertise-popup h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; line-height: 1.2; margin-bottom: 18px; padding-right: 24px; }
+.expertise-popup-points { display: flex; flex-direction: column; gap: 8px; margin: 0 0 24px; padding: 0; list-style: none; }
+.expertise-popup-points li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--ink-soft); }
+.expertise-popup-points li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.expertise-popup-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.expertise-popup-pill {
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background .2s ease, border-color .2s ease;
+}
+.expertise-popup-pill:hover { background: var(--white); border-color: var(--navy); }
+.expertise-popup-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14.5px;
+  transition: background .2s ease;
+}
+.expertise-popup-cta:hover { background: var(--blue); }
+@media (max-width: 480px) {
+  .expertise-popup { padding: 28px 22px; }
+  .expertise-popup-pills { gap: 6px; }
+  .expertise-popup-pill { padding: 8px 13px; font-size: 13px; }
+}

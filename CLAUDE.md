@@ -214,13 +214,40 @@ border-à-border en bas de l'image.
 - **Contenu** : pas de capture d'email (site 100% statique, pas de backend pour ça) — à la place,
   des pilules cliquables qui envoient DIRECTEMENT vers la page de la compétence choisie
   (`seo.html`, `ads.html`, `site.html`, `automatisation.html`, ou `index.html#competences` pour
-  tout voir), plus un CTA final vers `contact.html`. Si vous voulez un jour une vraie capture
-  d'email, il faudrait un service tiers (Mailchimp, Brevo, un formulaire Netlify/Formspree…) — pas
-  branché actuellement.
-- Le "verre" est fait avec `backdrop-filter: blur(24px) saturate(160%)` sur fond
-  `rgba(255,255,255,0.72)` — même famille de technique que le header (`.header-inner`), mais avec
-  des valeurs plus prononcées pour un effet plus marqué, assumé comme élément "popup" distinct du
-  reste du design (plus discret) de la navigation.
+  tout voir), un calendrier Cal.com intégré (voir ci-dessous), et un CTA final vers `contact.html`.
+  Si vous voulez un jour une vraie capture d'email, il faudrait un service tiers (Mailchimp, Brevo,
+  un formulaire Netlify/Formspree…) — pas branché actuellement.
+- **Verre plus translucide qu'au départ** (demande explicite du client) : fond
+  `rgba(255,255,255,0.38)` (contre `0.72` initialement) avec `backdrop-filter: blur(28px)
+  saturate(160%)` — même famille de technique que le header (`.header-inner`), poussée plus loin
+  pour un effet plus marqué. Si on retouche encore la translucidité, c'est cette valeur alpha
+  (`0.38`) qu'il faut ajuster — plus bas = plus transparent.
+- **Calendrier Cal.com intégré directement dans le popup** (`#calInlinePopup`, `.expertise-popup-cal`)
+  — DEUXIÈME instance `Cal("inline", {...})` (la première étant `#calInline` dans la section
+  "Disponibilité" de l'accueil), même `calLink: "clement-thoury/rendez-vous"` donc **mêmes
+  disponibilités réelles, synchronisées**. Initialisé en JS via `initPopupCalendar()` — appelé
+  seulement au moment où le popup devient visible (pas au chargement de la page), pour ne pas
+  charger l'iframe Cal.com inutilement si le visiteur ne scrolle jamais jusqu'au déclencheur.
+  `Cal("ui", {...})` est réappelé avec la même config que la page d'accueil pour garantir le même
+  thème (fond blanc, coins arrondis 12px, couleur de marque navy) sur cette 2e instance.
+  **Important** : il n'y a pas de "transfert d'état" entre ce calendrier et le formulaire de la
+  page contact — ce sont deux points d'entrée indépendants vers le MÊME calendrier réel (choisir
+  un créneau ici fonctionne de façon autonome, comme sur la page Contact) et vers le MÊME
+  formulaire de contact (bouton "Ou remplir le formulaire de contact", lien classique vers
+  `contact.html`, sans données pré-remplies — le site étant statique sans backend, on ne peut pas
+  faire persister un choix entre les deux sans stockage serveur).
+- **Mockup téléphone décoratif** (`.phone-mockup`, colonne de droite) — reprend en miniature la
+  page "À propos" : photo ronde (`assets/portrait.jpg`), nom, rôle, courte citation, petit bouton
+  "Voir mon parcours" (purement visuel, ne mène nulle part — c'est un mockup, pas un lien réel).
+  Client a choisi cette option plutôt qu'un mockup de la page Contact (les deux avaient été
+  proposées). `position:sticky` sur `.phone-mockup` : reste visible pendant qu'on scrolle le
+  contenu du popup (notamment le calendrier, assez haut). **Masqué sous 760px** (`.expertise-popup-visual{display:none}`)
+  pour garder le popup gérable sur mobile, où le contenu (texte + pilules + calendrier) suffit déjà
+  à remplir l'écran.
+- Le popup est passé de `max-width:480px` (carte étroite centrée) à `max-width:880px` avec une
+  grille 2 colonnes (`.expertise-popup-grid{grid-template-columns:1fr 240px}`) pour faire de la
+  place au calendrier ET au mockup téléphone. Sur mobile (`≤760px`), la grille repasse à 1 colonne
+  et le mockup disparaît (voir ci-dessus) — seul le contenu texte + calendrier reste.
 
 ## Bandeau de cookies + politique de confidentialité
 

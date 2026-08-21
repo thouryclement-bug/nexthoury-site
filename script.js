@@ -516,24 +516,45 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.innerHTML = `
     <div class="expertise-popup" role="dialog" aria-modal="true" aria-labelledby="expertisePopupTitle">
       <button type="button" class="expertise-popup-close" aria-label="Fermer">&times;</button>
-      <p class="expertise-popup-tag"><span class="dot"></span> Vous venez de découvrir mes 9 expertises</p>
-      <h2 id="expertisePopupTitle">Laquelle vous intéresse le plus&nbsp;?</h2>
-      <ul class="expertise-popup-points">
-        <li>Réponse sous 24h ouvrées</li>
-        <li>Un seul interlocuteur, du diagnostic au résultat</li>
-        <li>Des actions mesurables, pas juste « jolies »</li>
-      </ul>
-      <div class="expertise-popup-pills">
-        <a href="seo.html" class="expertise-popup-pill">Agence SEO</a>
-        <a href="ads.html" class="expertise-popup-pill">Ads</a>
-        <a href="site.html" class="expertise-popup-pill">Création de site</a>
-        <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
-        <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
+      <div class="expertise-popup-grid">
+        <div class="expertise-popup-main">
+          <p class="expertise-popup-tag"><span class="dot"></span> Vous avez vu ce que je sais faire</p>
+          <h2 id="expertisePopupTitle">Allez plus loin, ou réservez déjà un créneau.</h2>
+          <p class="expertise-popup-lead">Une compétence en particulier vous intéresse&nbsp;? Cliquez ci-dessous pour voir le détail
+            des sous-compétences. Mais surtout&nbsp;: pas besoin d'attendre une réponse par e-mail — les créneaux ci-dessous sont
+            mes disponibilités réelles, vous pouvez réserver un appel directement.</p>
+          <ul class="expertise-popup-points">
+            <li>20 minutes suffisent pour poser les bases de votre projet</li>
+            <li>Créneaux à jour en temps réel, aucun aller-retour par e-mail</li>
+            <li>Aucun engagement — juste un échange</li>
+          </ul>
+          <div class="expertise-popup-pills">
+            <a href="seo.html" class="expertise-popup-pill">Agence SEO</a>
+            <a href="ads.html" class="expertise-popup-pill">Ads</a>
+            <a href="site.html" class="expertise-popup-pill">Création de site</a>
+            <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
+            <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
+          </div>
+          <p class="expertise-popup-cal-label">Choisissez un créneau qui vous convient&nbsp;:</p>
+          <div id="calInlinePopup" class="expertise-popup-cal"></div>
+          <a href="contact.html" class="expertise-popup-cta">
+            Ou remplir le formulaire de contact
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="expertise-popup-visual" aria-hidden="true">
+          <div class="phone-mockup">
+            <div class="phone-mockup-notch"></div>
+            <div class="phone-mockup-screen">
+              <img src="assets/portrait.jpg" alt="" class="phone-mockup-photo">
+              <p class="phone-mockup-name">Clément Thoury</p>
+              <p class="phone-mockup-role">Freelance communication &amp; pub digitale</p>
+              <p class="phone-mockup-desc">« 5 ans en agence, aujourd'hui en solo — même rigueur, sans la lourdeur. »</p>
+              <span class="phone-mockup-btn">Voir mon parcours</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <a href="contact.html" class="expertise-popup-cta">
-        Discuter directement de mon projet
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
   `;
   document.body.appendChild(overlay);
@@ -552,12 +573,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeExpertisePopup();
   });
 
+  let calendarInitialized = false;
+  function initPopupCalendar() {
+    if (calendarInitialized || typeof Cal === 'undefined') return;
+    calendarInitialized = true;
+    // Même calLink que le calendrier de la page d'accueil/contact : mêmes disponibilités réelles.
+    Cal('inline', {
+      elementOrSelector: '#calInlinePopup',
+      calLink: 'clement-thoury/rendez-vous',
+    });
+    Cal('ui', {
+      theme: 'light',
+      styles: { branding: { brandColor: '#0E2F7A' } },
+      cssVarsPerTheme: { light: { 'cal-bg': '#ffffff', 'cal-bg-emphasis': '#ffffff', 'cal-radius': '12px', 'cal-brand': '#0E2F7A' } },
+      hideEventTypeDetails: false,
+      layout: 'month_view',
+    });
+  }
+
   if ('IntersectionObserver' in window) {
     const popupObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         // Se déclenche une fois la section quittée PAR LE BAS (déjà vue), pas avant de l'atteindre.
         if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
           overlay.classList.add('is-visible');
+          initPopupCalendar();
           popupObserver.disconnect();
         }
       });

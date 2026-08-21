@@ -1804,14 +1804,14 @@ body.service-page .burger span { background: var(--white); }
 }
 
 /* =========================================================
-   Popup "9 expertises" (accueil uniquement) — carte "verre" translucide,
+   Popup "9 expertises" (accueil uniquement) — carte "verre" très translucide,
    injectée par script.js une fois la section #competences dépassée.
    ========================================================= */
 .expertise-popup-overlay {
   position: fixed;
   inset: 0;
   z-index: 650;
-  background: rgba(8, 27, 77, 0.35);
+  background: rgba(8, 27, 77, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1823,29 +1823,31 @@ body.service-page .burger span { background: var(--white); }
 .expertise-popup-overlay.is-visible { opacity: 1; pointer-events: auto; }
 .expertise-popup {
   position: relative;
-  max-width: 480px;
+  max-width: 880px;
   width: 100%;
-  max-height: 88vh;
+  max-height: 90vh;
   overflow-y: auto;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: 36px 32px;
+  padding: 36px;
   transform: translateY(24px);
   transition: transform 0.35s ease;
 }
 .expertise-popup-overlay.is-visible .expertise-popup { transform: translateY(0); }
+.expertise-popup-grid { display: grid; grid-template-columns: 1fr 240px; gap: 36px; align-items: start; }
 .expertise-popup-close {
   position: absolute;
   top: 16px;
   right: 16px;
+  z-index: 2;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.5);
   border: none;
   font-size: 20px;
   line-height: 1;
@@ -1855,7 +1857,7 @@ body.service-page .burger span { background: var(--white); }
   justify-content: center;
   transition: background .2s ease;
 }
-.expertise-popup-close:hover { background: var(--white); }
+.expertise-popup-close:hover { background: rgba(255, 255, 255, 0.85); }
 .expertise-popup-tag {
   display: flex;
   align-items: center;
@@ -1870,29 +1872,39 @@ body.service-page .burger span { background: var(--white); }
   background: #34C759;
   box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
 }
-.expertise-popup h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; line-height: 1.2; margin-bottom: 18px; padding-right: 24px; }
-.expertise-popup-points { display: flex; flex-direction: column; gap: 8px; margin: 0 0 24px; padding: 0; list-style: none; }
-.expertise-popup-points li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--ink-soft); }
+.expertise-popup h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; line-height: 1.2; margin-bottom: 14px; padding-right: 24px; }
+.expertise-popup-lead { font-size: 15px; color: var(--ink); line-height: 1.55; margin-bottom: 18px; }
+.expertise-popup-points { display: flex; flex-direction: column; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+.expertise-popup-points li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--ink); }
 .expertise-popup-points li::before {
   content: '';
   position: absolute;
   left: 0; top: 8px;
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--navy);
 }
-.expertise-popup-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.expertise-popup-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .expertise-popup-pill {
   padding: 9px 16px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   font-size: 13.5px;
   font-weight: 600;
   color: var(--ink);
   transition: background .2s ease, border-color .2s ease;
 }
-.expertise-popup-pill:hover { background: var(--white); border-color: var(--navy); }
+.expertise-popup-pill:hover { background: rgba(255, 255, 255, 0.85); border-color: var(--navy); }
+.expertise-popup-cal-label { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+.expertise-popup-cal {
+  width: 100%;
+  min-height: 480px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 .expertise-popup-cta {
   display: flex;
   align-items: center;
@@ -1901,15 +1913,67 @@ body.service-page .burger span { background: var(--white); }
   width: 100%;
   padding: 13px 20px;
   border-radius: var(--radius-pill);
-  background: var(--navy);
+  background: rgba(14, 47, 122, 0.85);
   color: var(--white);
   font-weight: 600;
   font-size: 14.5px;
   transition: background .2s ease;
 }
-.expertise-popup-cta:hover { background: var(--blue); }
+.expertise-popup-cta:hover { background: var(--navy); }
+
+/* Visuel décoratif : mini mockup téléphone reprenant la page "À propos" */
+.expertise-popup-visual { display: flex; justify-content: center; padding-top: 4px; }
+.phone-mockup {
+  width: 200px;
+  aspect-ratio: 9 / 18.5;
+  background: var(--navy-darker);
+  border-radius: 30px;
+  padding: 9px;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 4px;
+}
+.phone-mockup-notch {
+  position: absolute;
+  top: 9px; left: 50%;
+  transform: translateX(-50%);
+  width: 54px; height: 16px;
+  background: var(--navy-darker);
+  border-radius: 10px;
+  z-index: 2;
+}
+.phone-mockup-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 14px 16px;
+  text-align: center;
+}
+.phone-mockup-photo { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+.phone-mockup-name { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--ink); margin-bottom: 2px; }
+.phone-mockup-role { font-size: 10px; color: var(--ink-soft); line-height: 1.3; margin-bottom: 10px; }
+.phone-mockup-desc { font-size: 9.5px; color: var(--ink-soft); font-style: italic; line-height: 1.4; margin-bottom: 14px; }
+.phone-mockup-btn {
+  margin-top: auto;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+}
+@media (max-width: 760px) {
+  .expertise-popup-grid { grid-template-columns: 1fr; }
+  .expertise-popup-visual { display: none; }
+}
 @media (max-width: 480px) {
-  .expertise-popup { padding: 28px 22px; }
+  .expertise-popup { padding: 28px 20px; }
   .expertise-popup-pills { gap: 6px; }
   .expertise-popup-pill { padding: 8px 13px; font-size: 13px; }
+  .expertise-popup-cal { min-height: 420px; }
 }

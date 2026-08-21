@@ -520,38 +520,31 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="expertise-popup-main">
           <p class="expertise-popup-tag"><span class="dot"></span> Vous avez vu ce que je sais faire</p>
           <h2 id="expertisePopupTitle">Allez plus loin, ou réservez déjà un créneau.</h2>
-          <p class="expertise-popup-lead">Une compétence en particulier vous intéresse&nbsp;? Cliquez ci-dessous pour voir le détail
-            des sous-compétences. Mais surtout&nbsp;: pas besoin d'attendre une réponse par e-mail — les créneaux ci-dessous sont
-            mes disponibilités réelles, vous pouvez réserver un appel directement.</p>
-          <ul class="expertise-popup-points">
-            <li>20 minutes suffisent pour poser les bases de votre projet</li>
-            <li>Créneaux à jour en temps réel, aucun aller-retour par e-mail</li>
-            <li>Aucun engagement — juste un échange</li>
-          </ul>
+          <p class="expertise-popup-lead">20 minutes suffisent pour poser les bases de votre projet, sans engagement.</p>
           <div class="expertise-popup-pills">
-            <a href="seo.html" class="expertise-popup-pill">Agence SEO</a>
             <a href="ads.html" class="expertise-popup-pill">Ads</a>
             <a href="site.html" class="expertise-popup-pill">Création de site</a>
             <a href="automatisation.html" class="expertise-popup-pill">Automatisation &amp; IA</a>
             <a href="index.html#competences" class="expertise-popup-pill">Voir les 9 compétences</a>
           </div>
-          <p class="expertise-popup-cal-label">Choisissez un créneau qui vous convient&nbsp;:</p>
-          <div id="calInlinePopup" class="expertise-popup-cal"></div>
           <a href="contact.html" class="expertise-popup-cta">
-            Ou remplir le formulaire de contact
+            Prendre rendez-vous
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
         <div class="expertise-popup-visual" aria-hidden="true">
           <div class="phone-mockup">
-            <div class="phone-mockup-notch"></div>
             <div class="phone-mockup-screen">
+              <div class="phone-mockup-header">
+                <span class="phone-mockup-logo">Ne<b>x</b>Thoury</span>
+                <span class="phone-mockup-burger"><span></span><span></span><span></span></span>
+              </div>
+              <span class="phone-mockup-eyebrow">À propos</span>
               <img src="assets/portrait.jpg" alt="" class="phone-mockup-photo">
-              <p class="phone-mockup-name">Clément Thoury</p>
-              <p class="phone-mockup-role">Freelance communication &amp; pub digitale</p>
-              <p class="phone-mockup-desc">« 5 ans en agence, aujourd'hui en solo — même rigueur, sans la lourdeur. »</p>
-              <span class="phone-mockup-btn">Voir mon parcours</span>
+              <p class="phone-mockup-name">Clément Thoury.</p>
+              <p class="phone-mockup-desc">Consultant freelance en communication &amp; publicité digitale.</p>
             </div>
+            <img src="assets/phone-frame.png" alt="" class="phone-mockup-frame">
           </div>
         </div>
       </div>
@@ -573,31 +566,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeExpertisePopup();
   });
 
-  let calendarInitialized = false;
-  function initPopupCalendar() {
-    if (calendarInitialized || typeof Cal === 'undefined') return;
-    calendarInitialized = true;
-    // Même calLink que le calendrier de la page d'accueil/contact : mêmes disponibilités réelles.
-    Cal('inline', {
-      elementOrSelector: '#calInlinePopup',
-      calLink: 'clement-thoury/rendez-vous',
-    });
-    Cal('ui', {
-      theme: 'light',
-      styles: { branding: { brandColor: '#0E2F7A' } },
-      cssVarsPerTheme: { light: { 'cal-bg': '#ffffff', 'cal-bg-emphasis': '#ffffff', 'cal-radius': '12px', 'cal-brand': '#0E2F7A' } },
-      hideEventTypeDetails: false,
-      layout: 'month_view',
-    });
-  }
-
   if ('IntersectionObserver' in window) {
     const popupObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         // Se déclenche une fois la section quittée PAR LE BAS (déjà vue), pas avant de l'atteindre.
         if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
           overlay.classList.add('is-visible');
-          initPopupCalendar();
           popupObserver.disconnect();
         }
       });

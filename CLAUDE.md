@@ -211,43 +211,56 @@ border-à-border en bas de l'image.
   (considéré comme une conversion, pas la peine de re-déranger). Pas d'expiration dans le temps —
   si vous voulez le refaire apparaître périodiquement (ex. après 30 jours), stocker un timestamp
   au lieu d'un simple flag et comparer à `Date.now()`.
-- **Contenu** : pas de capture d'email (site 100% statique, pas de backend pour ça) — à la place,
-  des pilules cliquables qui envoient DIRECTEMENT vers la page de la compétence choisie
-  (`seo.html`, `ads.html`, `site.html`, `automatisation.html`, ou `index.html#competences` pour
-  tout voir), un calendrier Cal.com intégré (voir ci-dessous), et un CTA final vers `contact.html`.
-  Si vous voulez un jour une vraie capture d'email, il faudrait un service tiers (Mailchimp, Brevo,
-  un formulaire Netlify/Formspree…) — pas branché actuellement.
-- **Verre plus translucide qu'au départ** (demande explicite du client) : fond
-  `rgba(255,255,255,0.38)` (contre `0.72` initialement) avec `backdrop-filter: blur(28px)
-  saturate(160%)` — même famille de technique que le header (`.header-inner`), poussée plus loin
-  pour un effet plus marqué. Si on retouche encore la translucidité, c'est cette valeur alpha
-  (`0.38`) qu'il faut ajuster — plus bas = plus transparent.
-- **Calendrier Cal.com intégré directement dans le popup** (`#calInlinePopup`, `.expertise-popup-cal`)
-  — DEUXIÈME instance `Cal("inline", {...})` (la première étant `#calInline` dans la section
-  "Disponibilité" de l'accueil), même `calLink: "clement-thoury/rendez-vous"` donc **mêmes
-  disponibilités réelles, synchronisées**. Initialisé en JS via `initPopupCalendar()` — appelé
-  seulement au moment où le popup devient visible (pas au chargement de la page), pour ne pas
-  charger l'iframe Cal.com inutilement si le visiteur ne scrolle jamais jusqu'au déclencheur.
-  `Cal("ui", {...})` est réappelé avec la même config que la page d'accueil pour garantir le même
-  thème (fond blanc, coins arrondis 12px, couleur de marque navy) sur cette 2e instance.
-  **Important** : il n'y a pas de "transfert d'état" entre ce calendrier et le formulaire de la
-  page contact — ce sont deux points d'entrée indépendants vers le MÊME calendrier réel (choisir
-  un créneau ici fonctionne de façon autonome, comme sur la page Contact) et vers le MÊME
-  formulaire de contact (bouton "Ou remplir le formulaire de contact", lien classique vers
-  `contact.html`, sans données pré-remplies — le site étant statique sans backend, on ne peut pas
-  faire persister un choix entre les deux sans stockage serveur).
-- **Mockup téléphone décoratif** (`.phone-mockup`, colonne de droite) — reprend en miniature la
-  page "À propos" : photo ronde (`assets/portrait.jpg`), nom, rôle, courte citation, petit bouton
-  "Voir mon parcours" (purement visuel, ne mène nulle part — c'est un mockup, pas un lien réel).
-  Client a choisi cette option plutôt qu'un mockup de la page Contact (les deux avaient été
-  proposées). `position:sticky` sur `.phone-mockup` : reste visible pendant qu'on scrolle le
-  contenu du popup (notamment le calendrier, assez haut). **Masqué sous 760px** (`.expertise-popup-visual{display:none}`)
-  pour garder le popup gérable sur mobile, où le contenu (texte + pilules + calendrier) suffit déjà
-  à remplir l'écran.
-- Le popup est passé de `max-width:480px` (carte étroite centrée) à `max-width:880px` avec une
-  grille 2 colonnes (`.expertise-popup-grid{grid-template-columns:1fr 240px}`) pour faire de la
-  place au calendrier ET au mockup téléphone. Sur mobile (`≤760px`), la grille repasse à 1 colonne
-  et le mockup disparaît (voir ci-dessus) — seul le contenu texte + calendrier reste.
+- **Historique** : une v2 avait ajouté un calendrier Cal.com intégré (2e instance inline,
+  `#calInlinePopup`) + une liste de 3 points à puces + un mockup téléphone dessiné en CSS pur.
+  **Le client a demandé de retirer le calendrier** ("ça ne tient pas sur un popup classique") et de
+  raccourcir fortement le texte — retour à un simple bouton vers `contact.html`. Ne PAS réintroduire
+  le calendrier inline sans qu'on le redemande explicitement.
+- **Contenu actuel (v3), volontairement très court** :
+  - Tag "Vous avez vu ce que je sais faire" + titre "Allez plus loin, ou réservez déjà un
+    créneau." — **texte fixe, ne pas reformuler** (validé explicitement par le client).
+  - Une seule phrase : "20 minutes suffisent pour poser les bases de votre projet, sans
+    engagement." (citation exacte du client — ne pas l'étoffer).
+  - 4 pilules cliquables SEULEMENT : Ads, Création de site, Automatisation & IA, Voir les 9
+    compétences (`index.html#competences`) — la pilule "Agence SEO" a été retirée à la demande du
+    client (les 3 pilules + "voir les 9 compétences" suffisent).
+  - Un seul CTA : "Prendre rendez-vous" → `contact.html` (pas de capture d'email : site 100%
+    statique, pas de backend pour ça).
+- **Verre encore plus translucide** (2e demande du client dans ce sens) : fond
+  `rgba(255,255,255,0.2)` (contre `0.38` puis `0.72` aux étapes précédentes) avec `backdrop-filter:
+  blur(30px) saturate(170%)`. Si on retouche encore la translucidité, c'est cette valeur alpha
+  qu'il faut ajuster — plus bas = plus transparent. `overflow: hidden auto` sur `.expertise-popup`
+  (au lieu de `overflow-y: auto` seul) pour éviter tout débordement horizontal causé par le mockup
+  téléphone incliné (voir ci-dessous) sans empêcher le scroll vertical si le contenu dépasse.
+- **Mockup téléphone = vraie image de cadre iPhone**, pas du CSS dessiné à la main. Fichier fourni
+  par le client : `assets/phone-frame.png` (mockup "iPhone 17" téléchargé par le client). **Point
+  technique important** : ce PNG a sa zone "écran" en **transparence alpha réelle** (vérifié
+  pixel par pixel avec Pillow — pas juste blanc visuellement), ce qui permet de poser le contenu
+  DERRIÈRE l'image du cadre (z-index inférieur) et de voir le cadre (aluminium + bezel + îlot
+  caméra) se superposer proprement par-dessus. Zone d'écran mesurée dans le PNG source (388×800px) :
+  insets `top≈1.9%, bottom≈1.9%, left≈4.6%, right≈4.6%` — c'est exactement ce qui est utilisé dans
+  `.phone-mockup-screen` (position absolute avec ces pourcentages). **Si vous changez d'image de
+  cadre un jour, il faut remesurer ces insets** (petit script Python avec Pillow, lire l'alpha
+  pixel par pixel le long d'une ligne horizontale/verticale au milieu de l'image, loin de l'îlot
+  caméra, pour trouver où l'alpha passe de 255 à 0).
+- **Contenu de l'écran du mockup** : reproduit en miniature le VRAI design du haut de la page
+  `apropos.html` (pas une carte abstraite façon "profil e-commerce" comme dans la v2) — mini barre
+  de header façon pilule (logo "NexThoury" + icône burger), eyebrow "À propos", photo ronde
+  (`assets/portrait.jpg`), nom "Clément Thoury.", sous-titre. Demande explicite du client : que ça
+  ressemble à une vraie capture d'écran de son site sur téléphone, avec en plus une petite photo
+  (que la page À propos a nativement, contrairement à la page Contact). Purement décoratif, aucun
+  lien cliquable dans ce mockup.
+- **`.phone-mockup` légèrement incliné** (`transform: rotate(7deg)`) pour un rendu plus dynamique
+  façon "photo qui dépasse", inspiré du popup de référence (Scuffers) où le visuel produit
+  déborde légèrement de la carte — demande explicite avec un croquis à l'appui. Contenu par contre
+  gardé ENTIÈREMENT dans les limites de la carte (pas de bleed hors du popup) pour rester robuste
+  sur toutes les tailles d'écran, cf. `overflow:hidden` mentionné plus haut.
+- **Masqué sous 700px** (`.expertise-popup-visual{display:none}`) — sur mobile, seul le texte +
+  pilules + CTA reste, le mockup téléphone ne s'affiche pas (pas la place, et peu utile sur un
+  écran qui EST déjà un téléphone).
+- Le popup fait `max-width:720px` avec une grille 2 colonnes
+  (`.expertise-popup-grid{grid-template-columns:1fr 200px}`) : texte à gauche, mockup à droite.
+  Sur mobile (`≤700px`), la grille repasse à 1 colonne et le mockup disparaît (voir ci-dessus).
 
 ## Bandeau de cookies + politique de confidentialité
 
